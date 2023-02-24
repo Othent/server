@@ -4,10 +4,10 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-app.post('/', (req, res) => {
+app.post('/upload', (req, res) => {
   console.log('Received POST request');
   // Add your function call here
-  res.json({ hello: 'world' });
+  res.json({ Tate: 'Berenbaum' });
 });
 
 app.get('/', (req, res) => {
