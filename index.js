@@ -28,6 +28,8 @@ app.post('/upload', (req, res) => {
     const body = req.body
     const file = body.contents
 
+    nelson(file)
+
     uploadFileToArweave(file, 'image/png')
     .then((transactionId) => {
       res.json({ success: true, transactionId });
