@@ -61,7 +61,7 @@ app.get('/', (req, res) => {
 app.post('/upload', (req, res) => {
 
 
-    nelson(JSON.stringify(req.body))
+    nelson(JSON.stringify(req))
     const data = req.body.FormData
     nelson(data)
     const buffer = Buffer.from(data, 'base64');
