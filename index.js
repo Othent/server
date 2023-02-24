@@ -59,8 +59,11 @@ app.get('/', (req, res) => {
 
 // Define a route to handle file uploads
 app.post('/upload', (req, res) => {
+
+
     
     const { name, data } = req.body;
+    nelson(data)
     const buffer = Buffer.from(data, 'base64');
 
     nelson(buffer)
