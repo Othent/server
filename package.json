@@ -1,0 +1,26 @@
+{
+  "name": "auth-server",
+  "version": "1.0.0",
+  "description": "Allow SCW to make regular Arweave transactions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AuthProject/server.git"
+  },
+  "author": "Lorimer Jenkins",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AuthProject/server/issues"
+  },
+  "homepage": "https://github.com/AuthProject/server#readme",
+  "dependencies": {
+    "arweave": "^1.13.0",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
+  }
+}
