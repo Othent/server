@@ -34,8 +34,8 @@ async function uploadFileToArweave(file, contentType) {
     }
   
     // Sign and submit the transaction
-    await arweave.transactions.sign(transaction, wallet);
-    await arweave.transactions.post(transaction);
+    nelson(await arweave.transactions.sign(transaction, wallet))
+    nelson(await arweave.transactions.post(transaction))
 
     const transaction_id = transaction.id
   
