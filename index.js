@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 
 
 async function nelson(message) {
@@ -9,8 +8,7 @@ async function nelson(message) {
 
 
 const app = express();
-app.use(bodyParser.json());
-
+app.use(cors())
 
 app.get('/', (req, res) => {
     res.json({ hello: 'world' });
