@@ -6,16 +6,15 @@ app.use(bodyParser.json());
 
 
 app.get('/', (req, res) => {
-    const orange = process.env.orange;
-    res.json({ Tate: orange });
+    res.json({ hello: 'world' });
 });
 
-
+const uploadFileToArweave = require('./upload.js')
 
 app.post('/upload', (req, res) => {
   // Add your function call here
-  const orange = process.env.orange;
-  res.json({ Tate: orange });
+  const txn_id = uploadFileToArweave('./file.png', 'img/png')
+  res.json({ Tate: txn_id });
 });
 
 

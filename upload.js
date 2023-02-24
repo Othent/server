@@ -18,8 +18,7 @@ async function uploadFileToArweave(filePath, contentType) {
   const base64Data = fileData.toString('base64');
 
   // Read the JWK wallet key from wallet.json
-  const walletPath = path.resolve('wallet.json');
-  const walletData = fs.readFileSync(walletPath);
+  const walletData = process.env.wallet
   const wallet = JSON.parse(walletData);
 
   // Create a transaction object
@@ -34,9 +33,9 @@ async function uploadFileToArweave(filePath, contentType) {
 
   // Sign and submit the transaction
   await arweave.transactions.sign(transaction, wallet);
-  const response = await arweave.transactions.post(transaction);
+  // const response = await arweave.transactions.post(transaction);
 
-  console.log(`File uploaded to Arweave with transaction ID: ${transaction.id}`);
+  return `File uploaded to Arweave with transaction ID: ${transaction.id}`
 }
 
 module.exports = uploadFileToArweave;
