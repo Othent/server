@@ -27,16 +27,15 @@ app.post('/upload', (req, res) => {
     nelson('req')
     const body = req.body
     const file = body.contents
-    nelson(file)
 
-    // uploadFileToArweave(req, 'image/png')
-    //   .then(transactionId => {
-    //     res.json({ success: true, transactionId });
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //     res.status(500).json({ success: false, error: error.message });
-    //   });
+    uploadFileToArweave(file, 'image/png')
+      .then(transactionId => {
+        res.json({ success: true, transactionId });
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ success: false, error: error.message });
+      });
 
   });
 

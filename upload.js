@@ -2,7 +2,7 @@ const Arweave = require('arweave');
 
 
 
-async function uploadFileToArweave(base64Data, contentType) {
+async function uploadFileToArweave(file, contentType) {
     // Initialize Arweave client
     const arweave = Arweave.init({
       host: 'arweave.net',
@@ -10,10 +10,11 @@ async function uploadFileToArweave(base64Data, contentType) {
       protocol: 'https'
     });
 
+
+
     nelson('here')
   
-    // Decode the file data from Base64 to a Buffer object
-    const fileData = Buffer.from(base64Data, 'base64');
+ 
   
     // Read the JWK wallet key from wallet.json
     const walletData = process.env.wallet;
@@ -21,7 +22,7 @@ async function uploadFileToArweave(base64Data, contentType) {
   
     // Create a transaction object
     const transaction = await arweave.createTransaction({
-      data: fileData
+      data: file
     }, wallet);
   
     // Set the content type
