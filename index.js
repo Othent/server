@@ -5,16 +5,17 @@ const app = express();
 app.use(bodyParser.json());
 
 
+app.get('/', (req, res) => {
+    const orange = process.env.orange;
+    res.json({ Tate: orange });
+});
+
+
 
 app.post('/upload', (req, res) => {
   // Add your function call here
   const orange = process.env.orange;
   res.json({ Tate: orange });
-});
-
-
-app.get('/', (req, res) => {
-  res.json({ hello: 'world' });
 });
 
 
