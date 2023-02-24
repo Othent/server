@@ -15,17 +15,19 @@ const uploadFileToArweave = require('./upload.js')
 app.post('/upload', (req, res) => {
     const { name, data } = req.body;
     const buffer = Buffer.from(data, 'base64');
+
+    res.json({buffer: buffer})
   
-    // Call the uploadFileToArweave function with the specified buffer and content type
-    uploadFileToArweave(buffer, 'image/png')
-      .then(transactionId => {
-        res.json({ success: true, transactionId });
-      })
-      .catch(error => {
-        console.error(error);
-        res.status(500).json({ success: false, error: error.message });
-      });
-  });
+//     // Call the uploadFileToArweave function with the specified buffer and content type
+//     uploadFileToArweave(buffer, 'image/png')
+//       .then(transactionId => {
+//         res.json({ success: true, transactionId });
+//       })
+//       .catch(error => {
+//         console.error(error);
+//         res.status(500).json({ success: false, error: error.message });
+//       });
+//   });
 
 
 
