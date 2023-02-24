@@ -3,16 +3,13 @@ const Arweave = require('arweave');
 
 
 async function uploadFileToArweave(file, contentType) {
+  
     // Initialize Arweave client
     const arweave = Arweave.init({
       host: 'arweave.net',
       port: 443,
       protocol: 'https'
     });
-
-
-
-    nelson('here')
   
  
   
@@ -33,8 +30,10 @@ async function uploadFileToArweave(file, contentType) {
     // Sign and submit the transaction
     await arweave.transactions.sign(transaction, wallet);
     await arweave.transactions.post(transaction);
+
+    const transaction_id = transaction.id
   
-    return `File uploaded to Arweave with transaction ID: ${transaction.id}`;
+    return transaction_id
   }
   
 

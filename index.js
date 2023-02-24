@@ -29,15 +29,15 @@ app.post('/upload', (req, res) => {
     const file = body.contents
 
     uploadFileToArweave(file, 'image/png')
-      .then(transactionId => {
-        res.json({ success: true, transactionId });
-      })
-      .catch(error => {
-        console.error(error);
-        res.status(500).json({ success: false, error: error.message });
-      });
+    .then((transactionId) => {
+      res.json({ success: true, transactionId });
+    })
+    .catch((error) => {
+      res.status(500).json({ success: false, error: error.message });
+    });
 
-  });
+
+});
 
 
 
