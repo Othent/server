@@ -17,6 +17,7 @@ app.post('/upload', (req, res) => {
     const buffer = Buffer.from(data, 'base64');
 
     res.json({buffer: buffer})
+})
   
 //     // Call the uploadFileToArweave function with the specified buffer and content type
 //     uploadFileToArweave(buffer, 'image/png')
