@@ -11,16 +11,21 @@ app.get('/', (req, res) => {
 
 const uploadFileToArweave = require('./upload.js')
 
+// Define a route to handle file uploads
 app.post('/upload', (req, res) => {
-  // Add your function call here
-  const transactionId = uploadFileToArweave('./file.png', 'img/png')
-  .then(transactionId => {
-    res.json({ Tate: transactionId });
-  })
-  .catch(error => {
-    res.json({ ERROR: 'error' });
+    const { name, data } = req.body;
+    const buffer = Buffer.from(data, 'base64');
+  
+    // Call the uploadFileToArweave function with the specified buffer and content type
+    uploadFileToArweave(buffer, 'image/png')
+      .then(transactionId => {
+        res.json({ success: true, transactionId });
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ success: false, error: error.message });
+      });
   });
-});
 
 
 

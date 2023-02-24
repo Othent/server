@@ -1,11 +1,8 @@
-const fs = require('fs');
-const path = require('path');
 const Arweave = require('arweave');
 
 
 
-
-async function uploadFileToArweave(filePath, contentType) {
+async function uploadFileToArweave(fileData, contentType) {
   // Initialize Arweave client
   const arweave = Arweave.init({
     host: 'arweave.net',
@@ -13,8 +10,7 @@ async function uploadFileToArweave(filePath, contentType) {
     protocol: 'https'
   });
 
-  // Read the file and encode its data as a Base64 string
-  const fileData = fs.readFileSync(path.resolve(filePath));
+  // Encode the file data as a Base64 string
   const base64Data = fileData.toString('base64');
 
   // Read the JWK wallet key from wallet.json
@@ -37,5 +33,6 @@ async function uploadFileToArweave(filePath, contentType) {
 
   return `File uploaded to Arweave with transaction ID: ${transaction.id}`
 }
+
 
 module.exports = uploadFileToArweave;
