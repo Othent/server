@@ -10,6 +10,8 @@ async function uploadFileToArweave(base64Data, contentType) {
       port: 443,
       protocol: 'https'
     });
+
+    nelson('here')
   
     // Decode the file data from Base64 to a Buffer object
     const fileData = Buffer.from(base64Data, 'base64');
@@ -57,11 +59,11 @@ app.get('/', (req, res) => {
 
 // Define a route to handle file uploads
 app.post('/upload', (req, res) => {
-
-    nelson(req.body)
     
     const { name, data } = req.body;
     const buffer = Buffer.from(data, 'base64');
+
+    nelson(buffer)
   
     // Call the uploadFileToArweave function with the specified buffer and content type
     uploadFileToArweave(buffer, 'image/png')
