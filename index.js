@@ -62,7 +62,7 @@ app.post('/upload', (req, res) => {
 
 
     
-    const { name, data } = req.body;
+    const data = req.body.FormData
     nelson(data)
     const buffer = Buffer.from(data, 'base64');
 
