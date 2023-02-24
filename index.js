@@ -25,7 +25,9 @@ app.get('/', (req, res) => {
 app.post('/upload', (req, res) => {
 
     nelson('req')
-    nelson(JSON.stringify(req.body))
+    const body = req.body
+    const file = body.contents
+    nelson(file)
 
     // uploadFileToArweave(req, 'image/png')
     //   .then(transactionId => {
