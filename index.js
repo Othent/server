@@ -13,8 +13,13 @@ const uploadFileToArweave = require('./upload.js')
 
 app.post('/upload', (req, res) => {
   // Add your function call here
-  const txn_id = uploadFileToArweave('./file.png', 'img/png')
-  res.json({ Tate: txn_id });
+  const transactionId = uploadFileToArweave('./file.png', 'img/png')
+  .then(transactionId => {
+    res.json({ Tate: transactionId });
+  })
+  .catch(error => {
+    res.json({ ERROR: 'error' });
+  });
 });
 
 
