@@ -8,7 +8,8 @@ app.use(bodyParser.json());
 
 app.post('/upload', (req, res) => {
   // Add your function call here
-  res.json({ Tate: 'Berenbaum' });
+  const orange = process.env.orange;
+  res.json({ Tate: orange });
 });
 
 
