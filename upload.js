@@ -6,7 +6,7 @@ async function nelson(message) {
 
 
 
-async function uploadFileToArweave(file, contentType) {
+async function uploadFileToArweave(file, contentType, file_name) {
 
   nelson('here')
   
@@ -30,7 +30,9 @@ async function uploadFileToArweave(file, contentType) {
   
     // Set the content type
     if (contentType) {
-      transaction.addTag('Content-Type', contentType);
+      transaction.addTag('App', 'WeaveTransfer.com'),
+      transaction.addTag('Content-Type', contentType),
+      transaction.addTag('file_name', file_name);
     }
   
     // Sign and submit the transaction
