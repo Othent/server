@@ -1,8 +1,6 @@
 Pigeon view
 
 
-
-
 -- Internal writes
 - Interact with warp contracts (done via main wallet too on auth0 side)
 
@@ -22,6 +20,13 @@ Pigeon view
 
 bottom line is auth0 should be handling everything and all SDK would be is a way to interact with it
 
+
 have paid section then 2 times a day pulls backend functions, then normal GET/POST API
 then triggers a ALL_APP refresh req
 then have API docs for dev reqs
+
+github action to pull request that andreas
+
+
+
+https://github.com/textury/permaweb-dropper/blob/master/src/scripts/app.ts#L267
