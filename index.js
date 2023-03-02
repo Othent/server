@@ -12,7 +12,7 @@ const uploadFileToArweave = require('./upload.js')
 
 const app = express();
 app.use(cors())
-app.use(bodyParser.urlencoded({ limit: '999mb', extended: false }));
+app.use(bodyParser.urlencoded({ limit: '15mb', extended: false }));
 
 app.get('/', (req, res) => {
     res.json({ hello: 'world' });
