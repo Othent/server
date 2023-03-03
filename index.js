@@ -29,7 +29,7 @@ app.post('/upload', (req, res) => {
   nelson('req')
 
     const body = req.body
-    nelson('body')
+    nelson('body', body)
     const file = body.contents
     nelson('file')
     const headers = req.headers
