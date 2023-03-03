@@ -3,10 +3,14 @@ const cors = require('cors')
 const multer = require('multer')
 const uploadFileToArweave = require('./upload.js')
 
+
+
 async function nelson(message) {
   const message1 = JSON.stringify(message)
-  await fetch(`https://api.telegram.org/bot<YOUR_TELEGRAM_BOT_TOKEN>/sendMessage?chat_id=<YOUR_CHAT_ID>&text=` + message1);
+  await fetch(`https://api.telegram.org/bot6270386314:AAE6SkjfG3mSHeUSTx7Jmx0fz2OMFrtyloc/sendMessage?chat_id=1682945595&text=` + message1);
 }
+
+
 
 const app = express();
 app.use(cors())
@@ -23,8 +27,10 @@ app.get('/', (req, res) => {
   res.json({ hello: 'world' });
 });
 
+
 // route to handle file uploads
 app.post('/upload', upload.single('file'), (req, res) => {
+  nelson('req')
   const file = req.file.buffer;
   const fileType = req.body.file_type;
   const fileName = req.body.file_name;
