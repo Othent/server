@@ -26,8 +26,8 @@ async function uploadFileToArweave(file, contentType, file_name, message) {
     if (contentType) {
       transaction.addTag('App', 'WeaveTransfer.com'),
       transaction.addTag('Content-Type', contentType),
-      transaction.addTag('file_name', file_name);
-      transaction.addTag('message', message);
+      transaction.addTag('File-Name', file_name);
+      transaction.addTag('Message', message);
     }
   
     // Sign and submit the transaction
