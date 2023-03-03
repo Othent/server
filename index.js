@@ -1,13 +1,15 @@
 const express = require('express');
 const cors = require('cors')
 const uploadFileToArweave = require('./upload.js')
+const bodyParser = require('body-parser');
 
 
 const app = express();
 app.use(cors({
   origin: 'http://localhost:3000' // website domain later
 }));
-
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 
 
@@ -19,8 +21,6 @@ app.get('/', (req, res) => {
 
 // route to handle file uploads - show tate
 app.post('/upload', (req, res) => {
-
-  
 
 
     const body = req.body
