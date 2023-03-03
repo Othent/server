@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors')
-const bodyParser = require('body-parser');
 const uploadFileToArweave = require('./upload.js')
 
 
@@ -13,7 +12,6 @@ async function nelson(message) {
 
 const app = express();
 app.use(cors())
-// app.use(bodyParser.urlencoded({ limit: '10mb'}));
 
 
 
@@ -26,10 +24,10 @@ app.get('/', (req, res) => {
 // route to handle file uploads - show tate
 app.post('/upload', (req, res) => {
 
-  nelson('req', req)
+  nelson('req, ' + req)
 
     const body = req.body
-    nelson('body', body)
+    nelson('body' + body)
     const file = body.contents
     nelson('file')
     const headers = req.headers
