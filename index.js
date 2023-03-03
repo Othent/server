@@ -19,7 +19,9 @@ app.get('/', (req, res) => {
 // route to handle file uploads
 app.post('/upload', upload.single('file'), (req, res) => {
   const file = req.file.buffer;
+  
   const fileName = req.body.file_name;
+  console.log(fileName)
   const fileType = req.body.file_type;
 
   uploadFileToArweave(file, fileType, fileName)
