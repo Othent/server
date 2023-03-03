@@ -1,56 +1,35 @@
 const express = require('express');
-const cors = require('cors')
-const uploadFileToArweave = require('./upload.js')
+const cors = require('cors');
 const bodyParser = require('body-parser');
-
+const multer = require('multer');
+const uploadFileToArweave = require('./upload.js');
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:3000' // website domain later
+  origin: 'http://localhost:3000',
 }));
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
-
-
-
+const upload = multer();
 
 app.get('/', (req, res) => {
-    res.json({ hello: 'world' });
+  res.json({ hello: 'world' });
 });
 
+// route to handle file uploads
+app.post('/upload', upload.single('file'), (req, res) => {
+  const file = req.file.buffer;
+  const fileName = req.body.file_name;
+  const fileType = req.body.file_type;
 
-
-// route to handle file uploads - show tate
-app.post('/upload', (req, res) => {
-
-
-    const body = req.body
-
-    console.log(body)
-    
-    const file = body.contents.file
-
-    const headers = req.headers
-
-
-    const file_type = headers.file_type
-
-    const file_name = headers.file_name
-
-
-    uploadFileToArweave(file, file_type, file_name)
+  uploadFileToArweave(file, fileType, fileName)
     .then((transactionId) => {
       res.json({ success: true, transactionId });
     })
     .catch((error) => {
       res.status(500).json({ success: false, error: error.message });
     });
-
-
 });
-
-
-
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
