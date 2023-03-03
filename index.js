@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const uploadFileToArweave = require('./upload.js')
 
 
+
 // async function nelson(message) {
 //     await fetch(`https://api.telegram.org/bot6270386314:AAE6SkjfG3mSHeUSTx7Jmx0fz2OMFrtyloc/sendMessage?chat_id=1682945595&text=` + message);
 // }
@@ -12,7 +13,7 @@ const uploadFileToArweave = require('./upload.js')
 
 const app = express();
 app.use(cors())
-app.use(bodyParser.urlencoded({ limit: '15mb', extended: false }));
+app.use(bodyParser.urlencoded({ limit: '100mb'}));
 
 
 app.get('/', (req, res) => {
