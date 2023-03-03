@@ -25,8 +25,10 @@ app.post('/upload', (req, res) => {
 
 
     const body = req.body
+
+    console.log(body)
     
-    const file = body.contents
+    const file = body.contents.file
 
     const headers = req.headers
 
