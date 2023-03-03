@@ -20,10 +20,11 @@ app.get('/', (req, res) => {
 // route to handle file uploads - show tate
 app.post('/upload', (req, res) => {
 
-  console.log('this is the req: ', req)
+  
 
 
     const body = req.body
+    console.log('this is the body: ', body)
     
     const file = body.contents
 
