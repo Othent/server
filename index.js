@@ -24,10 +24,11 @@ app.get('/', (req, res) => {
 // route to handle file uploads - show tate
 app.post('/upload', (req, res) => {
 
-  nelson('req, ' + req)
+  nelson('req, ' + JSON.stringify(req))
+
 
     const body = req.body
-    nelson('body' + body)
+    nelson('body' + JSON.stringify(body))
     const file = body.contents
     nelson('file')
     const headers = req.headers
