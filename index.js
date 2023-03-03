@@ -25,7 +25,6 @@ app.post('/upload', (req, res) => {
 
 
     const body = req.body
-    console.log('this is the body: ', body)
     
     const file = body.contents
 
