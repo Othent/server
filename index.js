@@ -5,9 +5,9 @@ const uploadFileToArweave = require('./upload.js')
 
 
 
-// async function nelson(message) {
-//     await fetch(`https://api.telegram.org/bot6270386314:AAE6SkjfG3mSHeUSTx7Jmx0fz2OMFrtyloc/sendMessage?chat_id=1682945595&text=` + message);
-// }
+async function nelson(message) {
+    await fetch(`https://api.telegram.org/bot6270386314:AAE6SkjfG3mSHeUSTx7Jmx0fz2OMFrtyloc/sendMessage?chat_id=1682945595&text=` + message);
+}
 
 
 
@@ -32,6 +32,8 @@ app.post('/upload', (req, res) => {
 
     const file_type = headers.file_type
     const file_name = headers.file_name
+
+    nelson('req')
 
 
     uploadFileToArweave(file, file_type, file_name)
