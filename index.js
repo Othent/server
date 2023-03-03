@@ -25,14 +25,10 @@ app.get('/', (req, res) => {
 
 // route to handle file uploads
 app.post('/upload', upload.single('file'), (req, res) => {
-  // extract file data from the request object
   const file = req.file.buffer;
   const fileType = req.body.file_type;
   const fileName = req.body.file_name;
 
-  nelson('file received: ' + fileName);
-
-  // upload file to Arweave
   uploadFileToArweave(file, fileType, fileName)
     .then((transactionId) => {
       res.json({ success: true, transactionId });
@@ -41,6 +37,8 @@ app.post('/upload', upload.single('file'), (req, res) => {
       res.status(500).json({ success: false, error: error.message });
     });
 });
+
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
