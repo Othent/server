@@ -30,8 +30,10 @@ app.get('/', (req, res) => {
 
 // route to handle file uploads
 app.post('/upload', upload.single('file'), (req, res) => {
-  nelson('req')
+  nelson('1')
+  nelson(req)
   const file = req.file.buffer;
+  nelson(file)
   const fileType = req.body.file_type;
   const fileName = req.body.file_name;
 
