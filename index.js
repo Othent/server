@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors')
-const multer = require('multer')
 const uploadFileToArweave = require('./upload.js')
 
 
@@ -13,38 +12,53 @@ async function nelson(message) {
 
 
 const app = express();
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:3001' // website domain later
+}));
 
-// configure multer middleware
-const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: {
-    fileSize: 10 * 1024 * 1024, // 10 MB
-  },
-});
+
+
 
 app.get('/', (req, res) => {
-  res.json({ hello: 'world' });
+    res.json({ hello: 'world' });
 });
 
 
-// route to handle file uploads
-app.post('/upload', upload.single('file'), (req, res) => {
-  nelson('1')
-  nelson(req)
-  const file = req.file.buffer;
-  nelson(file)
-  const fileType = req.body.file_type;
-  const fileName = req.body.file_name;
 
-  uploadFileToArweave(file, fileType, fileName)
+// route to handle file uploads - show tate
+app.post('/upload', (req, res) => {
+
+
+  nelson('req')
+  nelson(req)
+
+
+    const body = req.body
+    nelson('body')
+    const file = body.contents
+    nelson('file')
+    const headers = req.headers
+    nelson('headers')
+
+    const file_type = headers.file_type
+    nelson('file type')
+    const file_name = headers.file_name
+    nelson('file name')
+
+    nelson('req2')
+
+
+    uploadFileToArweave(file, file_type, file_name)
     .then((transactionId) => {
       res.json({ success: true, transactionId });
     })
     .catch((error) => {
       res.status(500).json({ success: false, error: error.message });
     });
+
+
 });
+
 
 
 
