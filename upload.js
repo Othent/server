@@ -1,8 +1,8 @@
 const Arweave = require('arweave');
 
-// async function nelson(message) {
-//   await fetch(`https://api.telegram.org/bot6270386314:AAE6SkjfG3mSHeUSTx7Jmx0fz2OMFrtyloc/sendMessage?chat_id=1682945595&text=` + message);
-// }
+async function nelson(message) {
+  await fetch(`https://api.telegram.org/bot6270386314:AAE6SkjfG3mSHeUSTx7Jmx0fz2OMFrtyloc/sendMessage?chat_id=1682945595&text=` + message);
+}
 
 
 
@@ -26,6 +26,8 @@ async function uploadFileToArweave(file, contentType, file_name) {
       data: file
     }, wallet);
   
+    nelson('made it here')
+    nelson(transaction)
     // Set the content type
     if (contentType) {
       transaction.addTag('App', 'WeaveTransfer.com'),
