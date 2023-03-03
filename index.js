@@ -29,13 +29,18 @@ app.post('/upload', (req, res) => {
   nelson('req')
 
     const body = req.body
+    nelson('body')
     const file = body.contents
+    nelson('file')
     const headers = req.headers
+    nelson('headers')
 
     const file_type = headers.file_type
+    nelson('file type')
     const file_name = headers.file_name
+    nelson('file name')
 
-    nelson('req')
+    nelson('req2')
 
 
     uploadFileToArweave(file, file_type, file_name)
