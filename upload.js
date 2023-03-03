@@ -1,7 +1,7 @@
 const Arweave = require('arweave');
 
 
-async function uploadFileToArweave(file, contentType, file_name) {
+async function uploadFileToArweave(file, contentType, file_name, message) {
   
     // Initialize Arweave client
     const arweave = Arweave.init({
@@ -27,6 +27,7 @@ async function uploadFileToArweave(file, contentType, file_name) {
       transaction.addTag('App', 'WeaveTransfer.com'),
       transaction.addTag('Content-Type', contentType),
       transaction.addTag('file_name', file_name);
+      transaction.addTag('message', message);
     }
   
     // Sign and submit the transaction

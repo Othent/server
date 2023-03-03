@@ -5,9 +5,11 @@ const multer = require('multer');
 const uploadFileToArweave = require('./upload.js');
 
 const app = express();
+const allowedOrigins = ['https://weavetransfer.com', 'http://localhost:3000'];
 app.use(cors({
-  origin: 'https://weavetransfer.com',
+  origin: allowedOrigins
 }));
+
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 const upload = multer();
@@ -18,13 +20,13 @@ app.get('/', (req, res) => {
 
 // route to handle file uploads
 app.post('/upload', upload.single('file'), (req, res) => {
-  const file = req.file.buffer;
-  
-  const fileName = req.body.file_name;
-  console.log(fileName)
-  const fileType = req.body.file_type;
 
-  uploadFileToArweave(file, fileType, fileName)
+  const file = req.file.buffer;
+  const fileName = req.body.file_name;
+  const fileType = req.body.file_type;
+  const message = req.body.message;
+
+  uploadFileToArweave(file, fileType, fileName, message)
     .then((transactionId) => {
       res.json({ success: true, transactionId });
     })
