@@ -13,6 +13,7 @@ const warp = WarpFactory.forMainnet().use(new JWTPlugin()).use(new DeployPlugin(
 
 async function configureWallet() {
     try {
+        console.log('HELOOOOO', jwk)
         const jwk = new ArweaveSigner(await JSON.parse(process.env.wallet))
         console.log('HELOOOOO', jwk)
         return jwk
