@@ -26,6 +26,7 @@
     "gapi": "^0.0.3",
     "googleapis": "^112.0.0",
     "js-base64": "^3.7.5",
+    "jsonwebtoken": "^9.0.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.1",
     "path": "^0.12.7"
