@@ -102,10 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
-wallet.json
-testServer.js
-nelson.js
 todo.txt
 ignore.txt
-testtest.js
-gmail.js
+test-all-endpoints.js
