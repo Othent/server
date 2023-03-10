@@ -6,24 +6,26 @@ import uploadFileToArweave from './weavetransfer/upload.js';
 import createUser from './warp/createUser.js';
 import sendTransaction from './warp/sendTransaction.js';
 
+
 const app = express();
 const allowedOrigins = ['https://weavetransfer.com', 'http://localhost:3000'];
-
 app.use(cors({
   origin: allowedOrigins
 }));
-
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 
-const upload = multer();
+
 
 // Home
 app.get('/', (req, res) => {
-  res.json({ hello: 'world' });
+  res.json({ server: 'working' });
 });
 
+
+
 // File uploads only for weavetransfer
+const upload = multer();
 app.post('/weavetransfer', upload.single('file'), (req, res) => {
   const file = req.file.buffer;
   const fileName = req.body.file_name;
@@ -38,6 +40,8 @@ app.post('/weavetransfer', upload.single('file'), (req, res) => {
     });
 });
 
+
+
 // Create authy user
 app.get('/create-user', (req, res) => {
   const JWT = req.JWT;
@@ -49,6 +53,8 @@ app.get('/create-user', (req, res) => {
       res.status(500).json({ success: false, error: error.message });
     });
 });
+
+
 
 // Send transaction
 app.get('/send-transaction', (req, res) => {
@@ -63,9 +69,10 @@ app.get('/send-transaction', (req, res) => {
     });
 });
 
+
+
 // Start up server
 const port = process.env.PORT || 3000;
-
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
