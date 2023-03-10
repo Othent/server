@@ -13,7 +13,7 @@ const warp = WarpFactory.forMainnet().use(new JWTPlugin()).use(new DeployPlugin(
 
 async function configureWallet() {
     try {
-        const jwk = new ArweaveSigner(await JSON.parse(process.env.wallet))
+        const jwk = new ArweaveSigner(JSON.stringify(process.env.wallet))
         return jwk
     } catch (err) {
         console.log('Error configure\'ing Wallet')
