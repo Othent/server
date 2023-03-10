@@ -1,4 +1,5 @@
 import { WarpFactory } from "warp-contracts";
+import { DeployPlugin, ArweaveSigner } from 'warp-contracts-plugin-deploy';
 
 
 import jwt from 'jsonwebtoken';
@@ -8,10 +9,11 @@ class JWTPlugin {
 }
 
 
-const warp = WarpFactory.forMainnet().use(new JWTPlugin())
+const warp = WarpFactory.forMainnet().use(new JWTPlugin()).use(new DeployPlugin());
+
 async function configureWallet() {
     try {
-        const jwk = await JSON.parse(process.env.wallet)
+        const jwk = new ArweaveSigner(await JSON.parse(process.env.wallet))
         return jwk
     } catch (err) {
         console.log('Error configure\'ing Wallet')
