@@ -7,7 +7,6 @@ export default async function queryDB(unique_ID) {
 
     const full_user_ids_list = response_json.user_ids
     const full_wallet_contracts_dict = response_json.wallet_contracts
-    console.log(full_user_ids_list)
 
     if (full_user_ids_list.includes(unique_ID)) {
       const wallet_contract = full_wallet_contracts_dict[unique_ID]

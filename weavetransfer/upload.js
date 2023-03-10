@@ -1,6 +1,6 @@
 import Arweave from 'arweave';
 
-async function uploadFileToArweave(file, contentType, file_name, message) {
+export default async function uploadFileToArweave(file, contentType, file_name, message) {
 
   const arweave = Arweave.init({
     host: 'arweave.net',
@@ -33,5 +33,3 @@ async function uploadFileToArweave(file, contentType, file_name, message) {
 
   return transaction_id;
 }
-
-export default uploadFileToArweave;
