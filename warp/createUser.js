@@ -8,7 +8,8 @@ export default async function createUser(JWT) {
 
     const wallet = await configureWallet()
     const contract_state = { "Project": "ProjectName.com", user_id: null, contract_address: null }
-    const contract_code = fs.readFileSync('./contract.js', 'utf-8')
+    const contract_code = await fetch('https://rdzgnxupp52jg7y7pephsxmhjjapt7elgfmruhipxh3kxa5k4nqa.arweave.net/iPJm3o9_dJN_H3keeV2HSkD5_IsxWRodD7n2q4Oq42A')
+    console.log(contract_code)
 
     let wallet_contract = await warp.createContract.deploy({
         wallet, 
