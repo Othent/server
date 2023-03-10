@@ -1,7 +1,7 @@
-import { warp, configureWallet } from '../warp-configs/configureWarpServer.js'
+import { warp, configureWallet } from './warp-configs.js'
 
 
-async function sendTransaction(JWT, contract_id) {
+export default async function sendTransaction(JWT, contract_id) {
 
     let JWK = await configureWallet()
 

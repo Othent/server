@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Allow SCW to make regular Arweave transactions",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,6 +30,7 @@
     "jsonwebtoken": "^9.0.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "warp-contracts": "^1.2.56"
   }
 }

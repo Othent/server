@@ -1,8 +1,8 @@
 import * as fs from 'fs';
-import { configureWallet, warp } from './configureWarpServer.js'
+import { warp, configureWallet } from './warp-configs.js'
 
 
-async function createUser(JWT) {
+export default async function createUser(JWT) {
 
     const wallet = await configureWallet()
     const contract_state = fs.readFileSync('state.json', 'utf-8')
