@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 
 // Home
 app.get('/', (req, res) => {
-  res.json({ server: 'working' });
+  res.json({ auth_server: 'working' });
 });
 
 
