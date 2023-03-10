@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken'
 export default async function createUser(JWT) {
 
     const wallet = await configureWallet()
-    const contract_state = fs.readFileSync('./state.json', 'utf-8')
+    const contract_state = { "Project": "ProjectName.com", user_id: null, contract_address: null }
     const contract_code = fs.readFileSync('./contract.js', 'utf-8')
 
     let wallet_contract = await warp.createContract.deploy({
