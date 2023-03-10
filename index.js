@@ -1,16 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import multer from 'multer';
-import uploadFileToArweave from './weavetransfer/upload.js';
-import createUser from './warp/createUser.js';
-import sendTransaction from './warp/sendTransaction.js';
-
-
 const app = express();
-const allowedOrigins = ['https://weavetransfer.com', 'http://localhost:3000'];
 app.use(cors({
-  origin: allowedOrigins
+  origin: '*'
 }));
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
@@ -24,7 +17,10 @@ app.get('/', (req, res) => {
 
 
 
+
 // File uploads only for weavetransfer
+import uploadFileToArweave from './weavetransfer/upload.js';
+import multer from 'multer';
 const upload = multer();
 app.post('/weavetransfer', upload.single('file'), (req, res) => {
   const file = req.file.buffer;
@@ -43,8 +39,9 @@ app.post('/weavetransfer', upload.single('file'), (req, res) => {
 
 
 // Create authy user
+import createUser from './warp/createUser.js';
 app.get('/create-user', (req, res) => {
-  const JWT = req.JWT;
+  const JWT = req.body.JWT;
   createUser(JWT)
     .then((contract_id) => {
       res.json({ success: true, contract_id: contract_id });
@@ -57,10 +54,10 @@ app.get('/create-user', (req, res) => {
 
 
 // Send transaction
+import sendTransaction from './warp/sendTransaction.js';
 app.get('/send-transaction', (req, res) => {
-  const JWT = req.JWT;
-  const contract_id = 'query EXM';
-  sendTransaction(JWT, contract_id)
+  const JWT = req.body.JWT;
+  sendTransaction(JWT)
     .then((transaction_id) => {
       res.json({ success: true, transactionId: transaction_id });
     })
@@ -68,6 +65,25 @@ app.get('/send-transaction', (req, res) => {
       res.status(500).json({ success: false, error: error.message });
     });
 });
+
+
+
+// Query database
+import queryDB from './EXM/queryDB.js';
+app.get('/query-user', (req, res) => {
+  const unique_id = req.body.unique_id;
+  queryDB(unique_id)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((error) => {
+      res.status(500).json({ success: false, error: error.message });
+    });
+});
+
+
+
+// upload data normal 
 
 
 
