@@ -12,7 +12,7 @@ export default async function sendTransaction(JWT) {
     const contract = warp.contract(contract_id).setEvaluationOptions({ internalWrites: true }).connect(JWK)
 
     const transaction_id = await contract.writeInteraction({
-        function: 'broadcastTxn',
+        function: 'broadcastTxn', // take out of parsed JWT
         jwt: JWT
     })
 
