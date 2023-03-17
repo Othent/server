@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 
 
 // File uploads only for weavetransfer
-import uploadFileToArweave from './weavetransfer/upload.js';
+import weavetransferUpload from './weavetransfer/upload.js';
 import multer from 'multer';
 const upload = multer();
 app.post('/weavetransfer', upload.single('file'), (req, res) => {
@@ -27,7 +27,7 @@ app.post('/weavetransfer', upload.single('file'), (req, res) => {
   const fileName = req.body.file_name;
   const fileType = req.body.file_type;
   const message = req.body.message;
-  uploadFileToArweave(file, fileType, fileName, message)
+  weavetransferUpload(file, fileType, fileName, message)
     .then((transaction_id) => {
       res.json({ success: true, transactionId: transaction_id });
     })
@@ -38,7 +38,7 @@ app.post('/weavetransfer', upload.single('file'), (req, res) => {
 
 
 
-// Create authy user
+// Create user - warp
 import createUser from './warp/createUser.js';
 app.get('/create-user', (req, res) => {
   const JWT = req.body.JWT;
@@ -53,7 +53,7 @@ app.get('/create-user', (req, res) => {
 
 
 
-// Send transaction
+// Send transaction - warp
 import sendTransaction from './warp/sendTransaction.js';
 app.get('/send-transaction', (req, res) => {
   const JWT = req.body.JWT;
@@ -83,7 +83,21 @@ app.get('/query-user', (req, res) => {
 
 
 
-// upload data normal 
+// upload data - arweave
+import uploadFileToArweave from './arweave/upload.js';
+app.post('/upload-data', upload.single('file'), (req, res) => {
+  const file = req.file.buffer;
+  const fileName = req.body.file_name;
+  const fileType = req.body.file_type;
+  uploadFileToArweave(file, fileType, fileName, message)
+    .then((transaction_id) => {
+      res.json({ success: true, transactionId: transaction_id });
+    })
+    .catch((error) => {
+      res.status(500).json({ success: false, error: error.message });
+    });
+});
+
 
 
 

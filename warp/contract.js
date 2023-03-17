@@ -1,4 +1,4 @@
-// Authentication project contract
+// Othent.io Warp SCW
 // Email - lj@communitylabs.com
 
 
@@ -45,8 +45,6 @@ export async function handle(state, action) {
     if (contractInput.function === 'initializeContract') { 
 
         const verify_JWT = verifyJWT(contractInput.jwt, PUBLIC_KEY)
-
-        console.log(verify_JWT)
 
         if (verify_JWT !== false) {
             state.user_id = verify_JWT.sub;
