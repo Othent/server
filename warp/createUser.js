@@ -10,7 +10,6 @@ export default async function createUser(JWT) {
     let contract_code = await fetch('https://othent.io/contract.txt')
     contract_code = await contract_code.text();
 
-    console.log('1')
 
     const { contractTxId, srcTxId } = await warp.deploy({
         wallet: wallet, // usually your Arweave wallet
@@ -18,12 +17,9 @@ export default async function createUser(JWT) {
         src: contract_code,
       });
 
-    console.log('2')
-    console.log('2000000', contractTxId)
+    const contract = warp.contract(contractTxId).setEvaluationOptions({internalWrites: true}).connect(wallet)
 
-    const contract = await warp.contract(contractTxId).setEvaluationOptions({ internalWrites: true }).connect(wallet)
-
-    console.log('3', contract)
+    console.log('3')
 
     const men = await contract.writeInteraction({
         function: "initializeContract", 
