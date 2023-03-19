@@ -25,7 +25,7 @@ export default async function createUser(JWT) {
 
     console.log('3')
 
-    await contract.writeInteraction({
+    const men = await contract.writeInteraction({
         function: 'initializeContract', 
         jwt: JWT,
         contract_address: contractTxId
@@ -37,6 +37,6 @@ export default async function createUser(JWT) {
     const unique_ID = jwt.decode(JWT).sub
     await updateDB(unique_ID, contractTxId)
 
-    return contractTxId
+    return men
     
 }
