@@ -21,12 +21,12 @@ export default async function createUser(JWT) {
     console.log('2')
     console.log('2000000', contractTxId)
 
-    const contract = warp.contract(contractTxId).setEvaluationOptions({ internalWrites: true }).connect(wallet)
+    const contract = await warp.contract(contractTxId).setEvaluationOptions({ internalWrites: true }).connect(wallet)
 
-    console.log('3')
+    console.log('3', contract)
 
     const men = await contract.writeInteraction({
-        function: 'initializeContract', 
+        function: "initializeContract", 
         jwt: JWT,
         contract_address: contractTxId
     })
