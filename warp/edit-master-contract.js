@@ -40,7 +40,6 @@ function verifyJWT(JWT, PUBLIC_KEY) {
 
 export async function handle(state, action) {
     const contractInput = action.input
-    console.log('YOOOOOOOOOLOOO', contractInput)
 
     const inputJWT = verifyJWT(contractInput.jwt, PUBLIC_KEY)
 
