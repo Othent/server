@@ -20,8 +20,11 @@ export default async function createUser(JWT) {
     wallet_contract = wallet_contract.contractTxId
 
     console.log('2')
+    console.log('2000000', wallet_contract)
 
     const contract = warp.contract(wallet_contract).setEvaluationOptions({internalWrites: true}).connect(wallet)
+
+    console.log('3')
 
     await contract.writeInteraction({
         function: 'initializeContract', 
@@ -29,7 +32,7 @@ export default async function createUser(JWT) {
         contract_address: wallet_contract
     })
 
-    console.log('3')
+    console.log('4')
 
  
     const unique_ID = jwt.decode(JWT).sub
