@@ -7,16 +7,17 @@ export default async function createUser(JWT) {
 
     const wallet = await configureWallet()
     console.log(wallet)
-    const contract_state = JSON.stringify({App: "Othent.io", user_id: null, contract_address: null})
+    const contract_state = {App: "Othent.io", user_id: null, contract_address: null}
     let contract_code = await fetch('https://othent.io/contract.txt')
     contract_code = await contract_code.text();
 
     let wallet_contract = await warp.createContract.deploy({
         wallet, 
-        initState: contract_state, 
+        initState: JSON.stringify(contract_state), 
         src: contract_code, 
     })
     wallet_contract = wallet_contract.contractTxId
+    console.log(wallet_contract)
 
     const contract = warp.contract(wallet_contract).setEvaluationOptions({internalWrites: true}).connect(wallet)
 
