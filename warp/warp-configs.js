@@ -9,7 +9,7 @@ class JWTPlugin {
 }
 
 
-const warp = WarpFactory.forMainnet().use(new JWTPlugin()).use(new DeployPlugin());
+const warp = WarpFactory.forMainnet().use(new DeployPlugin()).use(new JWTPlugin());
 
 async function configureWallet() {
     try {

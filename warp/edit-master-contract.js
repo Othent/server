@@ -40,45 +40,41 @@ function verifyJWT(JWT, PUBLIC_KEY) {
 
 export async function handle(state, action) {
     const contractInput = action.input
+    console.log('YOOOOOOOOOLOOO', contractInput)
 
-    // INITIALIZE CONTRACT
-    if (contractInput.function === 'initializeContract') { 
+    const inputJWT = verifyJWT(contractInput.jwt, PUBLIC_KEY)
 
-        const verify_JWT = verifyJWT(contractInput.jwt, PUBLIC_KEY)
+    if (inputJWT !== false) {
 
-        if (verify_JWT !== false) {
-            state.user_id = verify_JWT.sub;
+        // INITIALIZE CONTRACT
+        if (inputJWT.contract_input.function === 'initializeContract' && state.user_id === null && state.contract_address === null) {
+            state.user_id = inputJWT.sub;
             state.contract_address = contractInput.contract_address
         }
-    }
 
 
-    // DO A TXN TO MOCK BLOG CONTRACT
-    if (contractInput.function === 'broadcastTxn') {
-
-        const verify_JWT = verifyJWT(contractInput.jwt, PUBLIC_KEY)
-
-        if (verify_JWT !== false) {
-
-            if (verify_JWT.sub === state.user_id) {
-
-
+        // DO A TXN TO MOCK BLOG CONTRACT
+        if (inputJWT.contract_input.function === 'broadcastTxn' && inputJWT.sub === state.user_id) {
+            
                 // error handle for these
                 // interact with other contract
-                const toContractId = verify_JWT.toContractId;
-                const toContractFunction = verify_JWT.toContractFunction;
-                const txnData = verify_JWT.txnData;
+                const toContractId = inputJWT.contract_input.data.toContractId;
+                const toContractFunction = inputJWT.contract_input.data.toContractFunction;
+                const txnData = inputJWT.contract_input.data.txnData;
 
 
                 await SmartWeave.contracts.write(toContractId, { 
                     function: toContractFunction, 
-                    txnData: txnData }); 
-
-            }
+                    txnData: txnData }
+                    ); 
+            
         }
+
+
     }
 
-    
+
+
 
     return { state };
 }
