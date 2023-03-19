@@ -10,13 +10,16 @@ export default async function createUser(JWT) {
     let contract_code = await fetch('https://othent.io/contract.txt')
     contract_code = await contract_code.text();
 
+    console.log('1')
+
     let wallet_contract = await warp.createContract.deploy({
         wallet, 
         initState: JSON.stringify(contract_state), 
         src: contract_code, 
     })
     wallet_contract = wallet_contract.contractTxId
-    console.log(wallet_contract)
+
+    console.log('2')
 
     const contract = warp.contract(wallet_contract).setEvaluationOptions({internalWrites: true}).connect(wallet)
 
@@ -25,6 +28,8 @@ export default async function createUser(JWT) {
         jwt: JWT,
         contract_address: wallet_contract
     })
+
+    console.log('3')
 
  
     const unique_ID = jwt.decode(JWT).sub
