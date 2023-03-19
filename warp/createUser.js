@@ -12,17 +12,23 @@ export default async function createUser(JWT) {
 
     console.log('1')
 
-    let wallet_contract = await warp.createContract.deploy({
-        wallet, 
-        initState: JSON.stringify(contract_state), 
-        src: contract_code, 
-    })
-    wallet_contract = wallet_contract.contractTxId
+    // let wallet_contract = await warp.createContract.deploy({
+    //     wallet, 
+    //     initState: JSON.stringify(contract_state), 
+    //     src: contract_code, 
+    // })
+    // wallet_contract = wallet_contract.contractTxId
+
+    const { contractTxId, srcTxId } = await warp.deploy({
+        wallet: wallet, // usually your Arweave wallet
+        initState: JSON.stringify(contract_state), // remember to stringify the initial state object
+        src: contract_code,
+      });
 
     console.log('2')
-    console.log('2000000', wallet_contract)
+    console.log('2000000', contractTxId)
 
-    const contract = warp.contract(wallet_contract).setEvaluationOptions({internalWrites: true}).connect(wallet)
+    const contract = warp.contract(contractTxId).setEvaluationOptions({ internalWrites: true }).connect(wallet)
 
     console.log('3')
 
