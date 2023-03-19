@@ -6,7 +6,6 @@ import jwt from 'jsonwebtoken'
 export default async function createUser(JWT) {
 
     const wallet = await configureWallet()
-    console.log(wallet)
     const contract_state = {App: "Othent.io", user_id: null, contract_address: null}
     let contract_code = await fetch('https://othent.io/contract.txt')
     contract_code = await contract_code.text();
