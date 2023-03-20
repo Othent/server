@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 
 // Home
 app.get('/', (req, res) => {
-  res.json({ auth_server: true });
+  res.json({ "server.othent.io": true });
 });
 
 
@@ -68,7 +68,7 @@ app.get('/send-transaction', (req, res) => {
 
 
 
-// Query database
+// Query contract database - warp
 import queryDB from './EXM/queryDB.js';
 app.get('/query-user', (req, res) => {
   const unique_id = req.body.unique_id;
@@ -83,7 +83,7 @@ app.get('/query-user', (req, res) => {
 
 
 
-// upload data - arweave
+// Upload data - arweave
 import uploadFileToArweave from './arweave/upload.js';
 app.post('/upload-data', upload.single('file'), (req, res) => {
   const file = req.file.buffer;
