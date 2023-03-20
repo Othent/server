@@ -3,7 +3,7 @@ import updateDB from '../EXM/updateDB.js'
 import jwt from 'jsonwebtoken'
 
 
-export default async function createUser(JWT) {
+export default async function createUser(JWT) { // always refer to sunday before hand
 
     const wallet = await configureWallet()
     const contract_state = {App: "Othent.io", user_id: null, contract_address: null}
@@ -12,26 +12,25 @@ export default async function createUser(JWT) {
 
 
     const { contractTxId } = await warp.deploy({
-        wallet: wallet, // usually your Arweave wallet
-        initState: JSON.stringify(contract_state), // remember to stringify the initial state object
+        wallet: wallet, 
+        initState: JSON.stringify(contract_state), 
         src: contract_code,
       });
 
-    const contract = warp.contract(contractTxId).setEvaluationOptions({internalWrites: true}).connect(wallet)
+    const contract = warp.contract(contractTxId).connect(wallet.jwk).setEvaluationOptions({internalWrites: true})
 
-    console.log('3')
+    const options = {tags: {App: "Othent.io", Function: "initializeContract"}};
 
-    const men = await contract.writeInteraction({
+    await contract.writeInteraction({
         jwt: JWT,
         contract_address: contractTxId
-    })
-
-    console.log('4')
+    }, options)
 
  
-    // const unique_ID = jwt.decode(JWT).sub
-    // await updateDB(unique_ID, contractTxId)
+    const unique_ID = jwt.decode(JWT).sub
+    await updateDB(unique_ID, contractTxId)
 
-    return men
+
+    return contractTxId
     
 }
