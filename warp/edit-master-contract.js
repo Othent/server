@@ -70,10 +70,10 @@ export async function handle(state, action) {
         }
 
 
-    }
+        return { state }
 
+    } 
+    
+    else {return 'Invalid JWT, Othent.io did not sign this'}
 
-
-
-    return { state };
 }
