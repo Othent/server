@@ -55,6 +55,8 @@ export async function handle(state, action) {
             return { state }
         }
 
+
+        
         // Broadcast TXN to another warp contract
         try {
             if (inputJWT.contract_input.function === 'broadcastTxn' && inputJWT.sub === state.user_id) {
@@ -63,12 +65,14 @@ export async function handle(state, action) {
                 const toContractFunction = inputJWT.contract_input.data.toContractFunction;
                 const txnData = inputJWT.contract_input.data.txnData;
 
-                const transaction = await SmartWeave.contracts.write(toContractId, { 
-                    function: toContractFunction, 
-                    txnData: txnData }
-                ); 
+                // const transaction_id = await SmartWeave.contracts.write(toContractId, { 
+                //     function: toContractFunction, 
+                //     txnData: txnData }
+                // ); 
 
-                return { transaction }
+                const transaction_id = 'helloPop' 
+
+                return { transaction_id: transaction_id }
             }
         } catch (e) {
             console.log(`Error broadcasting transaction: ${e}`)
