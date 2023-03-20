@@ -7,8 +7,7 @@ app.use(cors({
 }));
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
-app.set('title', 'Othent.io | Server');
-app.set('favicon', 'https://avatars.githubusercontent.com/u/118553412?s=200&v=4');
+
 
 // Home
 app.get('/', (req, res) => {
