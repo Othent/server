@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 export default async function sendTransaction(JWT) {
     const unique_ID = jwt.decode(JWT).sub
     // const contract_id = await queryDB(unique_ID);
-    const contract_id = 'FqwvsMvJnBPlsKn1eBJz9_RRNmTrvenwik9kWtylE4g'
+    const contract_id = 'AYm7c9aEnR7ZInvMV1Miqbmsj87eylfHprWe7Ql-rL8'
 
     console.log(1)
     const wallet = await configureWallet()
