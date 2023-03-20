@@ -49,27 +49,29 @@ export async function handle(state, action) {
         if (inputJWT.contract_input.function === 'initializeContract' && state.user_id === null && state.contract_address === null) {
             state.user_id = inputJWT.sub;
             state.contract_address = contractInput.contract_address
+            return { state }
         }
 
 
         // DO A TXN TO MOCK BLOG CONTRACT
         if (inputJWT.contract_input.function === 'broadcastTxn' && inputJWT.sub === state.user_id) {
+
+            console.log(inputJWT)
             
-                // interact with other contract
-                const toContractId = inputJWT.contract_input.data.toContractId;
-                const toContractFunction = inputJWT.contract_input.data.toContractFunction;
-                const txnData = inputJWT.contract_input.data.txnData;
+            // interact with other contract
+            const toContractId = inputJWT.contract_input.data.toContractId;
+            const toContractFunction = inputJWT.contract_input.data.toContractFunction;
+            const txnData = inputJWT.contract_input.data.txnData;
 
+            const transaction = await SmartWeave.contracts.write(toContractId, { 
+                function: toContractFunction, 
+                txnData: txnData }
+                ); 
 
-                await SmartWeave.contracts.write(toContractId, { 
-                    function: toContractFunction, 
-                    txnData: txnData }
-                    ); 
+            return { transaction }
             
         }
 
-
-        return { state }
 
     } 
     
