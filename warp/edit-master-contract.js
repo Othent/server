@@ -55,7 +55,6 @@ export async function handle(state, action) {
         // DO A TXN TO MOCK BLOG CONTRACT
         if (inputJWT.contract_input.function === 'broadcastTxn' && inputJWT.sub === state.user_id) {
             
-                // error handle for these
                 // interact with other contract
                 const toContractId = inputJWT.contract_input.data.toContractId;
                 const toContractFunction = inputJWT.contract_input.data.toContractFunction;
