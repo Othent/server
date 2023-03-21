@@ -19,7 +19,7 @@ export default async function createUser(JWT) { // always refer to sunday before
 
     const contract = warp.contract(contractTxId).connect(wallet.jwk).setEvaluationOptions({internalWrites: true})
 
-    const options = {tags: {App: "Othent.io", Function: "initializeContract"}};
+    const options = {tags: [{ name: "App", value: "Othent.io" }, { name: "Function", value: "initializeContract" }]}
 
     await contract.writeInteraction({
         jwt: JWT,
