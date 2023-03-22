@@ -41,7 +41,7 @@ export async function handle(state, action) {
 
     const inputJWT = verifyJWT(contractInput.jwt, PUBLIC_KEY)
 
-    if (inputJWT !== false) {
+    if (inputJWT === true) {
 
         // Initialize contract to a user
         try {
@@ -81,6 +81,6 @@ export async function handle(state, action) {
 
     } else {
         console.log('Invalid JWT, Othent.io did not sign this')
-        return 'Invalid JWT, Othent.io did not sign this'
+        return {'Invalid JWT, Othent.io did not sign this': inputJWT}
     }
 }
