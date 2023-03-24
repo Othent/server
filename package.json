@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AuthProject/server.git"
+    "url": "git+https://github.com/Othent/server.git"
   },
   "author": "Lorimer Jenkins",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AuthProject/server/issues"
+    "url": "https://github.com/Othent/server/issues"
   },
-  "homepage": "https://github.com/AuthProject/server#readme",
+  "homepage": "https://github.com/Othent/server#readme",
   "dependencies": {
     "arweave": "^1.13.0",
     "body-parser": "^1.20.2",
