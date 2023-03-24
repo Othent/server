@@ -3,7 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 const app = express();
 app.use(cors({
-  origin: '*'
+  origin: 'weavetransfer.com'
 }));
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
