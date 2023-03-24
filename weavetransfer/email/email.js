@@ -1,8 +1,9 @@
-
 import nodemailer from 'nodemailer';
 import fs from 'fs';
 
-const sendEmail = (user_email_from, user_message_from, user_email_to, file_download_link) => {
+
+
+export default async function sendEmail(user_email_from, user_message_from, user_email_to, file_download_link) {
 
 
   const transporter = nodemailer.createTransport({
@@ -38,7 +39,8 @@ const sendEmail = (user_email_from, user_message_from, user_email_to, file_downl
       return 'Email sent';
     }
   });
+
+  
 };
 
-export { sendEmail };
 
