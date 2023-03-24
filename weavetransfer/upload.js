@@ -1,5 +1,5 @@
 import Arweave from 'arweave';
-import { sendEmail } from './email.js';
+import { sendEmail } from './email/email.js';
 
 export default async function weavetransferUpload(file, contentType, file_name, message) {
 
