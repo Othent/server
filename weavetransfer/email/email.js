@@ -15,31 +15,57 @@ export default async function sendEmail(user_email_from, user_message_from, user
   });
 
 
-  let template = await fetch('https://othent.io/email-template.html');
-  template = await template.text()
-
-
-  const message = {
+  // send to
+  let template_to = await fetch('https://othent.io/email-template-from.html');
+  template_to = await template_to.text()
+  const message_to = {
     from: process.env.nodemailer_email,
     to: user_email_to,
     subject: `${user_email_from} has sent you a file - via WeaveTransfer.com`,
-    html: template
+    html: template_to
       .replace(
         '{{download_link}}',
         `<a href="${file_download_link}" style="background-color: #2375EF; border-radius: 5px; color: white; padding: 10px; margin-top: 20px; margin-bottom: 20px; text-decoration: none;">Download your file</a>`
       )
-      .replace('{{message}}', `${user_email_from} included this message: ${user_message_from}`)
+      .replace('{{message}}', user_message_from)
       .replace('{{user_email_from}}', user_email_from)
       .replace('{{user_email_to}}', user_email_to),
   };
-
-  transporter.sendMail(message, (error, info) => {
+  transporter.sendMail(message_to, (error, info) => {
     if (error) {
-      console.log(error);
+      console.log(error, info);
     } else {
       return 'Email sent';
     }
   });
+
+
+  // send from
+  let template_from = await fetch('https://othent.io/email-template-from.html');
+  template_from = await template_from.text()
+  const message_from = {
+    from: process.env.nodemailer_email,
+    to: user_email_to,
+    subject: `Your file to ${user_email_from} has been sent - via WeaveTransfer.com`,
+    html: template_from
+      .replace(
+        '{{download_link}}',
+        `<a href="${file_download_link}" style="background-color: #2375EF; border-radius: 5px; color: white; padding: 10px; margin-top: 20px; margin-bottom: 20px; text-decoration: none;">Download your file</a>`
+      )
+      .replace('{{message}}', user_message_from)
+      .replace('{{user_email_from}}', user_email_from)
+      .replace('{{user_email_to}}', user_email_to),
+  };
+  transporter.sendMail(message_from, (error, info) => {
+    if (error) {
+      console.log(error, info);
+    } else {
+      return 'Email sent';
+    }
+  });
+
+
+
 
 
 };
