@@ -14,9 +14,9 @@ export default async function sendEmail(user_email_from, user_message_from, user
     },
   });
 
-  console.log(process.env.nodemailer_email, process.env.nodemailer_password)
-
   const template = fs.readFileSync('./template.html', 'utf8');
+
+  console.log(template)
 
   const message = {
     from: process.env.nodemailer_email,
@@ -40,7 +40,7 @@ export default async function sendEmail(user_email_from, user_message_from, user
     }
   });
 
-  
+
 };
 
 
