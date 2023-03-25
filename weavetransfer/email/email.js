@@ -56,7 +56,8 @@ export default async function sendEmail(user_email_from, user_message_from, user
       )
       .replace('{{message}}', user_message_from)
       .replace('{{user_email_from}}', user_email_from)
-      .replace('{{user_email_to}}', user_email_to),
+      .replace('{{user_email_to}}', user_email_to)
+      .replace('{{shareable_link}}', file_download_link)
   };
   transporter.sendMail(message_from, (error, info) => {
     if (error) {
