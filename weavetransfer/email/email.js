@@ -34,6 +34,7 @@ export default async function sendEmail(user_email_from, user_message_from, user
   transporter.sendMail(message_to, (error, info) => {
     if (error) {
       console.log(error, info);
+      throw new Error(error);
     } else {
       return 'Email sent';
     }
@@ -59,6 +60,7 @@ export default async function sendEmail(user_email_from, user_message_from, user
   transporter.sendMail(message_from, (error, info) => {
     if (error) {
       console.log(error, info);
+      throw new Error(error);
     } else {
       return 'Email sent';
     }
