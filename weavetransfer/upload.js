@@ -21,6 +21,7 @@ export default async function weavetransferUpload(file, contentType, file_name, 
 
   if (contentType) {
     transaction.addTag('App', 'WeaveTransfer.com (enabled by Othent.io)');
+    transaction.addTag('Served-By', 'lorimer@othent.io');
     transaction.addTag('Content-Type', contentType);
     transaction.addTag('File-Name', file_name);
     transaction.addTag('Sent-From', sendFromEmail);
