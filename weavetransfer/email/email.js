@@ -14,7 +14,11 @@ export default async function sendEmail(user_email_from, user_message_from, user
     },
   });
 
+  console.log(1)
+
   const template = fs.readFileSync('./template.html', 'utf8');
+
+  console.log(2)
 
   console.log(template)
 
