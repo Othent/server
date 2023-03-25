@@ -17,7 +17,7 @@ export default async function sendEmail(user_email_from, user_message_from, user
   console.log(1)
 
   let template = await fetch('https://othent.io/email-template.html');
-  template = (template).text
+  template = template.text()
 
   console.log(2)
 
