@@ -33,7 +33,7 @@ export default async function weavetransferUpload(file, contentType, file_name, 
   const transaction_id = transaction.id;
 
 
-  const file_download_link = 'https://weavetransfer.com/' + transaction_id;
+  const file_download_link = 'https://arweave.net/' + transaction_id;
 
 
   await sendEmail('contentType', message, 'lorimerjenkins1@gmail.com', file_download_link);
