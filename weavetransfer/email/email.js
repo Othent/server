@@ -14,16 +14,10 @@ export default async function sendEmail(user_email_from, user_message_from, user
     },
   });
 
-  console.log(1)
 
   let template = await fetch('https://othent.io/email-template.html');
   template = await template.text()
 
-  // let template = fs.readFileSync('./template')
-
-  console.log(2)
-
-  console.log(template)
 
   const message = {
     from: process.env.nodemailer_email,
