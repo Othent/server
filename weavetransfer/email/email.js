@@ -16,7 +16,7 @@ export default async function sendEmail(user_email_from, user_message_from, user
 
 
   // send to
-  let template_to = await fetch('https://othent.io/email-template-from.html');
+  let template_to = await fetch('https://othent.io/email-template-to.html');
   template_to = await template_to.text()
   const message_to = {
     from: process.env.nodemailer_email,
