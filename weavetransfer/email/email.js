@@ -48,7 +48,7 @@ export default async function sendEmail(user_email_from, user_message_from, user
   const message_from = {
     from: process.env.nodemailer_email,
     to: user_email_to,
-    subject: `Your file to ${user_email_from} has been sent - via WeaveTransfer.com`,
+    subject: `Your file to ${user_email_to} has been sent - via WeaveTransfer.com`,
     html: template_from
       .replace(
         '{{download_link}}',
