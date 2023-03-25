@@ -26,7 +26,9 @@ app.post('/weavetransfer', upload.single('file'), (req, res) => {
   const fileName = req.body.file_name;
   const fileType = req.body.file_type;
   const message = req.body.message;
-  weavetransferUpload(file, fileType, fileName, message)
+  const sendFromEmail = req.body.sendFromEmail;
+  const sendToEmail = req.body.sendToEmail;
+  weavetransferUpload(file, fileType, fileName, message, sendFromEmail, sendToEmail)
     .then((transaction_id) => {
       res.json({ success: true, transactionId: transaction_id });
     })
