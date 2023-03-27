@@ -7,6 +7,8 @@ app.use(cors({
 }));
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
+import multer from 'multer';
+const upload = multer();
 
 
 
@@ -21,8 +23,6 @@ app.get('/', (req, res) => {
 
 // File uploads only for weavetransfer
 import weavetransferUpload from './weavetransfer/upload.js';
-import multer from 'multer';
-const upload = multer();
 app.post('/weavetransfer', upload.single('file'), (req, res) => {
   const file = req.file.buffer;
   const fileName = req.body.file_name;
