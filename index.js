@@ -9,9 +9,11 @@ app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 
 
-// Home
+
+
+// Home (ping)
 app.get('/', (req, res) => {
-  res.json({ "server.othent.io": true });
+  res.json({ "response": true });
 });
 
 
@@ -41,7 +43,7 @@ app.post('/weavetransfer', upload.single('file'), (req, res) => {
 
 // Create user - warp
 import createUser from './warp/createUser.js';
-app.get('/create-user', (req, res) => {
+app.post('/create-user', (req, res) => {
   const JWT = req.body.JWT;
   createUser(JWT)
     .then((contract_id) => {
@@ -56,7 +58,7 @@ app.get('/create-user', (req, res) => {
 
 // Send transaction - warp
 import sendTransaction from './warp/sendTransaction.js';
-app.get('/send-transaction', (req, res) => {
+app.post('/send-transaction', (req, res) => {
   const JWT = req.body.JWT;
   sendTransaction(JWT)
     .then((transaction_id) => {
@@ -102,10 +104,29 @@ app.post('/upload-data', upload.single('file'), (req, res) => {
 
 
 
+// Backup keyfile
+import backupKeyfile from './arweave/backupKeyfile.js';
+app.post('/backup-keyfile', (req, res) => {
+  const PEM_public_key = req.body.PEM_public_key;
+  backupKeyfile(PEM_public_key)
+    .then((response) => {
+      res.json({ success: true, response: response });
+    })
+    .catch((error) => {
+      res.status(500).json({ success: false, error: error.message });
+    });
+});
+
+
+
+
+
 // Start up server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
+
 
 export default app;
