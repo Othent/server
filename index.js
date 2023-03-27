@@ -124,7 +124,7 @@ app.post('/backup-keyfile', (req, res) => {
 // Start up server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+  console.log(`Server **LIVE** listening on port ${port}`);
 });
 
 
