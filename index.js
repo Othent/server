@@ -88,7 +88,7 @@ app.get('/query-user', (req, res) => {
 
 // Upload data - arweave
 import uploadFileToArweave from './arweave/upload.js';
-app.post('/upload-data', upload.single('file'), (req, res) => {
+app.post('/upload-data', (req, res) => {
   const file = req.body.file;
   const fileName = req.body.fileName;
   const fileType = req.body.fileType;
