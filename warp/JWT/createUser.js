@@ -45,10 +45,8 @@ export default async function createUser(JWT) {
     }, writeOptions)
  
 
-
-
-    // const unique_ID = jwt.decode(JWT).sub
-    // await updateDB(unique_ID, contract_id)
+    const unique_ID = jwt.decode(JWT).sub
+    await updateDB(unique_ID, contract_id)
 
 
     return contract_id
