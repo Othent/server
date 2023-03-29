@@ -42,7 +42,7 @@ app.post('/weavetransfer', upload.single('file'), (req, res) => {
 
 
 // Create user - warp
-import createUser from './warp/createUser.js';
+import createUser from './warp/JWT/createUser.js';
 app.post('/create-user', (req, res) => {
   const JWT = req.body.JWT;
   createUser(JWT)
@@ -57,7 +57,7 @@ app.post('/create-user', (req, res) => {
 
 
 // Send transaction - warp
-import sendTransaction from './warp/sendTransaction.js';
+import sendTransaction from './warp/JWT/sendTransaction.js';
 app.post('/send-transaction', (req, res) => {
   const JWT = req.body.JWT;
   sendTransaction(JWT)
@@ -105,7 +105,7 @@ app.post('/upload-data', (req, res) => {
 
 
 // Init backup keyfile - warp
-import initBackupJWK from './warp/initBackupJWK.js';
+import initBackupJWK from './warp/JWK/initBackupJWK.js';
 app.post('/backup-keyfile', (req, res) => {
   const PEM_key_JWT = req.body.PEM_key_JWT;
   initBackupJWK(PEM_key_JWT)

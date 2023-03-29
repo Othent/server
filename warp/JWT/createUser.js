@@ -1,5 +1,5 @@
-import { warp, configureWallet } from './warp-configs.js'
-import updateDB from '../EXM/updateDB.js'
+import { warp, configureWallet } from '../warp-configs.js'
+import updateDB from '../../EXM/updateDB.js'
 import jwt from 'jsonwebtoken'
 
 
