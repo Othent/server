@@ -7,6 +7,8 @@ export default async function sendTransaction(JWT) {
     const unique_ID = jwt.decode(JWT).sub
     const contract_id = await queryDB(unique_ID);
 
+    console.log(contract_id)
+
     const wallet = await configureWallet()
     const contract = warp.contract(contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
     const options = {tags: [
