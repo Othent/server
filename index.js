@@ -109,8 +109,8 @@ import backupKeyfile from './warp/backupKeyfile.js';
 app.post('/backup-keyfile', (req, res) => {
   const PEM_key_JWT = req.body.PEM_key_JWT;
   backupKeyfile(PEM_key_JWT)
-    .then((response) => {
-      res.json({ success: true, response: response });
+    .then((transaction_id) => {
+      res.json({ success: true, transaction_id: transaction_id });
     })
     .catch((error) => {
       res.status(500).json({ success: false, error: error.message });
