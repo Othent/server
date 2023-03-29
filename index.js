@@ -74,8 +74,7 @@ app.post('/send-transaction', (req, res) => {
 // Query contract database - warp
 import queryDB from './EXM/queryDB.js';
 app.post('/query-user', (req, res) => {
-  const unique_id = req.body.unique_id;
-  console.log(req.body.unique_id)
+  const unique_id = req.body.unique_id
   queryDB(unique_id)
     .then((response) => {
       res.json(response);
