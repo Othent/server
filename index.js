@@ -89,10 +89,10 @@ app.get('/query-user', (req, res) => {
 // Upload data - arweave
 import uploadFileToArweave from './arweave/upload.js';
 app.post('/upload-data', upload.single('file'), (req, res) => {
-  const file = req.file.buffer;
-  const fileName = req.body.file_name;
-  const fileType = req.body.file_type;
-  uploadFileToArweave(file, fileType, fileName, message)
+  const file = req.body.file;
+  const fileName = req.body.fileName;
+  const fileType = req.body.fileType;
+  uploadFileToArweave(file, fileType, fileName)
     .then((transaction_id) => {
       res.json({ success: true, transactionId: transaction_id });
     })
