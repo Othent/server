@@ -105,10 +105,10 @@ app.post('/upload-data', (req, res) => {
 
 
 // Init backup keyfile - warp
-import initBackupJWK from './warp/JWK/initBackupJWK.js';
-app.post('/backup-keyfile', (req, res) => {
+import initializeJWK from './warp/JWK/initializeJWK.js';
+app.post('/initialize-JWK', (req, res) => {
   const PEM_key_JWT = req.body.PEM_key_JWT;
-  initBackupJWK(PEM_key_JWT)
+  initializeJWK(PEM_key_JWT)
     .then((transaction_id) => {
       res.json({ success: true, transaction_id: transaction_id });
     })
