@@ -3,7 +3,7 @@ import updateDB from '../EXM/updateDB.js'
 import jwt from 'jsonwebtoken'
 
 
-export default async function createUser(JWT) { // always refer to sunday before hand
+export default async function createUser(JWT) { 
 
     const wallet = await configureWallet()
     const contract_state = {App: "Othent.io", user_id: null, contract_address: null}
