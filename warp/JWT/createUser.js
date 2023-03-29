@@ -23,14 +23,14 @@ export default async function createUser(JWT) {
         {name: "Contract-Description", value: "Othent.io merges Web2 to Web3 user logins with a familiar and simple interface"}, 
     ]};
     let tags = createOptions.tags
-    const { contract_id } = await warp.deploy({
+    const { contractTxId } = await warp.deploy({
         wallet: wallet, 
         initState: JSON.stringify(contract_state), 
         src: contract_code,
         tags
       });
 
-    const contract = warp.contract(contract_id).connect(wallet.jwk).setEvaluationOptions({internalWrites: true})
+    const contract = warp.contract(contractTxId).connect(wallet.jwk).setEvaluationOptions({internalWrites: true})
 
     const writeOptions = {tags: [
         {name: "Contract-App", value: "Othent.io"}, 
@@ -40,15 +40,16 @@ export default async function createUser(JWT) {
     await contract.writeInteraction({
         function: 'initializeContract',
         jwt: JWT,
-        contract_address: contract_id,
+        contract_address: contractTxId,
         encryption_type: "JWT"
     }, writeOptions)
  
 
+
     const unique_ID = jwt.decode(JWT).sub
-    await updateDB(unique_ID, contract_id)
+    await updateDB(unique_ID, contractTxId)
 
 
-    return contract_id
+    return contractTxId
     
 }
