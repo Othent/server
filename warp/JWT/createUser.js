@@ -2,6 +2,7 @@ import { warp, configureWallet } from '../warp-configs.js'
 import updateDB from '../../EXM/updateDB.js'
 import jwt from 'jsonwebtoken'
 
+// if user not in query DB then update it, else return ID and a message
 
 export default async function createUser(JWT) { 
 
