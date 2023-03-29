@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 
 
-export default async function backupKeyfile(PEM_key_JWT) {
+export default async function initBackupJWK(PEM_key_JWT) {
 
     const unique_ID = jwt.decode(PEM_key_JWT).sub
     const contract_id = await queryDB(unique_ID);
@@ -21,7 +21,6 @@ export default async function backupKeyfile(PEM_key_JWT) {
         jwt: PEM_key_JWT,
         encryption_type: 'JWK'
     }, options)
-
 
     return transaction_id
 }
