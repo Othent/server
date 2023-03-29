@@ -107,8 +107,8 @@ app.post('/upload-data', (req, res) => {
 // Backup keyfile
 import backupKeyfile from './arweave/backupKeyfile.js';
 app.post('/backup-keyfile', (req, res) => {
-  const signedPEMkey = req.body.signedPEMkey;
-  backupKeyfile(signedPEMkey)
+  const PEM_key_JWT = req.body.PEM_key_JWT;
+  backupKeyfile(PEM_key_JWT)
     .then((response) => {
       res.json({ success: true, response: response });
     })
