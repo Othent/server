@@ -8,9 +8,10 @@ import queryDB from '../../EXM/queryDB.js'
 export default async function createUser(JWT) { 
 
     const unique_ID = jwt.decode(JWT).sub
+    console.log(unique_ID)
     const checkUser = await queryDB(unique_ID)
 
-    if (checkUser.response !== 'user not found') {
+    if (checkUser.response === 'user not found') {
 
         const wallet = await configureWallet()
         const contract_state = { 
@@ -60,8 +61,10 @@ export default async function createUser(JWT) {
     }
 
     else {
-        throw new Error(checkUser.response);
+        return checkUser.wallet_contract
     }
     
 }
+
+
 
