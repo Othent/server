@@ -60,7 +60,7 @@ export default async function createUser(JWT) {
     }
 
     else {
-        throw new Error(checkUser);
+        throw new Error(checkUser.response);
     }
     
 }
