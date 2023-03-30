@@ -72,7 +72,7 @@ app.post('/send-transaction', (req, res) => {
 
 
 // Read users warp contract
-import readContract from './warp/readContract';
+import readContract from './warp/readContract.js';
 app.post('/read-contract', (req, res) => {
   const JWT = req.body.JWT
   readContract(JWT)
