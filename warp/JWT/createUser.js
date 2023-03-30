@@ -55,7 +55,7 @@ export default async function createUser(JWT) {
 
         await updateDB(unique_ID, contractTxId)
 
-        return contractTxId
+        return {response: contractTxId}
 
     }
 

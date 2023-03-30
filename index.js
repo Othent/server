@@ -46,8 +46,8 @@ import createUser from './warp/JWT/createUser.js';
 app.post('/create-user', (req, res) => {
   const JWT = req.body.JWT;
   createUser(JWT)
-    .then((contractTxId) => {
-      res.json({ success: true, contract_id: contractTxId });
+    .then((response) => {
+      res.json({ success: true, contract_id: response});
     })
     .catch((error) => {
       res.status(500).json({ success: false, error: error.message });
