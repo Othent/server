@@ -47,9 +47,11 @@ app.post('/create-user', (req, res) => {
   const JWT = req.body.JWT;
   createUser(JWT)
     .then((response) => {
+      console.log(1234)
       res.json({ success: true, contract_id: response});
     })
     .catch((error) => {
+      console.log(4321)
       res.status(500).json({ success: false, error: error.message });
     });
 });
