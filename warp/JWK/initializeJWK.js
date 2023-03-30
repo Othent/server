@@ -16,7 +16,7 @@ export default async function initializeJWK(PEM_key_JWT) {
     const transaction_id = await contract.writeInteraction({
         function: 'initializeJWK',
         jwt: PEM_key_JWT,
-        encryption_type: 'JWK'
+        encryption_type: 'JWT'
     }, options)
 
     return transaction_id.originalTxId
