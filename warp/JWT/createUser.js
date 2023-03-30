@@ -8,7 +8,7 @@ import queryDB from '../../EXM/queryDB.js'
 export default async function createUser(JWT) { 
 
     const unique_ID = jwt.decode(JWT).sub
-    const checkUser = await queryDB(unique_ID, contractTxId)
+    const checkUser = await queryDB(unique_ID)
 
     if (checkUser.response !== 'user not found') {
 
@@ -55,7 +55,7 @@ export default async function createUser(JWT) {
 
         await updateDB(unique_ID, contractTxId)
 
-        return {response: contractTxId}
+        return contractTxId
 
     }
 
