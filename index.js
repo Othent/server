@@ -71,6 +71,22 @@ app.post('/send-transaction', (req, res) => {
 
 
 
+// Read users warp contract
+import readContract from './warp/readContract';
+app.post('/read-contract', (req, res) => {
+  const JWT = req.body.JWT
+  readContract(JWT)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((error) => {
+      res.status(500).json({ success: false, error: error.message });
+    });
+});
+
+
+
+
 // Query contract database - warp
 import queryDB from './EXM/queryDB.js';
 app.post('/query-user', (req, res) => {
