@@ -19,6 +19,6 @@ export default async function initializeJWK(PEM_key_JWT) {
         encryption_type: 'JWK'
     }, options)
 
-    return transaction_id
+    return transaction_id.originalTxId
 }
 
