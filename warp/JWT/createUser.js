@@ -1,15 +1,12 @@
 import { warp, configureWallet } from '../warp-configs.js'
 import updateDB from '../../EXM/updateDB.js'
-import jwt from 'jsonwebtoken'
 import queryDB from '../../EXM/queryDB.js'
 
 
 
 export default async function createUser(JWT) { 
 
-    const unique_ID = jwt.decode(JWT).sub
-    console.log(unique_ID)
-    const checkUser = await queryDB(unique_ID)
+    const checkUser = await queryDB(JWT)
 
     if (checkUser.response === 'user not found') {
 

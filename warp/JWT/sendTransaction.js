@@ -1,11 +1,9 @@
 import { warp, configureWallet } from '../warp-configs.js'
 import queryDB from '../../EXM/queryDB.js'
-import jwt from 'jsonwebtoken';
-
 
 export default async function sendTransaction(JWT) {
-    const unique_ID = jwt.decode(JWT).sub
-    const contract_id = await queryDB(unique_ID);
+
+    const contract_id = await queryDB(JWT);
 
     const wallet = await configureWallet()
     const contract = warp.contract(contract_id.wallet_contract).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
