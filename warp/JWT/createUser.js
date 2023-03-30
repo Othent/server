@@ -1,14 +1,14 @@
 import { warp, configureWallet } from '../warp-configs.js'
 import updateDB from '../../EXM/updateDB.js'
 import queryDB from '../../EXM/queryDB.js'
-
+import jwt from 'jsonwebtoken';
 
 
 export default async function createUser(JWT) { 
 
-    const checkUser = await queryDB(JWT)
+    const checkDB = await queryDB(JWT)
 
-    if (checkUser.response === 'user not found') {
+    if (checkDB.response === 'user not found') {
 
         const wallet = await configureWallet()
         const contract_state = { 
@@ -51,6 +51,7 @@ export default async function createUser(JWT) {
     
 
 
+        const unique_ID = jwt.decode(JWT).sub
         await updateDB(unique_ID, contractTxId)
 
         return contractTxId
@@ -58,7 +59,7 @@ export default async function createUser(JWT) {
     }
 
     else {
-        return checkUser.wallet_contract
+        return checkDB.wallet_contract
     }
     
 }
