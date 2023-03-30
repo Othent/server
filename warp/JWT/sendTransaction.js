@@ -21,7 +21,7 @@ export default async function sendTransaction(JWT) {
     }, options)
 
 
-    return transaction_id
+    return transaction_id.originalTxId
 }
 
 
