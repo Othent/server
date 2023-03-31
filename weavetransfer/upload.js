@@ -9,6 +9,8 @@ export default async function weavetransferUpload(file, contentType, file_name, 
     protocol: 'https'
   });
 
+  console.log(file)
+
 
   const walletData = process.env.wallet;
   const wallet = JSON.parse(walletData);
@@ -21,7 +23,7 @@ export default async function weavetransferUpload(file, contentType, file_name, 
 
   if (contentType) {
     transaction.addTag('App', 'WeaveTransfer.com (enabled by Othent.io)');
-    transaction.addTag('Served-By', 'lorimer@othent.io');
+    transaction.addTag('Served-By', 'hello@weavetransfer.com');
     transaction.addTag('Content-Type', contentType);
     transaction.addTag('File-Name', file_name);
     transaction.addTag('Sent-From', sendFromEmail);
