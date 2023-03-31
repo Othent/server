@@ -9,6 +9,8 @@ export default async function JWKBackupTxn(JWT) {
     // query diff DB (same) for the JWK public keys to contract IDs
     const contract_id = await queryDB(JWT); // make sure client id is in this
 
+    console.log(contract_id)
+
     const wallet = await configureWallet()
     const contract = warp.contract(contract_id.wallet_contract).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
     const options = {tags: [
