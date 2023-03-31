@@ -9,8 +9,6 @@ export default async function weavetransferUpload(file, contentType, file_name, 
     protocol: 'https'
   });
 
-  console.log(file)
-
 
   const walletData = process.env.wallet;
   const wallet = JSON.parse(walletData);
