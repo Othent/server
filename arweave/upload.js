@@ -18,6 +18,8 @@ export default async function uploadFileToArweave(file) {
     data: file.buffer
   }, wallet);
 
+  console.log(file)
+
 
   transaction.addTag('App', 'Othent.io');
   transaction.addTag('Content-Type', file.mimetype);
