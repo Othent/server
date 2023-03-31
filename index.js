@@ -25,12 +25,10 @@ app.get('/', (req, res) => {
 import weavetransferUpload from './weavetransfer/upload.js';
 app.post('/weavetransfer', upload.single('file'), (req, res) => {
   const file = req.file.buffer;
-  const fileName = req.body.file_name;
-  const fileType = req.body.file_type;
   const message = req.body.message;
   const sendFromEmail = req.body.sendFromEmail;
   const sendToEmail = req.body.sendToEmail;
-  weavetransferUpload(file, fileType, fileName, message, sendFromEmail, sendToEmail)
+  weavetransferUpload(file, message, sendFromEmail, sendToEmail)
     .then((transaction_id) => {
       res.json({ success: true, transactionId: transaction_id });
     })
@@ -106,9 +104,7 @@ app.post('/query-user', (req, res) => {
 import uploadFileToArweave from './arweave/upload.js';
 app.post('/upload-data', upload.single('file'), (req, res) => {
   const file = req.file.buffer;
-  const fileType = req.body.file_type;
-  const fileName = req.body.file_name;
-  uploadFileToArweave(file, fileType, fileName)
+  uploadFileToArweave(file)
     .then((transaction_id) => {
       res.json({ success: true, transactionId: transaction_id });
     })

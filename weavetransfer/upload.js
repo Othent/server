@@ -1,7 +1,7 @@
 import Arweave from 'arweave';
 import sendEmail from './email/email.js';
 
-export default async function weavetransferUpload(file, contentType, file_name, message, sendFromEmail, sendToEmail) {
+export default async function weavetransferUpload(file, message, sendFromEmail, sendToEmail) {
 
   const arweave = Arweave.init({
     host: 'arweave.net',
@@ -19,15 +19,15 @@ export default async function weavetransferUpload(file, contentType, file_name, 
   }, wallet);
 
 
-  if (contentType) {
-    transaction.addTag('App', 'WeaveTransfer.com (enabled by Othent.io)');
-    transaction.addTag('Served-By', 'hello@weavetransfer.com');
-    transaction.addTag('Content-Type', contentType);
-    transaction.addTag('File-Name', file_name);
-    transaction.addTag('Sent-From', sendFromEmail);
-    transaction.addTag('Sent-To', sendToEmail);
-    transaction.addTag('Message', message);
-  }
+
+  transaction.addTag('App', 'WeaveTransfer.com (enabled by Othent.io)');
+  transaction.addTag('Served-By', 'hello@weavetransfer.com');
+  transaction.addTag('Content-Type', file.type);
+  transaction.addTag('File-Name', file.name);
+  transaction.addTag('Sent-From', sendFromEmail);
+  transaction.addTag('Sent-To', sendToEmail);
+  transaction.addTag('Message', message);
+
 
 
   await arweave.transactions.sign(transaction, wallet);

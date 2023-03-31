@@ -1,7 +1,7 @@
 import Arweave from 'arweave';
 
 
-export default async function uploadFileToArweave(file, contentType, file_name) {
+export default async function uploadFileToArweave(file) {
 
   const arweave = Arweave.init({
     host: 'arweave.net',
@@ -19,11 +19,9 @@ export default async function uploadFileToArweave(file, contentType, file_name) 
   }, wallet);
 
 
-  if (contentType) {
-    transaction.addTag('App', 'Othent.io');
-    transaction.addTag('Content-Type', contentType);
-    transaction.addTag('File-Name', file_name);
-  }
+  transaction.addTag('App', 'Othent.io');
+  transaction.addTag('Content-Type', file.type);
+  transaction.addTag('File-Name', file.name);
 
 
   await arweave.transactions.sign(transaction, wallet);
