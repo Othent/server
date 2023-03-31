@@ -1,5 +1,5 @@
 import { EXM_functionID } from './EXM_functionID.js'
-// add check DB here
+
 
 export default async function updateDB(unique_ID, contract_id) {
     const input = {'unique_ID': unique_ID, 'wallet_contract': contract_id}
