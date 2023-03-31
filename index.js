@@ -131,6 +131,22 @@ app.post('/initialize-JWK', (req, res) => {
 
 
 
+// JWK backup transaction - warp
+import JWKBackupTxn from './warp/JWK/JWKBackupTxn.js';
+app.post('/JWK-backup-transaction', (req, res) => {
+  const JWT = req.body.JWT;
+  JWKBackupTxn(JWT)
+    .then((transaction_id) => {
+      res.json({ success: true, transaction_id: transaction_id });
+    })
+    .catch((error) => {
+      res.status(500).json({ success: false, error: error.message });
+    });
+});
+
+
+
+
 
 
 // Start up server
