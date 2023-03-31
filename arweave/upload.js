@@ -15,7 +15,7 @@ export default async function uploadFileToArweave(file) {
 
 
   const transaction = await arweave.createTransaction({
-    data: file
+    data: file.buffer
   }, wallet);
 
 

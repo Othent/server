@@ -13,9 +13,8 @@ export default async function weavetransferUpload(file, message, sendFromEmail, 
   const walletData = process.env.wallet;
   const wallet = JSON.parse(walletData);
 
-
   const transaction = await arweave.createTransaction({
-    data: file
+    data: file.buffer
   }, wallet);
 
 
