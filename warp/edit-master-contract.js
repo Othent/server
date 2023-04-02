@@ -39,12 +39,15 @@ function verifyJWT(JWT, OTHENT_PUBLIC_KEY) {
 function verifyJWK(JWK_JWT, JWKPublicKey) {
     const jsonwebtokenPackage = SmartWeave.extensions.jwt
     try {
+        console.log(JWKPublicKey)
         let pemKey = JWKPublicKey.replace(/\n|\s/g, '');
         pemKey = pemKey.replace(/^-----BEGINPUBLICKEY-----/, '');
         pemKey = pemKey.replace(/-----ENDPUBLICKEY-----$/, '');
         const lines = pemKey.match(/.{1,64}/g);
         const formattedKey = '-----BEGIN PUBLIC KEY-----\n' + lines.join('\n') + '\n-----END PUBLIC KEY-----';
-        const JWK_decoded = jsonwebtokenPackage.verify(JWK_JWT, JWKPublicKey, { algorithms: ['RS256'] });
+        console.log(formattedKey)
+        const JWK_decoded = jsonwebtokenPackage.verify(JWK_JWT, formattedKey, { algorithms: ['RS256'] });
+        console.log(JWK_decoded)
         return {status: true, JWK_decoded: JWK_decoded}
     } catch (error) {
         return {status: false, error: error}
