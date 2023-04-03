@@ -4,8 +4,9 @@ import nodemailer from 'nodemailer';
 export default async function sendEmail(email, contract_id) {
 
 
-  console.log(email,contract_id)
+  // request email from auth0
   
+
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -19,7 +20,7 @@ export default async function sendEmail(email, contract_id) {
   template_to = await template_to.text()
   const message_to = {
     from: process.env.nodemailer_email,
-    to: email,
+    to: 'lorimerjenkins1@gmail.com',
     subject: `Othent.io account confirmation`,
     html: template_to.replace('{{message}}', contract_id)
   };
