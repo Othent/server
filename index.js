@@ -86,7 +86,7 @@ app.post('/read-contract', (req, res) => {
 
 
 // Query contract database - warp
-import queryDB from './EXM/queryDB.js';
+import queryDB from './database/queryDB.js';
 app.post('/query-user', (req, res) => {
   const JWT = req.body.JWT
   queryDB(JWT)

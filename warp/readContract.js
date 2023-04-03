@@ -1,5 +1,5 @@
 import { warp, configureWallet } from './warp-configs.js'
-import queryDB from '../EXM/queryDB.js'
+import queryDB from '../database/queryDB.js'
 
 
 export default async function readContract(JWT) {
