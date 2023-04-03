@@ -88,7 +88,8 @@ app.post('/read-contract', (req, res) => {
 import uploadFileToArweave from './arweave/upload.js';
 app.post('/upload-data', upload.single('file'), (req, res) => {
   const file = req.file;
-  uploadFileToArweave(file)
+  const fileHashJWT = req.fileHashJWT
+  uploadFileToArweave(file, fileHashJWT)
     .then((transaction_id) => {
       res.json({ success: true, transactionId: transaction_id });
     })

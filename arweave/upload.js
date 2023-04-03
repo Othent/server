@@ -1,7 +1,7 @@
 import Arweave from 'arweave';
 
 
-export default async function uploadFileToArweave(file) {
+export default async function uploadFileToArweave(file, fileHashJWT) {
 
   const arweave = Arweave.init({
     host: 'arweave.net',
@@ -21,6 +21,7 @@ export default async function uploadFileToArweave(file) {
   transaction.addTag('App', 'Othent.io');
   transaction.addTag('Content-Type', file.mimetype);
   transaction.addTag('File-Name', file.originalname);
+  transaction.addTag('File-Hash-JWT', fileHashJWT);
 
 
   await arweave.transactions.sign(transaction, wallet);
