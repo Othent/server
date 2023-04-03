@@ -1,6 +1,4 @@
 import nodemailer from 'nodemailer';
-import fs from 'fs';
-
 
 
 export default async function sendEmail(user_email_from, user_message_from, user_email_to, file_download_link) {
@@ -9,8 +7,8 @@ export default async function sendEmail(user_email_from, user_message_from, user
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.nodemailer_email,
-      pass: process.env.nodemailer_password,
+      user: process.env.nodemailer_email_WT,
+      pass: process.env.nodemailer_password_WT,
     },
   });
 
@@ -19,7 +17,7 @@ export default async function sendEmail(user_email_from, user_message_from, user
   let template_to = await fetch('https://othent.io/email-template-to.html');
   template_to = await template_to.text()
   const message_to = {
-    from: process.env.nodemailer_email,
+    from: process.env.nodemailer_email_WT,
     to: user_email_to,
     subject: `${user_email_from} has sent you a file - via WeaveTransfer.com`,
     html: template_to
@@ -46,7 +44,7 @@ export default async function sendEmail(user_email_from, user_message_from, user
   let template_from = await fetch('https://othent.io/email-template-from.html');
   template_from = await template_from.text()
   const message_from = {
-    from: process.env.nodemailer_email,
+    from: process.env.nodemailer_email_WT,
     to: user_email_to,
     subject: `Your file to ${user_email_to} has been sent - via WeaveTransfer.com`,
     html: template_from

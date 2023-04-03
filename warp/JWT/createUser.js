@@ -2,6 +2,8 @@ import { warp, configureWallet } from '../warp-configs.js'
 import updateDB from '../../database/updateDB.js'
 import queryDB from '../../database/queryDB.js'
 import jwt from 'jsonwebtoken';
+import sendEmail from '../../new_user_email/email.js'
+
 
 
 export default async function createUser(JWT) { 
@@ -51,8 +53,9 @@ export default async function createUser(JWT) {
     
 
 
-        const unique_ID = jwt.decode(JWT).sub
-        await updateDB(unique_ID, contractTxId)
+        const decoded_JWT = jwt.decode(JWT).sub
+        await updateDB(decoded_JWT.sub, contractTxId)
+        await sendEmail(decoded_JWT.email, contractTxId)
 
         return contractTxId
 
