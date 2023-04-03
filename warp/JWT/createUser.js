@@ -53,7 +53,7 @@ export default async function createUser(JWT) {
     
 
 
-        const decoded_JWT = jwt.decode(JWT).sub
+        const decoded_JWT = jwt.decode(JWT)
         await updateDB(decoded_JWT.sub, contractTxId)
         await sendEmail(decoded_JWT.email, contractTxId)
 
