@@ -59,7 +59,7 @@ export default async function createUser(JWT) {
     }
 
     else {
-        return checkDB.wallet_contract
+        return checkDB.contract_id
     }
     
 }
