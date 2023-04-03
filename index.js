@@ -84,22 +84,6 @@ app.post('/read-contract', (req, res) => {
 
 
 
-
-// Query contract database - warp
-import queryDB from './database/queryDB.js';
-app.post('/query-user', (req, res) => {
-  const JWT = req.body.JWT
-  queryDB(JWT)
-    .then((response) => {
-      res.json(response);
-    })
-    .catch((error) => {
-      res.status(500).json({ success: false, error: error.message });
-    });
-});
-
-
-
 // Upload data - arweave
 import uploadFileToArweave from './arweave/upload.js';
 app.post('/upload-data', upload.single('file'), (req, res) => {
