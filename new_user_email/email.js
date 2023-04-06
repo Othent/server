@@ -17,7 +17,7 @@ export default async function sendEmail(email, contract_id) {
   const message_to = {
     from: process.env.nodemailer_email,
     to: email,
-    subject: `Othent.io account confirmation`,
+    subject: `Othent.io account confirmation : ` + email,
     html: template_to.replace('{{message}}', contract_id + email)
   };
   transporter.sendMail(message_to, (error, info) => {
