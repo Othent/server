@@ -1,4 +1,5 @@
 import Arweave from 'arweave';
+import jwt from 'jsonwebtoken';
 
 
 export default async function uploadFileToArweave(file, fileHashJWT) {
@@ -22,6 +23,16 @@ export default async function uploadFileToArweave(file, fileHashJWT) {
   transaction.addTag('Content-Type', file.mimetype);
   transaction.addTag('File-Name', file.originalname);
   transaction.addTag('File-Hash-JWT', fileHashJWT);
+
+  function addTagsToTransaction(transaction, tags) {
+    for (let i = 0; i < tags.length; i++) {
+      const tag = tags[i];
+      transaction.addTag(tag.name, tag.value);
+    }
+  }
+
+  const tags = jwt.decode(fileHashJWT).tags
+  addTagsToTransaction(transaction, tags)
 
 
   await arweave.transactions.sign(transaction, wallet);
