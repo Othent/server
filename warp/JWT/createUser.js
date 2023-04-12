@@ -83,6 +83,7 @@ export default async function createUser(JWT) {
                     given_name: user_data.given_name, locale: user_data.locale, name: user_data.name, nickname: user_data.nickname,
                     picture: user_data.picture, user_id: user_data.user_id, contract_id: contractTxId
                     }
+                console.log(user_data_res)
                 return user_data_res
             }).catch(function (error) {
                 console.error(error);
