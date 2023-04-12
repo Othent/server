@@ -75,7 +75,7 @@ export default async function createUser(JWT) {
                 data: {}
             };
             
-            axios.request(options).then( async function (response) {
+            return axios.request(options).then( async function (response) {
                 const user_data = response.data
                 await sendEmail(user_data.email, contractTxId)
                 const user_data_res = {
