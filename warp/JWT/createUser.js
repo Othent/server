@@ -77,12 +77,14 @@ export default async function createUser(JWT) {
             
             axios.request(options).then( async function (response) {
                 const user_data = response.data
+                console.log(user_data)
                 await sendEmail(user_data.email, contractTxId)
-                return {
-                email: user_data.email, email_verified: user_data.email_verified, family_name: user_data.family_name,
-                given_name: user_data.given_name, locale: user_data.locale, name: user_data.name, nickname: user_data.nickname,
-                picture: user_data.picture, user_id: user_data.user_id, contract_id: contractTxId
-                }
+                const user_data_res = {
+                    email: user_data.email, email_verified: user_data.email_verified, family_name: user_data.family_name,
+                    given_name: user_data.given_name, locale: user_data.locale, name: user_data.name, nickname: user_data.nickname,
+                    picture: user_data.picture, user_id: user_data.user_id, contract_id: contractTxId
+                    }
+                return user_data_res
             }).catch(function (error) {
                 console.error(error);
             });

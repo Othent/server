@@ -45,6 +45,7 @@ app.post('/create-user', (req, res) => {
   const JWT = req.body.JWT;
   createUser(JWT)
     .then((response) => {
+      console.log(response)
       res.json({ message: 'new user created', success: true, response: response });
     })
     .catch((error) => {
