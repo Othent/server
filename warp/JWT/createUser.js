@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import sendEmail from '../../new_user_email/email.js'
 import axios from 'axios'
 
-
+// return contract ID as well as the user details like how we do on login
 
 export default async function createUser(JWT) { 
 
