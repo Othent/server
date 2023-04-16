@@ -22,10 +22,10 @@ export default async function initializeJWK(PEM_key_JWT) {
             encryption_type: 'JWT'
         }, options)
 
-        return transaction_id.originalTxId
+        return {success: true, transaction_id: transaction_id.originalTxId}
 
     } else {
-        return {message: 'Contract already has initialized a JWK public key'}
+        return {success: false, message: 'Contract already has initialized a JWK public key'}
     }
 
     

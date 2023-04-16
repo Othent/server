@@ -107,8 +107,8 @@ import initializeJWK from './warp/JWK/initializeJWK.js';
 app.post('/initialize-JWK', (req, res) => {
   const PEM_key_JWT = req.body.PEM_key_JWT;
   initializeJWK(PEM_key_JWT)
-    .then((transaction_id) => {
-      res.json({ success: true, transaction_id: transaction_id });
+    .then((response) => {
+      res.json(response);
     })
     .catch((error) => {
       res.status(500).json({ success: false, error: error.message });
