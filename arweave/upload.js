@@ -32,6 +32,7 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
       throw new Error('Invalid data type');
     }
   }
+  
 
   const arweave_data = await toBuffer()
 
