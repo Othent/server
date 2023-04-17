@@ -18,17 +18,13 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
   async function toBuffer(data) {
     if (typeof data === 'string') {
       return Buffer.from(data);
-    }
-    else if (data instanceof Uint8Array || Array.isArray(data)) {
+    } else if (data instanceof Uint8Array || Array.isArray(data)) {
       return Buffer.from(data);
-    }
-    else if (data instanceof ArrayBuffer) {
+    } else if (data instanceof ArrayBuffer) {
       return Buffer.from(new Uint8Array(data));
-    }
-    else if (JSON.stringify(typeof data) === 'object') {
+    } else if (JSON.stringify(typeof data) === 'object') {
       return data.buffer;
-    }
-    else {
+    } else {
       throw new Error('Invalid data type');
     }
   }
