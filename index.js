@@ -8,7 +8,7 @@ app.use(cors({
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 import multer from 'multer';
-const upload = multer({ dest: 'uploads/' });
+const upload = multer();
 
 
 
@@ -91,6 +91,7 @@ app.post('/upload-data', upload.single('file'), (req, res) => {
   const data = req.file;
   const dataHashJWT = req.body.dataHashJWT;
   console.log(data)
+  console.log(data.buffer)
   uploadFileToArweave(data, dataHashJWT)
     .then((transaction_id) => {
       res.json({ success: true, transactionId: transaction_id });

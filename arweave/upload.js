@@ -15,17 +15,8 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
   const wallet = JSON.parse(walletData);
 
 
-
-  fs.readFile('uploads/0d403ffb2cd482a314bbb5b99a7269a1', (err, lol) => {
-    if (err) throw err;
-
-    // `data` is now a buffer that contains the contents of the file
-    console.log(lol);
-  });
-
-
   const transaction = await arweave.createTransaction({
-    data: lol
+    data: data.buffer
   }, wallet);
 
   transaction.addTag('App', 'Othent.io');
