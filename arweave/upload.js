@@ -15,6 +15,7 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
   const wallet = JSON.parse(walletData);
 
   console.log(JSON.stringify(typeof data))
+  console.log(typeof data)
 
   async function toBuffer(data) {
     if (typeof data === 'string') {
@@ -26,7 +27,7 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
     else if (data instanceof ArrayBuffer) {
       return Buffer.from(new Uint8Array(data));
     }
-    else if (typeof data === 'object') {
+    else if (JSON.stringify(typeof data) === 'object') {
       return Buffer.from(JSON.stringify(data));
     }
     else if (typeof data === 'file') {
