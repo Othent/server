@@ -92,7 +92,6 @@ app.post('/upload-data', upload.single('file'), (req, res) => {
   const dataHashJWT = req.body.dataHashJWT;
   console.log(data)
   console.log(data.buffer)
-  console.log(req.body)
   uploadFileToArweave(data, dataHashJWT)
     .then((transaction_id) => {
       res.json({ success: true, transactionId: transaction_id });
