@@ -14,6 +14,7 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
   const walletData = process.env.wallet;
   const wallet = JSON.parse(walletData);
 
+  console.log(typeof data)
 
   async function toBuffer(data) {
     if (typeof data === 'string') {
@@ -32,7 +33,7 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
       throw new Error('Invalid data type');
     }
   }
-  
+
 
   const arweave_data = await toBuffer()
 
