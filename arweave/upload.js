@@ -2,7 +2,7 @@ import Arweave from 'arweave';
 import jwt from 'jsonwebtoken';
 
 
-export default async function uploadFileToArweave(data, fileHashJWT) {
+export default async function uploadFileToArweave(data, dataHashJWT) {
 
   const arweave = Arweave.init({
     host: 'arweave.net',
@@ -20,7 +20,7 @@ export default async function uploadFileToArweave(data, fileHashJWT) {
   }, wallet);
 
   transaction.addTag('App', 'Othent.io');
-  transaction.addTag('File-Hash-JWT', fileHashJWT);
+  transaction.addTag('File-Hash-JWT', dataHashJWT);
 
   function addTagsToTransaction(transaction, tags) {
     for (let i = 0; i < tags.length; i++) {
@@ -29,7 +29,7 @@ export default async function uploadFileToArweave(data, fileHashJWT) {
     }
   }
 
-  const tags = jwt.decode(fileHashJWT).tags
+  const tags = jwt.decode(dataHashJWT).tags
   addTagsToTransaction(transaction, tags)
 
 
