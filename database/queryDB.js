@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken';
 
 
 export default async function queryDB(JWT) {
+
+  console.log(jwt.decode(JWT))
   
   const contract_id = jwt.decode(JWT).contract_id
   const unique_id = jwt.decode(JWT).sub
