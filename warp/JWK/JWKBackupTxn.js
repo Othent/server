@@ -7,8 +7,6 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
 
     const user = await queryDB(JWK_signed_JWT);
 
-    console.log(user)
-
 
     const wallet = await configureWallet()
     const contract = warp.contract(user.contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
@@ -19,7 +17,7 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
 
     const transaction_id = await contract.writeInteraction({
         function: 'JWKBackupTxn',
-        jwt: JWT,
+        jwt: JWK_signed_JWT,
         encryption_type: 'JWK'
     }, options)
 
