@@ -6,9 +6,9 @@ import jwt from 'jsonwebtoken';
 export default async function JWKBackupTxn(JWK_signed_JWT) {
 
     const state = (await readContract(JWK_signed_JWT)).state
-    const last_nonce = jwt.decode(JWK_signed_JWT).iat
+    const current_nonce = jwt.decode(JWK_signed_JWT).iat
 
-    if (state.last_nonce < last_nonce) {
+    if (state.last_nonce < current_nonce) {
         const wallet = await configureWallet()
         const contract = warp.contract(state.contract_address).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
         const options = {tags: [

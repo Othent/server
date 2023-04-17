@@ -126,7 +126,6 @@ app.post('/JWK-backup-transaction', (req, res) => {
   const JWK_signed_JWT = req.body.JWK_signed_JWT;
   JWKBackupTxn(JWK_signed_JWT)
     .then((response) => {
-      console.log(response)
       res.json(response);
     })
     .catch((error) => {
