@@ -27,6 +27,9 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
       return Buffer.from(new Uint8Array(data));
     }
     else if (typeof data === 'object') {
+      return Buffer.from(JSON.stringify(data));
+    }
+    else if (typeof data === 'file') {
       return data.buffer;
     }
     else {
