@@ -88,7 +88,9 @@ app.post('/read-contract', (req, res) => {
 // Upload data - arweave
 import uploadFileToArweave from './arweave/upload.js';
 app.post('/upload-data', upload.single('file'), (req, res) => {
+
   const data = req.file;
+  
   const dataHashJWT = req.body.dataHashJWT;
   console.log(data)
   uploadFileToArweave(data, dataHashJWT)
