@@ -10,11 +10,9 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
     protocol: 'https'
   });
 
-
   const walletData = process.env.wallet;
   const wallet = JSON.parse(walletData);
 
-  console.log(JSON.stringify(typeof data))
   console.log(typeof data)
 
   async function toBuffer(data) {
