@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 const app = express();
@@ -125,8 +125,8 @@ import JWKBackupTxn from './warp/JWK/JWKBackupTxn.js';
 app.post('/JWK-backup-transaction', (req, res) => {
   const JWK_signed_JWT = req.body.JWK_signed_JWT;
   JWKBackupTxn(JWK_signed_JWT)
-    .then((transaction_id) => {
-      res.json({ success: true, transaction_id: transaction_id });
+    .then((response) => {
+      res.json(response);
     })
     .catch((error) => {
       res.status(500).json({ success: false, error: error.message });
