@@ -123,8 +123,8 @@ app.post('/initialize-JWK', (req, res) => {
 // JWK backup transaction - warp
 import JWKBackupTxn from './warp/JWK/JWKBackupTxn.js';
 app.post('/JWK-backup-transaction', (req, res) => {
-  const JWT = req.body.JWT;
-  JWKBackupTxn(JWT)
+  const JWK_signed_JWT = req.body.JWK_signed_JWT;
+  JWKBackupTxn(JWK_signed_JWT)
     .then((transaction_id) => {
       res.json({ success: true, transaction_id: transaction_id });
     })

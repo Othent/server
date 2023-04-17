@@ -3,12 +3,15 @@ import queryDB from '../../database/queryDB.js'
 
 
 
-export default async function JWKBackupTxn(JWT) {
+export default async function JWKBackupTxn(JWK_signed_JWT) {
 
-    const contract_id = await queryDB(JWT);
+    const user = await queryDB(JWK_signed_JWT);
+
+    console.log(user)
+
 
     const wallet = await configureWallet()
-    const contract = warp.contract(contract_id.contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
+    const contract = warp.contract(user.contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
     const options = {tags: [
         {name: "Contract-App", value: "Othent.io"}, 
         {name: "Function", value: "JWKBackupTxn"}
