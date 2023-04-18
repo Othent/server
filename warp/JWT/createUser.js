@@ -58,43 +58,63 @@ export default async function createUser(JWT) {
         await updateDB(decoded_JWT.sub, contractTxId)
 
 
-        var auth0Domain = process.env.auth0Domain;
-        var auth0ClientId = process.env.auth0ClientId;
-        var auth0ClientSecret = process.env.auth0ClientSecret;
-        var audience = 'https://' + auth0Domain + '/api/v2/';
-        var tokenUrl = 'https://' + auth0Domain + '/oauth/token';
-        var tokenParams = { grant_type: 'client_credentials', client_id: auth0ClientId, client_secret: auth0ClientSecret, audience: audience };
-        await axios.post(tokenUrl, tokenParams)
-        .then(async function (response) {
-            var token = response.data.access_token;
+        const auth0Domain = process.env.auth0Domain;
+        const auth0ClientId = process.env.auth0ClientId;
+        const auth0ClientSecret = process.env.auth0ClientSecret;
+        const audience = `https://${auth0Domain}/api/v2/`;
+        const tokenUrl = `https://${auth0Domain}/oauth/token`;
+        const tokenParams = {
+        grant_type: 'client_credentials',
+        client_id: auth0ClientId,
+        client_secret: auth0ClientSecret,
+        audience: audience
+        };
 
-            var options = {
-                method: 'GET',
-                url: 'https://othent.us.auth0.com/api/v2/users/' + decoded_JWT.sub,
-                headers: {authorization: 'Bearer ' + token, 'content-type': 'application/json'},
-                data: {}
+        fetch(tokenUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(tokenParams)
+        })
+        .then(response => response.json())
+        .then(tokenResponse => {
+            const token = tokenResponse.access_token;
+
+            const options = {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
             };
-            
-            const user_data = await axios.request(options).then( async function (response) {
-                const user_data = response.data
-                await sendEmail(user_data.email, contractTxId)
+
+            fetch(`https://othent.us.auth0.com/api/v2/users/${decoded_JWT.sub}`, options)
+            .then(response => response.json())
+            .then(user_data => {
+                sendEmail(user_data.email, contractTxId);
                 const user_data_res = {
-                    email: user_data.email, email_verified: user_data.email_verified, family_name: user_data.family_name,
-                    given_name: user_data.given_name, locale: user_data.locale, name: user_data.name, nickname: user_data.nickname,
-                    picture: user_data.picture, user_id: user_data.user_id, contract_id: contractTxId
-                    }
-                // console.log(user_data_res)
-                return user_data_res
-            }).catch(function (error) {
+                email: user_data.email,
+                email_verified: user_data.email_verified,
+                family_name: user_data.family_name,
+                given_name: user_data.given_name,
+                locale: user_data.locale,
+                name: user_data.name,
+                nickname: user_data.nickname,
+                picture: user_data.picture,
+                user_id: user_data.user_id,
+                contract_id: contractTxId
+                };
+                console.log(user_data_res);
+            })
+            .catch(error => {
                 console.error(error);
             });
-
-            console.log(user_data)
-            return {user_data: user_data}
-
-
-
         })
+        .catch(error => {
+            console.error(error);
+        });
+
 
 
 
