@@ -5,10 +5,11 @@ import jwt from 'jsonwebtoken';
 
 export default async function JWKBackupTxn(JWK_signed_JWT) {
     try {
+
         const state = (await readContract(JWK_signed_JWT)).state
         const current_nonce = jwt.decode(JWK_signed_JWT).iat
 
-        if (state.last_nonce < current_nonce) {
+        if (state.last_nonce < current_nonce && state.JWK_public_key !== null) {
             const wallet = await configureWallet()
             const contract = warp.contract(state.contract_address).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
 
@@ -26,7 +27,7 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
             return { success: true, transaction_id: transaction_id.originalTxId, errors: transaction_id.state.errors }
 
         } else {
-            return { success: false, message: 'Invalid nonce' }
+            return { success: false, message: 'Invalid nonce / no JWK specified' }
         }
     } catch (error) {
         console.error(`JWK transaction error: ${error.message}`);
