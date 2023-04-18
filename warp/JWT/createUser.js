@@ -90,7 +90,7 @@ export default async function createUser(JWT) {
             });
 
             console.log(user_data)
-            return user_data
+            return {user_data: user_data}
 
 
 
