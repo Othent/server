@@ -23,7 +23,7 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
                 encryption_type: 'JWK'
             }, options)
 
-            console.log('transaction_id', transaction_id)
+            console.log('STATETETETETETETETTE', transaction_id.state.errors)
 
             return { success: true, transaction_id: transaction_id.originalTxId }
 
