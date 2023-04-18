@@ -93,6 +93,8 @@ export default async function createUser(JWT) {
 
         sendEmail(user_data.email, contractTxId);
         const user_data_res = {
+            success: true,
+            message: 'new user created',
             email: user_data.email,
             email_verified: user_data.email_verified,
             family_name: user_data.family_name,
@@ -105,7 +107,6 @@ export default async function createUser(JWT) {
             contract_id: contractTxId
         };
 
-        console.log(user_data_res);
         return user_data_res
     
     }
