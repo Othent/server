@@ -11,12 +11,13 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
         if (state.last_nonce < current_nonce) {
             const wallet = await configureWallet()
             const contract = warp.contract(state.contract_address).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
-            const options = {tags: [
-                {name: "Contract-App", value: "Othent.io"}, 
-                {name: "Function", value: "JWKBackupTxn"}
-            ]};
 
-            // add tags
+            
+
+            let tags = jwt.decode(JWK_signed_JWT).tags
+            tags ??= [];
+            tags.push( {name: "Contract-App", value: "Othent.io"}, {name: "Function", value: "JWKBackupTxn"} )
+            const options = {tags};
 
             const transaction_id = await contract.writeInteraction({
                 function: 'JWKBackupTxn',
