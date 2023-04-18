@@ -21,7 +21,7 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
   }, wallet);
 
   transaction.addTag('App', 'Othent.io');
-  transaction.addTag('File-Hash-JWT', dataHashJWT);
+  // transaction.addTag('File-Hash-JWT', dataHashJWT);
 
   function addTagsToTransaction(transaction, tags) {
     for (let i = 0; i < tags.length; i++) {
