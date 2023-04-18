@@ -16,6 +16,8 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
                 {name: "Function", value: "JWKBackupTxn"}
             ]};
 
+            // add tags
+
             const transaction_id = await contract.writeInteraction({
                 function: 'JWKBackupTxn',
                 jwt: JWK_signed_JWT,
