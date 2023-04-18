@@ -13,28 +13,9 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
   const walletData = process.env.wallet;
   const wallet = JSON.parse(walletData);
 
-  console.log(typeof data)
-
-  async function toBuffer(data) {
-    if (typeof data === string) {
-      return Buffer.from(data);
-    } else if (data instanceof Uint8Array || Array.isArray(data)) {
-      return Buffer.from(data);
-    } else if (data instanceof ArrayBuffer) {
-      return Buffer.from(new Uint8Array(data));
-    } else if (typeof data === object) {
-      return data.buffer;
-    } else {
-      throw new Error('Invalid data type');
-    }
-  }
-
-
-  const arweave_data = await toBuffer(data)
-
 
   const transaction = await arweave.createTransaction({
-    data: arweave_data
+    data: data.buffer
   }, wallet);
 
   transaction.addTag('App', 'Othent.io');
