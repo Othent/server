@@ -64,70 +64,53 @@ export default async function createUser(JWT) {
         const audience = `https://${auth0Domain}/api/v2/`;
         const tokenUrl = `https://${auth0Domain}/oauth/token`;
         const tokenParams = {
-        grant_type: 'client_credentials',
-        client_id: auth0ClientId,
-        client_secret: auth0ClientSecret,
-        audience: audience
+            grant_type: 'client_credentials',
+            client_id: auth0ClientId,
+            client_secret: auth0ClientSecret,
+            audience: audience
         };
 
-        fetch(tokenUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(tokenParams)
-        })
-        .then(response => response.json())
-        .then(tokenResponse => {
-            const token = tokenResponse.access_token;
+        const tokenResponse = await fetch(tokenUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(tokenParams)
+        });
 
-            const options = {
+        const { access_token: token } = await tokenResponse.json();
+
+        const options = {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
-            };
+        };
 
-            fetch(`https://othent.us.auth0.com/api/v2/users/${decoded_JWT.sub}`, options)
-            .then(response => response.json())
-            .then(user_data => {
-                sendEmail(user_data.email, contractTxId);
-                const user_data_res = {
-                email: user_data.email,
-                email_verified: user_data.email_verified,
-                family_name: user_data.family_name,
-                given_name: user_data.given_name,
-                locale: user_data.locale,
-                name: user_data.name,
-                nickname: user_data.nickname,
-                picture: user_data.picture,
-                user_id: user_data.user_id,
-                contract_id: contractTxId
-                };
-                console.log(user_data_res);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        })
-        .catch(error => {
-            console.error(error);
-        });
+        const userResponse = await fetch(`https://othent.us.auth0.com/api/v2/users/${decoded_JWT.sub}`, options);
+        const user_data = await userResponse.json();
 
+        sendEmail(user_data.email, contractTxId);
+        const user_data_res = {
+            email: user_data.email,
+            email_verified: user_data.email_verified,
+            family_name: user_data.family_name,
+            given_name: user_data.given_name,
+            locale: user_data.locale,
+            name: user_data.name,
+            nickname: user_data.nickname,
+            picture: user_data.picture,
+            user_id: user_data.user_id,
+            contract_id: contractTxId
+        };
 
-
-
-
-
-
+        console.log(user_data_res);
+        return user_data_res
+    
     }
-
+    
     else {
         return checkDB.contract_id
     }
-    
-}
-
-
-
+}    
