@@ -13,6 +13,8 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
   const walletData = process.env.wallet;
   const wallet = JSON.parse(walletData);
 
+  console.log(data)
+
 
   const transaction = await arweave.createTransaction({
     data: data
