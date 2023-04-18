@@ -25,7 +25,7 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
 
             console.log('STATETETETETETETETTE', transaction_id.state.errors)
 
-            return { success: true, transaction_id: transaction_id.originalTxId }
+            return { success: true, transaction_id: transaction_id.originalTxId, errors: transaction_id.state.errors }
 
         } else {
             return { success: false, message: 'Invalid nonce' }
