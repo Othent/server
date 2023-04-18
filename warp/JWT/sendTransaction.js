@@ -4,8 +4,6 @@ import jwt from 'jsonwebtoken';
 
 export default async function sendTransaction(JWT) {
 
-    // check nonce
-
     const contract_id = await queryDB(JWT);
     const wallet = await configureWallet()
     const contract = warp.contract(contract_id.contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)

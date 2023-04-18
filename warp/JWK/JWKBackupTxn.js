@@ -28,7 +28,7 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
             return { success: false, message: 'Invalid nonce' }
         }
     } catch (error) {
-        throw new Error(`JWK transaction error: ${error.message}`)
+        console.error(`JWK transaction error: ${error.message}`);
+        return { success: false, message: 'Error processing JWK transaction' };
     }
 }
-
