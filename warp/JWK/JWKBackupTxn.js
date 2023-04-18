@@ -31,6 +31,6 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
         }
     } catch (error) {
         console.error(`JWK transaction error: ${error.message}`);
-        return { success: false, message: 'Error processing JWK transaction' };
+        return { success: false, message: 'Error processing JWK transaction', error: error.message };
     }
 }
