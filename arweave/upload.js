@@ -39,5 +39,7 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
 
   const transaction_id = transaction.id;
 
+  console.log(transaction_id)
+
   return transaction_id;
 }
