@@ -22,7 +22,9 @@ export default async function sendTransaction(JWT) {
             encryption_type: 'JWT'
         }, options)
 
-        const { state, validity, errorMessages } = await contract.readState();
+
+        const { cachedValue } = await contract.readState();
+        const { state, validity, errorMessages} = cachedValue
 
         console.log(state)
         console.log(validity)
@@ -34,7 +36,7 @@ export default async function sendTransaction(JWT) {
             return { success: false, transactionId: transaction_id.originalTxId, errors: errorMessages  }
         }
 
-        
+
     } catch(errors) {
         return { success: false, transactionId: transaction_id ? transaction_id.originalTxId : null, errors: errors }
     }
