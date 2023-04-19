@@ -1,6 +1,7 @@
 import { warp, configureWallet } from '../warp-configs.js'
 import queryDB from '../../database/queryDB.js'
 import jwt from 'jsonwebtoken';
+import readContract from '../readContract.js';
 
 export default async function sendTransaction(JWT) {
 
@@ -22,13 +23,20 @@ export default async function sendTransaction(JWT) {
             encryption_type: 'JWT'
         }, options)
 
+        const errors = await readContract(JWT).errors
 
-        return { success: true, transactionId: transaction_id.originalTxId }
+        if (JSON.stringify(errors) !== '{}') {
+
+            return { success: true, transactionId: transaction_id.originalTxId }
+
+        } else {
+            return { success: false, transactionId: transaction_id.originalTxId, errors: errors  }
+        }
 
 
-    } catch(error) {
+    } catch(errors) {
 
-        return { success: false, transactionId: transaction_id.originalTxId, error: error  }
+        return { success: false, transactionId: transaction_id.originalTxId, errors: errors  }
 
     }
 
