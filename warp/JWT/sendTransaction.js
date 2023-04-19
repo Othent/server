@@ -4,27 +4,35 @@ import jwt from 'jsonwebtoken';
 
 export default async function sendTransaction(JWT) {
 
-    // try and catch 
+    try {
+
+        const contract_id = await queryDB(JWT);
+        const wallet = await configureWallet()
+        const contract = warp.contract(contract_id.contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
+        
+        const decoded_JWT = jwt.decode(JWT)
+        let tags = decoded_JWT.tags
+        tags.push( {name: "Contract-App", value: "Othent.io"}, {name: "Function", value: "sendTransaction"} )
+        const options = {tags};
 
 
-    const contract_id = await queryDB(JWT);
-    const wallet = await configureWallet()
-    const contract = warp.contract(contract_id.contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
+        const transaction_id = await contract.writeInteraction({
+            function: 'sendTransaction',
+            jwt: JWT,
+            encryption_type: 'JWT'
+        }, options)
+
+
+        return { success: true, transactionId: transaction_id.originalTxId }
+
+    } catch(error) {
+
+        return { success: false, transactionId: transaction_id.originalTxId, error: error  }
+
+    }
+
+
     
-    const decoded_JWT = jwt.decode(JWT)
-    let tags = decoded_JWT.tags
-    tags.push( {name: "Contract-App", value: "Othent.io"}, {name: "Function", value: "sendTransaction"} )
-    const options = {tags};
-
-
-    const transaction_id = await contract.writeInteraction({
-        function: 'sendTransaction',
-        jwt: JWT,
-        encryption_type: 'JWT'
-    }, options)
-
-
-    return transaction_id
 }
 
 

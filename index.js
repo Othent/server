@@ -59,8 +59,8 @@ import sendTransaction from './warp/JWT/sendTransaction.js';
 app.post('/send-transaction', (req, res) => {
   const JWT = req.body.JWT;
   sendTransaction(JWT)
-    .then((transaction_id) => {
-      res.json({ success: true, transactionId: transaction_id });
+    .then((response) => {
+      res.json(response);
     })
     .catch((error) => {
       res.status(500).json({ success: false, error: error.message });
