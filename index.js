@@ -131,6 +131,20 @@ app.post('/JWK-backup-transaction', (req, res) => {
 
 
 
+// Read custom contract - warp
+import readCustomContract from './warp/readCustomContract.js';
+app.post('/read-custom-contract', (req, res) => {
+  const contract_id = req.body.contract_id;
+  readCustomContract(contract_id)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((error) => {
+      res.status(500).json({ success: false, error: error.message });
+    });
+});
+
+
 
 
 

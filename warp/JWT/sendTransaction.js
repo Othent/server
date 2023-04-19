@@ -18,8 +18,6 @@ export default async function sendTransaction(JWT) {
     const toContractFunction = decoded_JWT.contract_input.data.toContractFunction;
 
 
-    console.log('ROHHHITTTTT', toContractFunction)
-
 
     const transaction_id = await contract.writeInteraction({
         function: 'sendTransaction',
