@@ -22,7 +22,7 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
             tags.push( {name: "Contract-App", value: "Othent.io"}, {name: "Function", value: "JWKBackupTxn"} )
             const options = {tags};
 
-            const othentFunction = decoded_JWT.othentFunction
+            const othentFunction = decoded_JWT.contract_input.othentFunction
 
             const transaction_id = await contract.writeInteraction({
                 function: othentFunction,
