@@ -25,7 +25,7 @@ export default async function sendTransaction(JWT) {
 
         const errors = await readContract(JWT).errors
 
-        console.log(errors)
+        console.log('idfhdshhdsohhsdhf', 'errors')
 
         if (JSON.stringify(errors) === '{}') {
 
