@@ -25,14 +25,10 @@ export default async function sendTransaction(JWT) {
     const { cachedValue } = await contract.readState();
     const { state, validity, errorMessages} = cachedValue
 
-    console.log(state)
-    console.log(validity)
-    console.log(errorMessages)
-
     const transactionId = transaction_id.originalTxId
 
     if (Object.keys(errorMessages).length === 0) {
-        return { success: true, transactionId }
+        return { success: true, transactionId, errors: errorMessages }
     } else {
         return { success: false, transactionId, errors: errorMessages  }
     }
