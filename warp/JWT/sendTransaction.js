@@ -24,6 +24,7 @@ export default async function sendTransaction(JWT) {
 
 
         return { success: true, transactionId: transaction_id.originalTxId }
+        
 
     } catch(error) {
 
