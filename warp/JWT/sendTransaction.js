@@ -22,7 +22,7 @@ export default async function sendTransaction(JWT) {
 
 
     const transaction_id = await contract.writeInteraction({
-        function: toContractFunction,
+        function: 'sendTransaction',
         jwt: JWT,
         encryption_type: 'JWT'
     }, options)
