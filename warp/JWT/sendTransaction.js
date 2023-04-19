@@ -23,11 +23,11 @@ export default async function sendTransaction(JWT) {
             encryption_type: 'JWT'
         }, options)
 
-        const errors = await readContract(JWT).errors
+        const { cachedValue } = await contract.readState();
 
-        console.log('idfhdshhdsohhsdhf', 'errors')
+        console.log('idfhdshhdsohhsdhf', cachedValue.errorMessages)
 
-        if (JSON.stringify(errors) === '{}') {
+        if (cachedValue.errorMessages) {
 
             return { success: true, transactionId: transaction_id.originalTxId }
 
