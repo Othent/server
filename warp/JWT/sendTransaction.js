@@ -25,6 +25,9 @@ export default async function sendTransaction(JWT) {
 
         const { cachedValue } = await contract.readState();
 
+        console.log(cachedValue)
+        console.log(transaction_id.originalTxId)
+
         console.log('idfhdshhdsohhsdhf', cachedValue.errorMessages)
 
         if (cachedValue.errorMessages === {}) {
