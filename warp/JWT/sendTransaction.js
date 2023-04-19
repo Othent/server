@@ -25,7 +25,9 @@ export default async function sendTransaction(JWT) {
 
         const errors = await readContract(JWT).errors
 
-        if (JSON.stringify(errors) !== '{}') {
+        console.log(errors)
+
+        if (JSON.stringify(errors) === '{}') {
 
             return { success: true, transactionId: transaction_id.originalTxId }
 
