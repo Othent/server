@@ -14,11 +14,6 @@ export default async function sendTransaction(JWT) {
     const options = {tags};
 
 
-
-    const toContractFunction = decoded_JWT.contract_input.data.toContractFunction;
-
-
-
     const transaction_id = await contract.writeInteraction({
         function: 'sendTransaction',
         jwt: JWT,
