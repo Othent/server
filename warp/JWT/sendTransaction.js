@@ -4,9 +4,9 @@ import jwt from 'jsonwebtoken';
 import readContract from '../readContract.js';
 
 export default async function sendTransaction(JWT) {
+    let transaction_id = null;
 
     try {
-
         const contract_id = await queryDB(JWT);
         const wallet = await configureWallet()
         const contract = warp.contract(contract_id.contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
@@ -16,37 +16,26 @@ export default async function sendTransaction(JWT) {
         tags.push( {name: "Contract-App", value: "Othent.io"}, {name: "Function", value: "sendTransaction"} )
         const options = {tags};
 
-
-        const transaction_id = await contract.writeInteraction({
+        transaction_id = await contract.writeInteraction({
             function: 'sendTransaction',
             jwt: JWT,
             encryption_type: 'JWT'
         }, options)
 
-        const { cachedValue } = await contract.readState();
+        const { state, validity, errorMessages } = await contract.readState();
 
-        console.log(cachedValue)
-        console.log(transaction_id.originalTxId)
+        console.log(state)
+        console.log(validity)
+        console.log(errorMessages)
 
-        console.log('idfhdshhdsohhsdhf', cachedValue.errorMessages)
-
-        if (cachedValue.errorMessages === {}) {
-
+        if (Object.keys(errorMessages).length === 0) {
             return { success: true, transactionId: transaction_id.originalTxId }
-
         } else {
-            return { success: false, transactionId: transaction_id.originalTxId, errors: errors  }
+            return { success: false, transactionId: transaction_id.originalTxId, errors: errorMessages  }
         }
 
-
+        
     } catch(errors) {
-
-        return { success: false, transactionId: transaction_id.originalTxId, errors: errors  }
-
+        return { success: false, transactionId: transaction_id ? transaction_id.originalTxId : null, errors: errors }
     }
-
-
-    
 }
-
-
