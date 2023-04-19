@@ -21,7 +21,7 @@ export default async function createUser(JWT) {
             last_nonce: null,
             JWK_public_key: null
         }
-        let contract_code = await fetch('https://othent.io/contract.js')
+        let contract_code = await fetch('https://othent.io/contract-new.js')
         contract_code = await contract_code.text();
 
 
