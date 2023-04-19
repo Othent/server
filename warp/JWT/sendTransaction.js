@@ -27,7 +27,7 @@ export default async function sendTransaction(JWT) {
 
         console.log('idfhdshhdsohhsdhf', cachedValue.errorMessages)
 
-        if (cachedValue.errorMessages) {
+        if (cachedValue.errorMessages === {}) {
 
             return { success: true, transactionId: transaction_id.originalTxId }
 
