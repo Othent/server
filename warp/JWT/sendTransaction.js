@@ -34,7 +34,7 @@ export default async function sendTransaction(JWT) {
     if (Object.keys(errorMessages).length === 0) {
         return { success: true, transactionId }
     } else {
-        return { success: false, transactionId, errors: errorMessages.transactionId  }
+        return { success: false, transactionId, errors: errorMessages  }
     }
 
 
