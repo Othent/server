@@ -26,8 +26,6 @@ export default async function sendTransaction(JWT) {
     const { state, validity, errorMessages} = cachedValue
     const transactionId = transaction.originalTxId
 
-    console.log(errorMessages[transactionId])
-
     if (errorMessages[transactionId]) {
         return { success: false, transactionId, bundlrId: transaction.bundlrResponse.id, 
             errors: errorMessages[transactionId], state }
