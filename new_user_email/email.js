@@ -19,7 +19,8 @@ export default async function sendEmail(email, contract_id, given_name) {
     from: process.env.nodemailer_email,
     to: email,
     subject: `Othent.io account confirmation : ` + email,
-    html: template_to.replace('{{given_name}}', given_name).replace('{{contract_id}}', contract_id)
+    html: template_to.replace('{{given_name}}', given_name)
+    // .replace('{{contract_id}}', contract_id)
   };
   transporter.sendMail(message_to, (error, info) => {
     if (error) {
