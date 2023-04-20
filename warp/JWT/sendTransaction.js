@@ -27,7 +27,7 @@ export default async function sendTransaction(JWT) {
     const transactionId = transaction.originalTxId
 
     console.log(transactionId)
-    console.log('dhfhdsghhdshigoihgdo', errorMessages.transactionId)
+    console.log('dhfhdsghhdshigoihgdo', errorMessages[transactionId])
     console.log('LLLLLLL', errorMessages)
 
     if (errorMessages.transactionId) {
