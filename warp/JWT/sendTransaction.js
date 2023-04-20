@@ -25,16 +25,14 @@ export default async function sendTransaction(JWT) {
     const { cachedValue } = await contract.readState();
     const { state, validity, errorMessages} = cachedValue
     const transactionId = transaction.originalTxId
+    
 
-    console.log('lsfknkfs', errorMessages)
-
-
-    if (Object.keys(errorMessages).length === 0) {
+    if (errorMessages.transactionId) {
         return { success: true, transactionId, bundlrResponse: transaction.bundlrResponse, 
-            errors: errorMessages, state, validity }
+            errors: errorMessages, state }
     } else {
         return { success: false, transactionId, bundlrResponse: transaction.bundlrResponse, 
-            errors: errorMessages, state, validity }
+            errors: errorMessages, state }
         }
 
 }
