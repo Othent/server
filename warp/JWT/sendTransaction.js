@@ -26,6 +26,7 @@ export default async function sendTransaction(JWT) {
     const { state, validity, errorMessages} = cachedValue
     const transactionId = transaction.originalTxId
 
+    console.log(transactionId)
     console.log('dhfhdsghhdshigoihgdo', errorMessages.transactionId)
     console.log('LLLLLLL', errorMessages)
 
