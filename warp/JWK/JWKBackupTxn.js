@@ -8,8 +8,6 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
 
         const state = (await readContract(JWK_signed_JWT)).state
 
-        console.log('TATTATAT', state)
-
         const decoded_JWT = jwt.decode(JWK_signed_JWT)
 
         const current_nonce = decoded_JWT.iat
@@ -26,13 +24,23 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
 
             const othentFunction = decoded_JWT.contract_input.othentFunction
 
-            const transaction_id = await contract.writeInteraction({
+            const transaction = await contract.writeInteraction({
                 function: othentFunction,
                 jwt: JWK_signed_JWT,
                 encryption_type: 'JWK'
             }, options)
 
-            return { success: true, transaction_id: transaction_id.originalTxId, errors: transaction_id.state.errors }
+            const { cachedValue } = await contract.readState();
+            const { state, validity, errorMessages} = cachedValue
+            const transactionId = transaction.originalTxId
+
+            if (errorMessages[transactionId]) {
+                return { success: false, transactionId, bundlrId: transaction.bundlrResponse.id, 
+                    errors: errorMessages[transactionId], state }
+            } else if (errorMessages[transactionId] === undefined) {
+                return { success: true, transactionId, bundlrId: transaction.bundlrResponse.id, 
+                    errors: {}, state }
+            }
 
         } else {
             return { success: false, message: 'Invalid nonce / no JWK specified' }
