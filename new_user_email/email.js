@@ -14,7 +14,7 @@ export default async function sendEmail(email, contract_id, given_name) {
 
   let template_to = await fetch('https://othent.io/othent-comfirmation.html');
   template_to = await template_to.text()
-  console.log(template_to)
+
   const message_to = {
     from: process.env.nodemailer_email,
     to: email,
