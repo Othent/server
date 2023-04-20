@@ -90,7 +90,14 @@ export default async function createUser(JWT) {
         const userResponse = await fetch(`https://othent.us.auth0.com/api/v2/users/${decoded_JWT.sub}`, options);
         const user_data = await userResponse.json();
 
-        sendEmail(user_data.email, contractTxId, user_data.given_name);
+
+        if (user_data.given_name) {
+            sendEmail(user_data.email, contractTxId, user_data.given_name);
+        } else {
+            sendEmail(user_data.email, contractTxId, user_data.email);
+        }
+
+
         const user_data_res = {
             success: true,
             message: 'new user created',
