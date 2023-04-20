@@ -15,7 +15,7 @@ export default async function sendTransaction(JWT) {
     tags.push( {name: "Contract-App", value: "Othent.io"}, {name: "Function", value: "sendTransaction"} )
     const options = {tags};
 
-    const transactionId = await contract.writeInteraction({
+    const transaction = await contract.writeInteraction({
         function: 'sendTransaction',
         jwt: JWT,
         encryption_type: 'JWT'
@@ -24,15 +24,16 @@ export default async function sendTransaction(JWT) {
 
     const { cachedValue } = await contract.readState();
     const { state, validity, errorMessages} = cachedValue
+    const transactionId = transaction.originalTxId
 
-    console.log(errorMessages)
+    console.log('lsfknkfs', errorMessages)
 
 
     if (Object.keys(errorMessages).length === 0) {
-        return { success: true, transactionId: transactionId.originalTxId, bundlrResponse: transactionId.bundlrResponse, 
+        return { success: true, transactionId, bundlrResponse: transaction.bundlrResponse, 
             errors: errorMessages, state, validity }
     } else {
-        return { success: false, transactionId: transactionId.originalTxId, bundlrResponse: transactionId.bundlrResponse, 
+        return { success: false, transactionId, bundlrResponse: transaction.bundlrResponse, 
             errors: errorMessages, state, validity }
         }
 
