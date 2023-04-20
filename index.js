@@ -107,7 +107,6 @@ app.post('/upload-data', upload.single('file'), (req, res) => {
 import initializeJWK from './warp/JWK/initializeJWK.js';
 app.post('/initialize-JWK', (req, res) => {
   const PEM_key_JWT = req.body.PEM_key_JWT;
-  console.log('HELLLLOOOOJISFNKSDN')
   initializeJWK(PEM_key_JWT)
     .then((response) => {
       res.json(response);
@@ -123,6 +122,7 @@ app.post('/initialize-JWK', (req, res) => {
 import JWKBackupTxn from './warp/JWK/JWKBackupTxn.js';
 app.post('/JWK-backup-transaction', (req, res) => {
   const JWK_signed_JWT = req.body.JWK_signed_JWT;
+  console.log('HELLLLOOOOJISFNKSDN', JWK_signed_JWT)
   JWKBackupTxn(JWK_signed_JWT)
     .then((response) => {
       res.json(response);
