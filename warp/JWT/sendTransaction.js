@@ -30,7 +30,7 @@ export default async function sendTransaction(JWT) {
     console.log('dhfhdsghhdshigoihgdo', errorMessages[transactionId])
     console.log('LLLLLLL', errorMessages)
 
-    if (errorMessages.transactionId) {
+    if (errorMessages[transactionId]) {
         return { success: true, transactionId, bundlrResponse: transaction.bundlrResponse, 
             errors: errorMessages, state }
     } else {
