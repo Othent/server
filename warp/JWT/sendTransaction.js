@@ -31,11 +31,11 @@ export default async function sendTransaction(JWT) {
     console.log('LLLLLLL', errorMessages)
 
     if (errorMessages[transactionId]) {
-        return { success: true, transactionId, bundlrResponse: transaction.bundlrResponse, 
-            errors: errorMessages, state }
+        return { success: true, transactionId, bundlrResponse: transaction.bundlrResponse.id, 
+            errors: errorMessages[transactionId], state }
     } else {
-        return { success: false, transactionId, bundlrResponse: transaction.bundlrResponse, 
-            errors: errorMessages, state }
+        return { success: false, transactionId, bundlrResponse: transaction.bundlrResponse.id, 
+            errors: errorMessages[transactionId], state }
         }
 
 }
