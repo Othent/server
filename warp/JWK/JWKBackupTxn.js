@@ -12,8 +12,9 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
 
         const current_nonce = decoded_JWT.iat
 
+        
 
-        if (current_state.JWK_public_key !== null) {
+        if (current_state.JWK_public_key === null) {
 
             if (current_state.last_nonce < current_nonce) {
 
