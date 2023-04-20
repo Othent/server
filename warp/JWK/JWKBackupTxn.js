@@ -8,6 +8,8 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
 
         const state = (await readContract(JWK_signed_JWT)).state
 
+        console.log('TATTATAT', state)
+
         const decoded_JWT = jwt.decode(JWK_signed_JWT)
 
         const current_nonce = decoded_JWT.iat
