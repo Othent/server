@@ -35,12 +35,19 @@ export default async function createUser(JWT) {
             {name: "Contract-Description", value: "Othent.io merges Web2 to Web3 user logins with a familiar and simple interface"}, 
         ]};
         let tags = createOptions.tags
-        const { contractTxId } = await warp.deploy({
-            wallet: wallet, 
-            initState: JSON.stringify(contract_state), 
-            src: contract_code,
-            tags
-        });
+
+        try {
+            const { contractTxId } = await warp.deploy({
+                wallet: wallet, 
+                initState: JSON.stringify(contract_state), 
+                src: contract_code,
+                tags
+            });
+
+        } catch(e) {
+            console.log(e)
+        }
+        
 
         console.log(contractTxId)
 
