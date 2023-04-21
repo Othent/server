@@ -3,8 +3,6 @@ import updateDB from '../../database/updateDB.js'
 import queryDB from '../../database/queryDB.js'
 import jwt from 'jsonwebtoken';
 import sendEmail from '../../new_user_email/email.js'
-import { LoggerFactory } from 'warp-contracts';
-LoggerFactory.INST.logLevel('none');
 
 
 export default async function createUser(JWT) { 
