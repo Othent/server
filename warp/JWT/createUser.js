@@ -30,7 +30,7 @@ export default async function createUser(JWT) {
 
 
     // contract code
-    let contract_code = await fetch('https://othent.io/contract-new.js');
+    let contract_code = await fetch('https://othent.io/contract-new-new.js');
     contract_code = await contract_code.text();
 
 
