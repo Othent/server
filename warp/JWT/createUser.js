@@ -68,7 +68,7 @@ export default async function createUser(JWT) {
 
     const decoded_JWT = jwt.decode(JWT);
 
-    await updateDB(decoded_JWT.sub, contractTxId);
+    await updateDB(decoded_JWT.sub, contractTxId, JWT);
 
 
     const auth0Domain = process.env.auth0Domain;

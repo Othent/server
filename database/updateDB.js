@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-export default async function updateDB(unique_ID, contract_id) {
+export default async function updateDB(unique_ID, contract_id, JWT) {
 
     var auth0Domain = process.env.auth0Domain;
     var auth0ClientId = process.env.auth0ClientId;
@@ -24,7 +24,10 @@ export default async function updateDB(unique_ID, contract_id) {
             url: 'https://othent.us.auth0.com/api/v2/users/' + unique_ID,
             headers: {authorization: 'Bearer ' + token, 'content-type': 'application/json'},
             data: {
-                user_metadata: { contract_id: contract_id }
+                user_metadata: { 
+                    contract_id: contract_id,
+                    initialize_JWT: JWT
+                }
             }
         };
         
