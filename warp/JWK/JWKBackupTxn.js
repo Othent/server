@@ -6,11 +6,9 @@ import queryDB from '../../database/queryDB.js';
 
 export default async function JWKBackupTxn(JWK_signed_JWT) {
 
-    console.log('JHFNSOJBNFBNDSBNOVAB')
 
     const checkDB = await queryDB(JWK_signed_JWT)
     if (checkDB.response === 'user not found') {
-        console.log('sjfihsaonfdsn' ,checkDB)
         return {success: false, message: 'Please create a Othent account'}
     }
 
