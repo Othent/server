@@ -8,6 +8,8 @@ import sendEmail from '../../new_user_email/email.js'
 
 export default async function createUser(JWT) { 
 
+    console.log(JWT)
+
     const checkDB = await queryDB(JWT)
 
     if (checkDB.response === 'user not found') {
