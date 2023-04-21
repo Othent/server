@@ -1,7 +1,6 @@
 import { warp, configureWallet } from '../warp-configs.js'
 import queryDB from '../../database/queryDB.js'
 import jwt from 'jsonwebtoken';
-import queryDB from '../../database/queryDB.js';
 
 
 export default async function sendTransaction(JWT) {
@@ -12,10 +11,8 @@ export default async function sendTransaction(JWT) {
         return {success: false, message: 'Please create a Othent account'}
     }
 
-
-    const contract_id = await queryDB(JWT);
     const wallet = await configureWallet()
-    const contract = warp.contract(contract_id.contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
+    const contract = warp.contract(checkDB.contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
     
     const decoded_JWT = jwt.decode(JWT)
     let tags = decoded_JWT.tags
