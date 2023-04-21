@@ -4,10 +4,13 @@ import queryDB from '../database/queryDB.js'
 
 export default async function readContract(JWT) {
 
-    const contract_id = await queryDB(JWT);
+    const checkDB = await queryDB(JWT)
+    if (checkDB.response === 'user not found') {
+        return {success: false, message: 'Please create a Othent account'}
+    }
 
     const wallet = await configureWallet()
-    const contract = warp.contract(contract_id.contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
+    const contract = warp.contract(checkDB.contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
 
     const { cachedValue } = await contract.readState();
     const { state, validity, errorMessages} = cachedValue

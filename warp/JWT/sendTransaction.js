@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 
 export default async function sendTransaction(JWT) {
 
-
     const checkDB = await queryDB(JWT)
     if (checkDB.response === 'user not found') {
         return {success: false, message: 'Please create a Othent account'}

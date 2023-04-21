@@ -4,6 +4,12 @@ import jwt from 'jsonwebtoken';
 
 export default async function uploadFileToArweave(data, dataHashJWT) {
 
+  const checkDB = await queryDB(dataHashJWT)
+  if (checkDB.response === 'user not found') {
+    return {success: false, message: 'Please create a Othent account'}
+  }
+
+
   const arweave = Arweave.init({
     host: 'arweave.net',
     port: 443,
@@ -12,8 +18,6 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
 
   const walletData = process.env.wallet;
   const wallet = JSON.parse(walletData);
-
-  console.log(data)
 
 
   const transaction = await arweave.createTransaction({
