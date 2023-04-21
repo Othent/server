@@ -11,6 +11,7 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
   }
 
 
+  
 
   const arweave = Arweave.init({
     host: 'arweave.net',
