@@ -90,8 +90,8 @@ app.post('/upload-data', upload.single('file'), (req, res) => {
   const data = req.file;
   const dataHashJWT = req.body.dataHashJWT;
   uploadFileToArweave(data, dataHashJWT)
-    .then((transaction_id) => {
-      res.json({ success: true, transactionId: transaction_id });
+    .then((response) => {
+      res.json(response);
     })
     .catch((error) => {
       res.status(500).json({ success: false, error: error.message });
