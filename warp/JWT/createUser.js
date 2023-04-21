@@ -8,7 +8,10 @@ import sendEmail from '../../new_user_email/email.js'
 
 export default async function createUser(JWT) { 
 
+    console.log(JWT)
+
     const checkDB = await queryDB(JWT)
+    console.log(checkDB)
 
     if (checkDB.response === 'user not found') {
 
@@ -24,6 +27,8 @@ export default async function createUser(JWT) {
         let contract_code = await fetch('https://othent.io/contract-new.js')
         contract_code = await contract_code.text();
 
+        console.log(contract_code)
+
 
         const createOptions = {tags: [
             {name: "Contract-App", value: "Othent.io"}, 
@@ -36,6 +41,8 @@ export default async function createUser(JWT) {
             src: contract_code,
             tags
         });
+
+        console.log(contractTxId)
 
         const contract = warp.contract(contractTxId).connect(wallet.jwk).setEvaluationOptions({internalWrites: true})
 
