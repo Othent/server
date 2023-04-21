@@ -47,23 +47,25 @@ export default async function createUser(JWT) {
     ]};
     let tags = createOptions.tags
 
-    // let contractTxId;
-    // try {
-        const { contractTxId } = await warp.deploy({
+    let contractTxId;
+    try {
+        contractTxId = await warp.deploy({
             wallet: wallet, 
             initState: JSON.stringify(contract_state), 
             src: contract_code,
             tags
         });
 
+        contractTxId = contractTxId.contractTxId
+
         console.log(contractTxId)
 
-    // } catch(e) {
-    //     console.log(e);
-    //     return {
-    //         error: e
-    //     };
-    // }
+    } catch(e) {
+        console.log(e);
+        return {
+            error: e
+        };
+    }
     
     console.log('jdfjdsbfjbsdj', contractTxId);
 
