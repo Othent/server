@@ -10,6 +10,7 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
     return {success: false, message: 'Please create a Othent account'}
   }
 
+  
 
   const arweave = Arweave.init({
     host: 'arweave.net',
