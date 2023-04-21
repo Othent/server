@@ -1,6 +1,6 @@
 import Arweave from 'arweave';
 import jwt from 'jsonwebtoken';
-import queryDB from '../database/queryDB';
+import queryDB from '../database/queryDB.js'
 
 
 export default async function uploadFileToArweave(data, dataHashJWT) {
@@ -10,7 +10,7 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
     return {success: false, message: 'Please create a Othent account'}
   }
 
-  
+
 
   const arweave = Arweave.init({
     host: 'arweave.net',
