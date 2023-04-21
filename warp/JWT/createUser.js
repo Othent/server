@@ -29,15 +29,8 @@ export default async function createUser(JWT) {
 
 
     // contract code
-    let contract_code;
-    try {
-        contract_code = await fetch('https://othent.io/contract-new-new.js');
-        contract_code = await contract_code.text();
-    } catch (e) {
-        return {
-            error: e
-        };
-    }
+    let contract_code = await fetch('https://othent.io/contract-new.js');
+    contract_code = await contract_code.text();
 
 
 
@@ -47,27 +40,15 @@ export default async function createUser(JWT) {
     ]};
     let tags = createOptions.tags
 
-    let contractTxId;
-    try {
-        contractTxId = await warp.deploy({
-            wallet: wallet, 
-            initState: JSON.stringify(contract_state), 
-            src: contract_code,
-            tags
-        });
 
-        contractTxId = contractTxId.contractTxId
+    const { contractTxId } = await warp.deploy({
+        wallet: wallet, 
+        initState: JSON.stringify(contract_state), 
+        src: contract_code,
+        tags
+    });
 
-        console.log(contractTxId)
 
-    } catch(e) {
-        console.log(e);
-        return {
-            error: e
-        };
-    }
-    
-    console.log('jdfjdsbfjbsdj', contractTxId);
 
     const contract = warp.contract(contractTxId).connect(wallet.jwk).setEvaluationOptions({internalWrites: true});
 
@@ -76,29 +57,18 @@ export default async function createUser(JWT) {
         {name: "Function", value: "initializeContract"}
     ]};
 
-    try {
-        await contract.writeInteraction({
+    await contract.writeInteraction({
             function: 'initializeContract',
             jwt: JWT,
             contract_address: contractTxId,
             encryption_type: "JWT"
         }, writeOptions);
-    } catch(e) {
-        return {
-            error: e
-        };
-    }
 
-    console.log(contractTxId);
 
     const decoded_JWT = jwt.decode(JWT);
-    try {
-        await updateDB(decoded_JWT.sub, contractTxId);
-    } catch (e) {
-        return {
-            error: e
-        };
-    }
+
+    await updateDB(decoded_JWT.sub, contractTxId);
+
 
     const auth0Domain = process.env.auth0Domain;
     const auth0ClientId = process.env.auth0ClientId;
@@ -112,20 +82,14 @@ export default async function createUser(JWT) {
         audience: audience
     };
 
-    let tokenResponse;
-    try {
-        tokenResponse = await fetch(tokenUrl, {
+    const tokenResponse = await fetch(tokenUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(tokenParams)
         });    
-    } catch (e) {
-        return {
-            error: e
-        };
-    }
+
 
     const { access_token: token } = await tokenResponse.json();
 
@@ -138,26 +102,17 @@ export default async function createUser(JWT) {
     };
 
     let userResponse;
-    try {
-        userResponse = await fetch(`https://othent.us.auth0.com/api/v2/users/${decoded_JWT.sub}`, options);
-    } catch (e) {
-        return {
-            error: e
-        };
-    }
+    userResponse = await fetch(`https://othent.us.auth0.com/api/v2/users/${decoded_JWT.sub}`, options);
+
     const user_data = await userResponse.json();
 
-    try {
-        if (user_data.given_name) {
-            await sendEmail(user_data.email, contractTxId, user_data.given_name);
-        } else {
-            await sendEmail(user_data.email, contractTxId, user_data.email);
-        }    
-    } catch (e) {
-        return {
-            error: e
-        };
-    }
+
+    if (user_data.given_name) {
+        await sendEmail(user_data.email, contractTxId, user_data.given_name);
+    } else {
+        await sendEmail(user_data.email, contractTxId, user_data.email);
+    }    
+
 
     const user_data_res = {
         success: true,
