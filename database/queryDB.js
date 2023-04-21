@@ -10,7 +10,7 @@ export default async function queryDB(JWT) {
     return {contract_id: contract_id, unique_ID: unique_id}
 
   } else {
-    return {'response': 'user not found'}
+    return {response: 'user not found'}
   }
 
 }
