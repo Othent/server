@@ -8,8 +8,6 @@ import sendEmail from '../../new_user_email/email.js'
 
 export default async function createUser(JWT) { 
 
-    console.log(JWT)
-
     const checkDB = await queryDB(JWT)
 
     if (checkDB.response === 'user not found') {
@@ -52,6 +50,8 @@ export default async function createUser(JWT) {
             contract_address: contractTxId,
             encryption_type: "JWT"
         }, writeOptions)
+
+        console.log(contractTxId)
     
 
 
