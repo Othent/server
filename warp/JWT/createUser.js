@@ -44,6 +44,8 @@ export default async function createUser(JWT) {
                 tags
             });
 
+            console.log(contractTxId)
+
         } catch(e) {
             console.log(e)
         }
