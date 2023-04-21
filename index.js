@@ -48,7 +48,8 @@ app.post('/create-user', (req, res) => {
       res.json(user_data);
     })
     .catch((error) => {
-      res.status(500).json({ response: 'error creating new user', success: false, error: error.message });
+      res.status(500).json({ response: 'error creating new user', 
+      success: false, error: error.message });
     });
 });
 

@@ -10,7 +10,8 @@ export default async function readContract(JWT) {
     }
 
     const wallet = await configureWallet()
-    const contract = warp.contract(checkDB.contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
+    const contract = warp.contract(checkDB.contract_id)
+    .setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
 
     const { cachedValue } = await contract.readState();
     const { state, validity, errorMessages} = cachedValue
