@@ -1,5 +1,6 @@
 import Arweave from 'arweave';
 import jwt from 'jsonwebtoken';
+import queryDB from '../database/queryDB';
 
 
 export default async function uploadFileToArweave(data, dataHashJWT) {

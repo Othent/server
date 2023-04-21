@@ -1,7 +1,13 @@
 import { warp, configureWallet } from '../warp-configs.js'
 import readContract from '../readContract.js';
+import queryDB from '../../database/queryDB.js';
 
 export default async function initializeJWK(PEM_key_JWT) {
+
+    const checkDB = await queryDB(PEM_key_JWT)
+    if (checkDB.response === 'user not found') {
+        return {success: false, message: 'Please create a Othent account'}
+    }
 
     const check_no_key = await readContract(PEM_key_JWT)
 
