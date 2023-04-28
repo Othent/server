@@ -3,6 +3,7 @@
 
 export default async function alert(type, details) {
     const chatId = process.env.tg_chat_id
+    console.log(chatId)
 
     let message
     if (type === 'new user') {
