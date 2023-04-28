@@ -70,9 +70,7 @@ export default async function createUser(JWT) {
     const decoded_JWT = jwt.decode(JWT);
 
     await updateDB(decoded_JWT.sub, contractTxId, JWT);
-    console.log(decoded_JWT)
-    const alert_details = `(Name: ${decoded_JWT.name}) (Email: ${decoded_JWT.email})`
-    await alert('new user', alert_details)
+    
 
 
     const auth0Domain = process.env.auth0Domain;
@@ -110,6 +108,9 @@ export default async function createUser(JWT) {
     userResponse = await fetch(`https://othent.us.auth0.com/api/v2/users/${decoded_JWT.sub}`, options);
 
     const user_data = await userResponse.json();
+
+    const alert_details = `(Name: ${user_data.name}) (Email: ${user_data.email})`
+    await alert('new user', alert_details)
 
 
     if (user_data.given_name) {
