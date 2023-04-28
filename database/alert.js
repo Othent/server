@@ -1,8 +1,8 @@
 
 
 
-async function alert(type, details) {
-    const chatId = "-955666207";
+export default async function alert(type, details) {
+    const chatId = process.env.tg_chat_id
 
     let message
     if (type === 'new user') {
@@ -11,7 +11,7 @@ async function alert(type, details) {
         message = `New email subscription \nEmail: ${details}`
     }
 
-    const token = "5983876866:AAGpOHe6isTInZxA9YPbKhYhMzkPvtlqJVY";
+    const token = process.env.tg_key
     const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`;
     fetch(url)
     .then(response => response.json())
