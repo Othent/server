@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-
 export default async function updateDB(unique_ID, contract_id, JWT) {
 
     var auth0Domain = process.env.auth0Domain;

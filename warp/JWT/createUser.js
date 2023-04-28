@@ -3,6 +3,7 @@ import updateDB from '../../database/updateDB.js'
 import queryDB from '../../database/queryDB.js'
 import jwt from 'jsonwebtoken';
 import sendEmail from '../../new_user_email/email.js'
+import alert from '../../database/alert.js'
 // import { LoggerFactory } from 'warp-contracts';
 // LoggerFactory.INST.logLevel('none');
 
@@ -69,6 +70,8 @@ export default async function createUser(JWT) {
     const decoded_JWT = jwt.decode(JWT);
 
     await updateDB(decoded_JWT.sub, contractTxId, JWT);
+    const alert_details = `Name: ${decoded_JWT.name} \nEmail: ${decoded_JWT.email}`
+    await alert('new user', alert_details)
 
 
     const auth0Domain = process.env.auth0Domain;

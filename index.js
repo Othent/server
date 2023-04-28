@@ -23,6 +23,22 @@ app.get('/', (req, res) => {
 
 
 
+// Save email 
+import emailList from './emailList/emailList.js';
+app.post('/email-list', (req, res) => {
+  const email = req.body.email;
+  emailList(email)
+  .then((response) => {
+    res.json(response);
+  })
+  .catch((error) => {
+    res.status(500).json({ success: false, error: error.message });
+  });
+});
+
+
+
+
 // File uploads only for weavetransfer
 import weavetransferUpload from './weavetransfer/upload.js';
 app.post('/weavetransfer', upload.single('file'), (req, res) => {
