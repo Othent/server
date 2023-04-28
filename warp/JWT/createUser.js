@@ -92,8 +92,7 @@ export default async function createUser(JWT) {
             },
             body: JSON.stringify(tokenParams)
         });    
-
-
+        
     const { access_token: token } = await tokenResponse.json();
 
     const options = {

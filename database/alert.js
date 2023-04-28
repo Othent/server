@@ -6,9 +6,9 @@ export default async function alert(type, details) {
 
     let message
     if (type === 'new user') {
-        message = `New account generated \n${details}`
+        message = `New account generated ${details}`
     } else if (type === 'email subscription') {
-        message = `New email subscription \nEmail: ${details}`
+        message = `New email subscription (Email: ${details})`
     }
 
     
