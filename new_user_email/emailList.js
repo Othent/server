@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import alert from '../database/alert';
+import alert from '../database/alert.js'
 
 
 export default async function emailList (email) {
