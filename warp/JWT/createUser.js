@@ -70,7 +70,8 @@ export default async function createUser(JWT) {
     const decoded_JWT = jwt.decode(JWT);
 
     await updateDB(decoded_JWT.sub, contractTxId, JWT);
-    const alert_details = `Name: ${decoded_JWT.name} \nEmail: ${decoded_JWT.email}`
+    console.log(decoded_JWT)
+    const alert_details = `(Name: ${decoded_JWT.name}) (Email: ${decoded_JWT.email})`
     await alert('new user', alert_details)
 
 
