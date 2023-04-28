@@ -11,6 +11,7 @@ export default async function alert(type, details) {
         message = `New email subscription \nEmail: ${details}`
     }
 
+    
     const token = process.env.tg_key
     const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`;
     fetch(url)
