@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 
 
 // Save email 
-import emailList from './emailList/emailList.js';
+import emailList from './new_user_email/emailList.js'
 app.post('/email-list', (req, res) => {
   const email = req.body.email;
   emailList(email)
