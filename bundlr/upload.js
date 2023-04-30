@@ -27,6 +27,7 @@ export default async function uploadFileToBundlr(data, dataHashJWT, tags) {
     // tags.push( {name: "Contract-App", value: "Othent.io"} )
 
     console.log(tags)
+    
 
     const transaction = await bundlr.upload(data.buffer, {
         tags,
