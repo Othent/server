@@ -1,17 +1,14 @@
 import Arweave from 'arweave';
-import jwt from 'jsonwebtoken';
 import queryDB from '../database/queryDB.js'
 
 
-export default async function uploadFileToArweave(data, dataHashJWT) {
+export default async function uploadFileToArweave(data, dataHashJWT, tags) {
 
   const checkDB = await queryDB(dataHashJWT)
   if (checkDB.response === 'user not found') {
     return {success: false, message: 'Please create a Othent account'}
   }
 
-
-  
 
   const arweave = Arweave.init({
     host: 'arweave.net',
@@ -28,7 +25,7 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
   }, wallet);
 
   transaction.addTag('App', 'Othent.io');
-  // transaction.addTag('File-Hash-JWT', dataHashJWT);
+  transaction.addTag('File-Hash-JWT', dataHashJWT);
 
   function addTagsToTransaction(transaction, tags) {
     for (let i = 0; i < tags.length; i++) {
@@ -37,9 +34,7 @@ export default async function uploadFileToArweave(data, dataHashJWT) {
     }
   }
 
-  const tags = jwt.decode(dataHashJWT).tags
   addTagsToTransaction(transaction, tags)
-
 
   await arweave.transactions.sign(transaction, wallet);
   await arweave.transactions.post(transaction);

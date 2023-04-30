@@ -77,7 +77,8 @@ app.post('/create-user', (req, res) => {
 import sendTransaction from './warp/JWT/sendTransaction.js';
 app.post('/send-transaction', (req, res) => {
   const JWT = req.body.JWT;
-  sendTransaction(JWT)
+  const tags = req.body.tags;
+  sendTransaction(JWT, tags)
     .then((response) => {
       res.json(response);
     })
@@ -108,7 +109,8 @@ import uploadFileToArweave from './arweave/upload.js';
 app.post('/upload-data-arweave', upload.single('file'), (req, res) => {
   const data = req.file;
   const dataHashJWT = req.body.dataHashJWT;
-  uploadFileToArweave(data, dataHashJWT)
+  const tags = req.body.tags;
+  uploadFileToArweave(data, dataHashJWT, tags)
     .then((response) => {
       res.json(response);
     })
@@ -125,7 +127,8 @@ import uploadFileToBundlr from './bundlr/upload.js';
 app.post('/upload-data-bundlr', upload.single('file'), (req, res) => {
   const data = req.file;
   const dataHashJWT = req.body.dataHashJWT;
-  uploadFileToBundlr(data, dataHashJWT)
+  const tags = req.body.tags;
+  uploadFileToBundlr(data, dataHashJWT, tags)
     .then((response) => {
       res.json(response);
     })

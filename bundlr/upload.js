@@ -1,9 +1,8 @@
 import Bundlr from "@bundlr-network/client";
-import jwt from 'jsonwebtoken';
 import queryDB from '../database/queryDB.js'
 
 
-export default async function uploadFileToBundlr(data, dataHashJWT) {
+export default async function uploadFileToBundlr(data, dataHashJWT, tags) {
     
     const checkDB = await queryDB(dataHashJWT)
     if (checkDB.response === 'user not found') {
@@ -24,27 +23,12 @@ export default async function uploadFileToBundlr(data, dataHashJWT) {
     // const price = await bundlr.getPrice(size);
     // await bundlr.fund(price);
 
-    const tags = [{ name: "Content-Type", value: "image/png" }];
+
+    tags.push( {name: "Contract-App", value: "Othent.io"} )
 
     const transaction = await bundlr.upload(data.buffer, {
         tags,
     });
-
-
-    // transaction.addTag('App', 'Othent.io');
-    // // transaction.addTag('File-Hash-JWT', dataHashJWT);
-
-    // function addTagsToTransaction(transaction, tags) {
-    //     for (let i = 0; i < tags.length; i++) {
-    //     const tag = tags[i];
-    //     transaction.addTag(tag.name, tag.value);
-    //     }
-    // }
-
-    // const tags = jwt.decode(dataHashJWT).tags
-    // addTagsToTransaction(transaction, tags)
-
-
 
     const transaction_id = transaction.id;
 
