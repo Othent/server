@@ -25,7 +25,7 @@ export default async function uploadFileToBundlr(data, dataHashJWT) {
     // await bundlr.fund(price);
 
 
-    const transaction = await bundlr.upload(data.buffer);
+    const transaction = await bundlr.upload('data.buffer');
     console.log(`${pathToFile} --> Uploaded to https://arweave.net/${id}`);
 
 
