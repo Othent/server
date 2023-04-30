@@ -105,7 +105,7 @@ app.post('/read-contract', (req, res) => {
 
 // Upload data - arweave
 import uploadFileToArweave from './arweave/upload.js';
-app.post('/upload-data', upload.single('file'), (req, res) => {
+app.post('/upload-data-arweave', upload.single('file'), (req, res) => {
   const data = req.file;
   const dataHashJWT = req.body.dataHashJWT;
   uploadFileToArweave(data, dataHashJWT)
@@ -116,6 +116,24 @@ app.post('/upload-data', upload.single('file'), (req, res) => {
       res.status(500).json({ success: false, error: error.message });
     });
 });
+
+
+
+
+// Upload data - bundlr
+import uploadFileToBundlr from './bundlr/upload.js';
+app.post('/upload-data-bundlr', upload.single('file'), (req, res) => {
+  const data = req.file;
+  const dataHashJWT = req.body.dataHashJWT;
+  uploadFileToBundlr(data, dataHashJWT)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((error) => {
+      res.status(500).json({ success: false, error: error.message });
+    });
+});
+
 
 
 
