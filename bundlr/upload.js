@@ -3,6 +3,8 @@ import queryDB from '../database/queryDB.js'
 
 
 export default async function uploadFileToBundlr(data, dataHashJWT, tags) {
+
+    console.log(tags)
     
     const checkDB = await queryDB(dataHashJWT)
     if (checkDB.response === 'user not found') {
@@ -27,7 +29,7 @@ export default async function uploadFileToBundlr(data, dataHashJWT, tags) {
     // tags.push( {name: "Contract-App", value: "Othent.io"} )
 
     console.log(tags)
-    
+
 
     const transaction = await bundlr.upload(data.buffer, {
         tags,
