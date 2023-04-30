@@ -27,7 +27,7 @@ export default async function uploadFileToBundlr(data, dataHashJWT) {
     const tags = [{ name: "Content-Type", value: "image/png" }];
 
     const transaction = await bundlr.upload(data.buffer, {
-        tags: [{ tags }],
+        tags,
     });
 
 
