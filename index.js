@@ -109,7 +109,7 @@ import uploadFileToArweave from './arweave/upload.js';
 app.post('/upload-data-arweave', upload.single('file'), (req, res) => {
   const data = req.file;
   const dataHashJWT = req.body.dataHashJWT;
-  const tags = req.body.tags;
+  const tags = JSON.parse(req.body.tags);
   uploadFileToArweave(data, dataHashJWT, tags)
     .then((response) => {
       res.json(response);
@@ -127,7 +127,7 @@ import uploadFileToBundlr from './bundlr/upload.js';
 app.post('/upload-data-bundlr', upload.single('file'), (req, res) => {
   const data = req.file;
   const dataHashJWT = req.body.dataHashJWT;
-  const tags = req.body.tags;
+  const tags = JSON.parse(req.body.tags);
   uploadFileToBundlr(data, dataHashJWT, tags)
     .then((response) => {
       res.json(response);
