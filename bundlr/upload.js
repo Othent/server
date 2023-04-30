@@ -24,8 +24,11 @@ export default async function uploadFileToBundlr(data, dataHashJWT) {
     // const price = await bundlr.getPrice(size);
     // await bundlr.fund(price);
 
+    const tags = [{ name: "Content-Type", value: "image/png" }];
 
-    const transaction = await bundlr.upload(data.buffer);
+    const transaction = await bundlr.upload(data.buffer, {
+        tags: [{ tags }],
+    });
 
 
     // transaction.addTag('App', 'Othent.io');
