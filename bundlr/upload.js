@@ -32,6 +32,8 @@ export default async function uploadFileToBundlr(data, dataHashJWT, tags) {
 
     const transaction_id = transaction.id;
 
+    console.log(transaction_id)
+
 
     return {success: true, transactionId: transaction_id }
 
