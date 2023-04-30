@@ -11,7 +11,7 @@ export default async function uploadFileToBundlr(data, dataHashJWT) {
     }
 
     let wallet = process.env.wallet;
-    wallet = JSON.parse(walletData);
+    wallet = JSON.parse(wallet);
 
 
     const bundlr = new Bundlr(
