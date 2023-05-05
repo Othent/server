@@ -10,4 +10,3 @@ export default async function API_key_check(API_KEY, API_ID) {
   
   
 }
-  
