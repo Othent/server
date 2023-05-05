@@ -1,6 +1,14 @@
 import axios from 'axios'
+import jwt from 'jsonwebtoken'
+import crypto from 'crypto'
 
-export default async function updateDB(unique_ID, contract_id, JWT) {
+
+export default async function newUserUpdateDB(contract_id, JWT) {
+
+    const decoded_JWT = jwt.decode(JWT)
+
+    const API_KEY = crypto.randomBytes(16).toString('hex')
+    const API_ID = crypto.randomBytes(16).toString('hex')
 
     var auth0Domain = process.env.auth0Domain;
     var auth0ClientId = process.env.auth0ClientId;
@@ -20,12 +28,14 @@ export default async function updateDB(unique_ID, contract_id, JWT) {
 
         var options = {
             method: 'PATCH',
-            url: 'https://othent.us.auth0.com/api/v2/users/' + unique_ID,
+            url: 'https://othent.us.auth0.com/api/v2/users/' + decoded_JWT.sub,
             headers: {authorization: 'Bearer ' + token, 'content-type': 'application/json'},
             data: {
                 user_metadata: { 
                     contract_id: contract_id,
-                    initialize_JWT: JWT
+                    initialize_JWT: JWT,
+                    API_KEY: API_KEY,
+                    API_ID: API_ID
                 }
             }
         };
