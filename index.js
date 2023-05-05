@@ -24,11 +24,11 @@ app.get('/', (req, res) => {
 
 
 // Use Othent 
-import useOthent from './useOthent/useOthent.js'
+import API_key_check from './API_key_check/API_key_check.js'
 app.post('/use-othent', (req, res) => {
   const API_KEY = req.body.API_KEY;
   const API_ID = req.body.API_ID;
-  useOthent(API_KEY, API_ID)
+  API_key_check(API_KEY, API_ID)
   .then((response) => {
     res.json(response);
   })
