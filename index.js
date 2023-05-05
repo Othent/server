@@ -23,6 +23,23 @@ app.get('/', (req, res) => {
 
 
 
+// Use Othent 
+import useOthent from './useOthent/useOthent.js'
+app.post('/use-othent', (req, res) => {
+  const API_KEY = req.body.API_KEY;
+  const API_ID = req.body.API_ID;
+  useOthent(API_KEY, API_ID)
+  .then((response) => {
+    res.json(response);
+  })
+  .catch((error) => {
+    res.status(500).json({ success: false, error: error.message });
+  });
+});
+
+
+
+
 // Save email 
 import emailList from './new_user_email/emailList.js'
 app.post('/email-list', (req, res) => {
