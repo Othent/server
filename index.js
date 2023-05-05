@@ -42,6 +42,7 @@ app.post('/email-list', (req, res) => {
 // File uploads only for weavetransfer
 import weavetransferUpload from './weavetransfer/upload.js';
 app.post('/weavetransfer', (req, res) => {
+  console.log(req)
   const transaction_id = req.body.transaction_id;
   const sendFromEmail = req.body.sendFromEmail;
   const sendToEmail = req.body.sendToEmail;
