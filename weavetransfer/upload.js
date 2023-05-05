@@ -5,6 +5,8 @@ export default async function weavetransferUpload(sendFromEmail, sendToEmail, tr
 
   const fileDownloadLink = 'https://arweave.net/' + transaction_id;
 
+  console.log(sendFromEmail, sendToEmail, transaction_id)
+
   await sendEmail(sendFromEmail, sendToEmail, fileDownloadLink);
 
   return transaction_id;
