@@ -13,6 +13,7 @@ export default async function updateHerokuKeys(API_KEY, API_ID) {
 
   console.log('existing_API_keys', existing_API_keys)
   console.log(typeof process.env.API_KEYS)
+  console.log('here', JSON.parse(existing_API_keys), typeof JSON.parse(existing_API_keys))
 
   existing_API_keys.push(API_KEY)
   console.log('existing_API_keys', existing_API_keys)
