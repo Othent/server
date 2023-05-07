@@ -1,7 +1,7 @@
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
-import updateHerokuKeys from '../API_keys/updateHerokuKeys'
+import updateHerokuKeys from '../API_keys/updateHerokuKeys.js'
 
 
 export default async function newUserUpdateDB(contract_id, JWT) {
