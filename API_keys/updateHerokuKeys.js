@@ -11,8 +11,8 @@ export default async function updateHerokuKeys(API_KEY, API_ID) {
   const key = 'API_KEYS';
   const existing_API_keys = process.env.API_KEYS;
   console.log(API_KEY)
-  console.log(existing_API_keys)
-  existing_API_keys.push(API_KEY);
+  console.log(JSON.stringify(existing_API_keys))
+  existing_API_keys.push(JSON.stringify(API_KEY));
   console.log(existing_API_keys)
   const configVars = { [key]: existing_API_keys };
 
