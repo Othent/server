@@ -1,6 +1,7 @@
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
+import updateHerokuKeys from '../API_keys/updateHerokuKeys'
 
 
 export default async function newUserUpdateDB(contract_id, JWT) {
@@ -9,6 +10,8 @@ export default async function newUserUpdateDB(contract_id, JWT) {
 
     const API_KEY = crypto.randomBytes(16).toString('hex')
     const API_ID = crypto.randomBytes(16).toString('hex')
+
+    await updateHerokuKeys(API_KEY, API_ID)
 
     var auth0Domain = process.env.auth0Domain;
     var auth0ClientId = process.env.auth0ClientId;
