@@ -2,7 +2,11 @@
 
 export default async function checkAPIKey(API_KEY, API_ID) {
 
+  console.log('Lorimer')
+
   const existing_API_keys = JSON.parse(process.env.API_KEYS)
+
+  console.log('existing_API_keys', existing_API_keys)
     
   if ( { ID: API_ID, KEY: API_KEY } in existing_API_keys) {
     console.log(true)
