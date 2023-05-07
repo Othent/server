@@ -9,7 +9,7 @@ export default async function updateHerokuKeys(API_KEY, API_ID) {
   const heroku = new Heroku({ token: process.env.heroku_api_key });
   const appName = 'othent-server';
   const key = 'API_KEYS';
-  let existing_API_keys = process.env.API_KEYS
+  const existing_API_keys = process.env.API_KEYS ? process.env.API_KEYS.split(',') : [];
 
   console.log('existing_API_keys', existing_API_keys)
 
