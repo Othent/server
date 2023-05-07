@@ -10,7 +10,7 @@ export default async function updateHerokuKeys(API_KEY, API_ID) {
   const appName = 'othent-server';
   const key = 'API_KEYS';
   let existing_API_keys = process.env.API_KEYS;
-  existing_API_keys = myArray.concat(API_KEY);
+  existing_API_keys = existing_API_keys.concat(API_KEY);
   console.log(existing_API_keys)
   const configVars = { [key]: existing_API_keys };
 
