@@ -10,10 +10,8 @@ export default async function updateHerokuKeys(API_KEY, API_ID) {
   const appName = 'othent-server';
   const key = 'API_KEYS';
   const existing_API_keys = process.env.API_KEYS;
-  const parsedKeys = JSON.parse(existing_API_keys);
-  parsedKeys.push({ ID: API_ID, KEY: API_KEY });
-  const value = JSON.stringify(parsedKeys);
-  const configVars = { [key]: value };
+  const new_API_keys = existing_API_keys.push(API_KEY);
+  const configVars = { [key]: new_API_keys };
 
   heroku.patch(`/apps/${appName}/config-vars`, { body: configVars })
   .then(() => {
