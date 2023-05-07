@@ -11,16 +11,16 @@ export default async function updateHerokuKeys(API_KEY, API_ID) {
   const key = 'API_KEYS';
   let existing_API_keys = process.env.API_KEYS;
   existing_API_keys = existing_API_keys.concat(API_KEY);
-  console.log(existing_API_keys)
+  console.log('existing_API_keys', existing_API_keys)
   const configVars = { [key]: existing_API_keys };
 
   heroku.patch(`/apps/${appName}/config-vars`, { body: configVars })
   .then(() => {
-    console.log(`Successfully set ${key}=${value}`);
+    console.log(`Successfully set`);
     return true
   })
   .catch((error) => {
-    console.log(`Error setting ${key}=${value}: ${error.message}`);
+    console.log(`Error setting ${error.message}`);
     return false
   });
   
