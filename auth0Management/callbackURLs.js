@@ -18,7 +18,7 @@ export default async function updateAuth0ApplicationUrls(newURLs) {
   const token = tokenResponse.data.access_token;
 
 
-  const apiUrl = `${audience}clients/${process.env.auth0ClientId}`;
+  const apiUrl = `${audience}clients/${process.env.auth0_app_id}`;
   const headers = { Authorization: `Bearer ${token}`, "Content-Type": "application/json" };
 
 
