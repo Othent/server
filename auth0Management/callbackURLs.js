@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default async function updateAuth0ApplicationUrls(newURLs) {
+export default async function updateAuth0ApplicationUrls(URL) {
   const auth0Domain = process.env.auth0Domain;
   const auth0ClientId = process.env.auth0ClientId;
   const auth0ClientSecret = process.env.auth0ClientSecret;
@@ -35,6 +35,7 @@ export default async function updateAuth0ApplicationUrls(newURLs) {
 
 
 
+  const newURLs = [URL]
   const newCallbacks = [...new Set([...currentCallbacks, ...newURLs])];
   const newLogoutUrls = [...new Set([...currentNewLogoutUrls, ...newURLs])];
   const newAllowedOrigins = [...new Set([...currentAllowedOrigins, ...newURLs])];
