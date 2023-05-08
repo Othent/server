@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default async function updateAuth0ApplicationUrls(callbackUrls) {
+export default async function updateAuth0ApplicationUrls(newURLs) {
   const auth0Domain = process.env.auth0Domain;
   const auth0ClientId = process.env.auth0ClientId;
   const auth0ClientSecret = process.env.auth0ClientSecret;
@@ -25,10 +25,19 @@ export default async function updateAuth0ApplicationUrls(callbackUrls) {
   const appResponse = await axios.get(apiUrl, { headers });
   const appConfig = appResponse.data;
 
+  console.log(typeof appConfig.callbacks, appConfig.callback)
+  console.log(typeof JSON.parse(appConfig.callbacks), appConfig.callbacks)
 
-  const newCallbacks = [...appConfig.callbacks, ...callbackUrls];
-  const newLogoutUrls = appConfig.logout_urls ? [...appConfig.logout_urls, ...callbackUrls] : [...callbackUrls];
-  const newAllowedOrigins = [...appConfig.web_origins, ...callbackUrls];
+  const currentCallbacks = appConfig.callbacks
+  const newCallbacks = currentCallbacks.push(newURLs)
+
+  const currentNewLogoutUrls = appConfig.logout_urls
+  const newLogoutUrls = currentNewLogoutUrls.push(newURLs)
+
+  const currentAllowedOrigins = appConfig.web_origins
+  const newAllowedOrigins = currentAllowedOrigins.push(newURLs)
+
+
   const body = {
     callbacks: newCallbacks,
     logout_urls: newLogoutUrls,
