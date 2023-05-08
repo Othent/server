@@ -25,8 +25,9 @@ export default async function updateAuth0ApplicationUrls(newURLs) {
   const appResponse = await axios.get(apiUrl, { headers });
   const appConfig = appResponse.data;
 
+  console.log(appConfig)
+
   console.log(typeof appConfig.callbacks, appConfig.callback)
-  console.log(typeof JSON.parse(appConfig.callbacks), appConfig.callbacks)
 
   const currentCallbacks = appConfig.callbacks
   const newCallbacks = currentCallbacks.push(newURLs)
