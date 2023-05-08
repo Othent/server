@@ -41,7 +41,7 @@ export default async function updateAuth0ApplicationUrls(newURLs) {
 
   const body = {
     callbacks: newCallbacks,
-    logout_urls: newLogoutUrls,
+    allowed_logout_urls: newLogoutUrls,
     web_origins: newAllowedOrigins,
   };
 
