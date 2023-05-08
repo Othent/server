@@ -26,7 +26,6 @@ app.get('/', (req, res) => {
 import addCallbackURL from './auth0Management/callbackURLs.js';
 app.post('/add-callback-url', upload.single('file'), (req, res) => {
   const callbackURL = req.body.callbackURL;
-  console.log(callbackURL)
   addCallbackURL(callbackURL)
   .then((response) => {
     res.json(response);
