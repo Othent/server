@@ -38,6 +38,8 @@ export default async function updateAuth0ApplicationUrls(newURLs) {
   const newLogoutUrls = [...currentNewLogoutUrls, ...newURLs];
   const newAllowedOrigins = [...currentAllowedOrigins, ...newURLs];
 
+  console.log(newAllowedOrigins)
+
 
   const body = {
     callbacks: newCallbacks,
