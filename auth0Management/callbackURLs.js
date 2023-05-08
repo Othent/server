@@ -1,9 +1,17 @@
 import axios from "axios";
 
 export default async function updateAuth0ApplicationUrls(URL) {
+
+  if (typeof URL !== "string" || !URL.trim()) {
+    throw new Error("Invalid URL");
+  }
+
+
   const auth0Domain = process.env.auth0Domain;
   const auth0ClientId = process.env.auth0ClientId;
   const auth0ClientSecret = process.env.auth0ClientSecret;
+
+
   const audience = `https://${auth0Domain}/api/v2/`;
   const tokenUrl = `https://${auth0Domain}/oauth/token`;
   const tokenParams = {
@@ -14,35 +22,35 @@ export default async function updateAuth0ApplicationUrls(URL) {
   };
 
 
-  const tokenResponse = await axios.post(tokenUrl, tokenParams);
-  const token = tokenResponse.data.access_token;
+  let token;
+  try {
+    const tokenResponse = await axios.post(tokenUrl, tokenParams);
+    token = tokenResponse.data.access_token;
+  } catch (error) {
+    throw new Error(`Failed to retrieve access token: ${error.message}`);
+  }
 
 
   const apiUrl = `${audience}clients/${process.env.auth0_app_id}`;
   const headers = { Authorization: `Bearer ${token}`, "Content-Type": "application/json" };
+  let appConfig;
+  try {
+    const appResponse = await axios.get(apiUrl, { headers });
+    appConfig = appResponse.data;
+  } catch (error) {
+    throw new Error(`Failed to retrieve application configuration: ${error.message}`);
+  }
 
 
-  const appResponse = await axios.get(apiUrl, { headers });
-  const appConfig = appResponse.data;
-
-  console.log(appConfig)
-
-  console.log(typeof appConfig.callbacks, appConfig.callbacks)
-
-  const currentCallbacks = appConfig.callbacks
-  const currentNewLogoutUrls = appConfig.allowed_logout_urls
-  const currentAllowedOrigins = appConfig.web_origins
+  const currentCallbacks = Array.isArray(appConfig.callbacks) ? appConfig.callbacks : [];
+  const currentNewLogoutUrls = Array.isArray(appConfig.allowed_logout_urls) ? appConfig.allowed_logout_urls : [];
+  const currentAllowedOrigins = Array.isArray(appConfig.web_origins) ? appConfig.web_origins : [];
 
 
-
-  const newURLs = [URL]
+  const newURLs = [URL];
   const newCallbacks = [...new Set([...currentCallbacks, ...newURLs])];
   const newLogoutUrls = [...new Set([...currentNewLogoutUrls, ...newURLs])];
   const newAllowedOrigins = [...new Set([...currentAllowedOrigins, ...newURLs])];
-
-  
-
-  console.log(newAllowedOrigins)
 
 
   const body = {
@@ -50,8 +58,6 @@ export default async function updateAuth0ApplicationUrls(URL) {
     allowed_logout_urls: newLogoutUrls,
     web_origins: newAllowedOrigins,
   };
-
-
   try {
     const updateResponse = await axios.patch(apiUrl, body, { headers });
     console.log("updateResponse", updateResponse);
@@ -60,11 +66,6 @@ export default async function updateAuth0ApplicationUrls(URL) {
       message: `Successfully updated application URLs`,
     };
   } catch (error) {
-    console.error("updateError", error);
-    return {
-      success: false,
-      message: `Error updating application URLs: ${error}`,
-    };
+    throw new Error(`Failed to update application URLs: ${error.message}`);
   }
 }
-
