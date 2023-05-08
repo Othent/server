@@ -59,8 +59,7 @@ export default async function updateAuth0ApplicationUrls(URL) {
     web_origins: newAllowedOrigins,
   };
   try {
-    const updateResponse = await axios.patch(apiUrl, body, { headers });
-    console.log("updateResponse", updateResponse);
+    await axios.patch(apiUrl, body, { headers });
     return {
       success: true,
       message: `Successfully updated application URLs`,
