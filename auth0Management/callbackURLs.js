@@ -3,9 +3,6 @@ import axios from "axios";
 
 export default async function addCallbackURL(callbackURL) {
 
-    console.log(10, callbackURL)
-
-
     var auth0Domain = process.env.auth0Domain;
     var auth0ClientId = process.env.auth0ClientId;
     var auth0ClientSecret = process.env.auth0ClientSecret;
@@ -18,11 +15,11 @@ export default async function addCallbackURL(callbackURL) {
     audience: audience
     };
 
+    console.log(123)
+
     axios.post(tokenUrl, tokenParams)
     .then(function (response) {
         var token = response.data.access_token;
-
-        console.log(token)
 
         const apiUrl = `${audience}clients/dyegx4dZj5yOv0v0RkoUsc48CIqaNS6C`;
         const headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
@@ -30,6 +27,7 @@ export default async function addCallbackURL(callbackURL) {
 
         axios.patch(apiUrl, body, { headers })
         .then(response => {
+            console.log('response', response)
             return {response: true, message: `Successfully updated allowed URLs: ${response.data.callbacks}`}
         })
         .catch(error => {
