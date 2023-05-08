@@ -13,21 +13,23 @@ export default async function updateAuth0ApplicationUrls(callbackUrls, logoutUrl
     audience: audience,
   };
 
-
+  // Get a token for the Auth0 Management API
   const tokenResponse = await axios.post(tokenUrl, tokenParams);
   const token = tokenResponse.data.access_token;
 
-
+  // Define the Auth0 API URL and headers
   const apiUrl = `${audience}clients/dyegx4dZj5yOv0v0RkoUsc48CIqaNS6C`;
   const headers = { Authorization: `Bearer ${token}`, "Content-Type": "application/json" };
 
-
+  // Get the current application configuration
   const appResponse = await axios.get(apiUrl, { headers });
   const appConfig = appResponse.data;
 
-
+  // Update the callback URLs, logout URLs, and allowed web origins
   const newCallbacks = [...appConfig.callbacks, ...callbackUrls];
-  const newLogoutUrls = [...appConfig.logout_urls, ...logoutUrls];
+  const newLogoutUrls = appConfig.logout_urls
+    ? [...appConfig.logout_urls, ...logoutUrls]
+    : [...logoutUrls];
   const newAllowedOrigins = [...appConfig.web_origins, ...allowedOrigins];
   const body = {
     callbacks: newCallbacks,
@@ -35,7 +37,7 @@ export default async function updateAuth0ApplicationUrls(callbackUrls, logoutUrl
     web_origins: newAllowedOrigins,
   };
 
-
+  // Call the Auth0 Management API to update the application configuration
   try {
     const updateResponse = await axios.patch(apiUrl, body, { headers });
     console.log("updateResponse", updateResponse);
