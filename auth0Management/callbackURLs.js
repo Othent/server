@@ -30,13 +30,13 @@ export default async function updateAuth0ApplicationUrls(newURLs) {
   console.log(typeof appConfig.callbacks, appConfig.callbacks)
 
   const currentCallbacks = appConfig.callbacks
-  const newCallbacks = currentCallbacks.push(newURLs)
-
   const currentNewLogoutUrls = appConfig.allowed_logout_urls
-  const newLogoutUrls = currentNewLogoutUrls.push(newURLs)
-
   const currentAllowedOrigins = appConfig.web_origins
-  const newAllowedOrigins = currentAllowedOrigins.push(newURLs)
+
+
+  const newCallbacks = [...currentCallbacks, ...newURLs];
+  const newLogoutUrls = [...currentNewLogoutUrls, ...newURLs];
+  const newAllowedOrigins = [...currentAllowedOrigins, ...newURLs];
 
 
   const body = {
