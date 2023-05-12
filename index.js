@@ -40,11 +40,10 @@ app.post('/add-callback-url', upload.single('file'), (req, res) => {
 
 
 // Use Othent 
-import checkAPIKey from './API_keys/checkAPIKey.js';
+import checkAPIID from './API_IDs/checkAPIID.js';
 app.post('/use-othent', (req, res) => {
-  const API_KEY = req.body.API_KEY;
   const API_ID = req.body.API_ID;
-  checkAPIKey(API_KEY, API_ID)
+  checkAPIID(API_ID)
   .then((response) => {
     res.json(response);
   })
