@@ -21,8 +21,6 @@ async function configureWallet() {
     }
 }
 
-
-// now we can export warp as well as our configure wallet 
 export {
     configureWallet, 
     warp
