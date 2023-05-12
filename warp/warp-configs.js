@@ -4,7 +4,7 @@ import { DeployPlugin, ArweaveSigner } from 'warp-contracts-plugin-deploy';
 
 import jwt from 'jsonwebtoken';
 class JWTPlugin {
-    process(input) { input.jwt = jwt }
+    process(input) { input.verify = jwt.verify }
     type() { return 'smartweave-extension-jwt'; }
 }
 
