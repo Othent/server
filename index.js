@@ -55,6 +55,24 @@ app.post('/use-othent', (req, res) => {
 
 
 
+
+// Partner dashboard, query client ID 
+import queryClient from './patnerDashboard/queryClient.js';
+app.post('/query-client-id', (req, res) => {
+  const clientID = req.body.clientID;
+  queryClient(clientID)
+  .then((response) => {
+    res.json(response);
+  })
+  .catch((error) => {
+    res.status(500).json({ success: false, error: error.message });
+  });
+});
+
+
+
+
+
 // Save email 
 import emailList from './new_user_email/emailList.js'
 app.post('/email-list', (req, res) => {
