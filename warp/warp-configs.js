@@ -1,15 +1,9 @@
-import { WarpFactory } from "warp-contracts";
+import { WarpFactory } from 'warp-contracts';
 import { DeployPlugin, ArweaveSigner } from 'warp-contracts-plugin-deploy';
+import { JWTVerifyPlugin } from '@othent/warp-contracts-plugin-jwt-verify';
 
+const warp = WarpFactory.forMainnet().use(new DeployPlugin()).use(new JWTVerifyPlugin());
 
-import jwt from 'jsonwebtoken';
-class JWTPlugin {
-    process(input) { input.verify = jwt.verify }
-    type() { return 'smartweave-extension-jwt'; }
-}
-
-
-const warp = WarpFactory.forMainnet().use(new DeployPlugin()).use(new JWTPlugin());
 
 async function configureWallet() {
     try {
