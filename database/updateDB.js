@@ -2,6 +2,7 @@ import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
 import updateHerokuAPIID from '../API_IDs/updateHerokuKeys.js'
+import createClient from '../patnerDashboard/createClient.js'
 
 
 export default async function newUserUpdateDB(contract_id, JWT) {
@@ -11,6 +12,7 @@ export default async function newUserUpdateDB(contract_id, JWT) {
     const API_ID = crypto.randomBytes(16).toString('hex')
 
     await updateHerokuAPIID(API_ID)
+    await createClient(API_ID)
 
     var auth0Domain = process.env.auth0Domain;
     var auth0ClientId = process.env.auth0ClientId;
