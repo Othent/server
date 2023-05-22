@@ -9,7 +9,7 @@ app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 import multer from 'multer';
 const upload = multer();
-
+import addEntry from './patnerDashboard/addEntry.js';
 
 
 
@@ -127,8 +127,10 @@ import sendTransaction from './warp/JWT/sendTransaction.js';
 app.post('/send-transaction', (req, res) => {
   const JWT = req.body.JWT;
   const tags = req.body.tags;
+  const API_ID = req.body.API_ID
   sendTransaction(JWT, tags)
     .then((response) => {
+      addEntry(API_ID, 'walletAddress', 'userID', 'ID', 'createUser', 'type')
       res.json(response);
     })
     .catch((error) => {
