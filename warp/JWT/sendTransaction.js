@@ -30,9 +30,9 @@ export default async function sendTransaction(JWT, tags, clientID) {
 
     if (errorMessages[transactionId]) {
 
-        addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transactionId, 'sendTransactionWarp', 'warp-transaction', false)
+        const entry = addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transactionId, 'sendTransactionWarp', 'warp-transaction', false)
         return { success: false, transactionId, bundlrId: transaction.bundlrResponse.id, 
-            errors: errorMessages[transactionId] }
+            errors: errorMessages[transactionId], entry }
 
     } else if (errorMessages[transactionId] === undefined) {
 
