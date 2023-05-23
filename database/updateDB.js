@@ -3,16 +3,18 @@ import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
 import updateHerokuAPIID from '../API_IDs/updateHerokuKeys.js'
 import createClient from '../patnerDashboard/createClient.js'
+import addEntry from '../patnerDashboard/addEntry.js'
 
 
-export default async function newUserUpdateDB(contract_id, JWT) {
+export default async function newUserUpdateDB(contract_id, JWT, appClientID, transactionId) {
 
     const decoded_JWT = jwt.decode(JWT)
 
-    const API_ID = crypto.randomBytes(16).toString('hex')
+    const clientID = crypto.randomBytes(16).toString('hex')
 
-    await updateHerokuAPIID(API_ID)
-    await createClient(API_ID)
+    await updateHerokuAPIID(clientID)
+    await createClient(clientID)
+    addEntry(appClientID, contract_id, clientID, transactionId, 'logIn', 'new-user', true)
 
     var auth0Domain = process.env.auth0Domain;
     var auth0ClientId = process.env.auth0ClientId;
@@ -38,7 +40,7 @@ export default async function newUserUpdateDB(contract_id, JWT) {
                 user_metadata: { 
                     contract_id: contract_id,
                     initialize_JWT: JWT,
-                    API_ID: API_ID
+                    API_ID: clientID
                 }
             }
         };

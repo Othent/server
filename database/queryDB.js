@@ -2,18 +2,14 @@ import jwt from 'jsonwebtoken';
 
 
 export default async function queryDB(JWT) {
-  
-  const contract_id = jwt.decode(JWT).contract_id
+  const decodedJWT = jwt.decode(JWT);
+  const contract_id = decodedJWT.contract_id;
 
   if (contract_id) {
-    const unique_id = jwt.decode(JWT).sub
-    return {contract_id: contract_id, unique_ID: unique_id}
-
+    decodedJWT.unique_ID = decodedJWT.sub;
+    return decodedJWT;
   } else {
-    return {response: 'user not found'}
+    return { response: 'user not found' };
   }
-
 }
 
-
- 

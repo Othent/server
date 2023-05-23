@@ -1,16 +1,18 @@
 import { warp, configureWallet } from '../warp-configs.js'
 import queryDB from '../../database/queryDB.js'
+import addEntry from '../../patnerDashboard/addEntry.js'
 
 
-export default async function sendTransaction(JWT, tags) {
+export default async function sendTransaction(JWT, tags, clientID) {
 
     const checkDB = await queryDB(JWT)
     if (checkDB.response === 'user not found') {
         return {success: false, message: 'Please create a Othent account'}
     }
+    const decodedJWT = checkDB
 
     const wallet = await configureWallet()
-    const contract = warp.contract(checkDB.contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
+    const contract = warp.contract(decodedJWT.contract_id).setEvaluationOptions({ internalWrites: true }).connect(wallet.jwk)
     
     tags.push( {name: "Contract-App", value: "Othent.io"}, {name: "Function", value: "sendTransaction"} )
     const options = {tags};
@@ -27,11 +29,17 @@ export default async function sendTransaction(JWT, tags) {
     const transactionId = transaction.originalTxId
 
     if (errorMessages[transactionId]) {
+
+        addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transactionId, 'sendTransactionWarp', 'warp-transaction', false)
         return { success: false, transactionId, bundlrId: transaction.bundlrResponse.id, 
-            errors: errorMessages[transactionId], state }
+            errors: errorMessages[transactionId] }
+
     } else if (errorMessages[transactionId] === undefined) {
+
+        addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transactionId, 'sendTransactionWarp', 'warp-transaction', true)
         return { success: true, transactionId, bundlrId: transaction.bundlrResponse.id, 
-            errors: {}, state }
+            errors: {} }
+
     }
 
 

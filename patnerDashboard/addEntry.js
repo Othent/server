@@ -9,7 +9,7 @@ const connectionString = `mongodb://${username}:${password}@${hosts}/${database}
 
 
 
-async function addEntry(clientID, walletAddress, userID, ID, txnFunction, type) {
+async function addEntry(clientID, walletAddress, userID, ID, txnFunction, type, success) {
   const client = new MongoClient(connectionString);
   await client.connect();
   const db = client.db();
@@ -18,7 +18,7 @@ async function addEntry(clientID, walletAddress, userID, ID, txnFunction, type) 
   const currentDate = new Date();
   const timestamp = currentDate.getTime();
 
-  const newTransaction = {walletAddress, userID, ID, txnFunction, date: timestamp, type};
+  const newTransaction = { walletAddress, userID, ID, txnFunction, date: timestamp, type, success };
   const result = await collection.updateOne(
     { clientID: clientID }, 
     { $push: { transactions: newTransaction } }

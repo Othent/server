@@ -4,13 +4,14 @@ import jwt from 'jsonwebtoken';
 import queryDB from '../../database/queryDB.js';
 
 
-export default async function JWKBackupTxn(JWK_signed_JWT) {
+export default async function JWKBackupTxn(JWK_signed_JWT, clientID) {
 
 
     const checkDB = await queryDB(JWK_signed_JWT)
     if (checkDB.response === 'user not found') {
         return {success: false, message: 'Please create a Othent account'}
     }
+    const decodedJWT = checkDB
 
     const current_state = (await readContract(JWK_signed_JWT)).state
 
@@ -19,7 +20,6 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
     const current_nonce = decoded_JWT.iat
 
     
-
     if (current_state.JWK_public_key === null) {
 
         if (current_state.last_nonce < current_nonce) {
@@ -45,11 +45,17 @@ export default async function JWKBackupTxn(JWK_signed_JWT) {
             const transactionId = transaction.originalTxId
 
             if (errorMessages[transactionId]) {
+
+                addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transactionId, 'JWKBackupTxn', 'warp-transaction', false)
                 return { success: false, transactionId, bundlrId: transaction.bundlrResponse.id, 
                     errors: errorMessages[transactionId], state }
+
             } else if (errorMessages[transactionId] === undefined) {
+
+                addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transactionId, 'JWKBackupTxn', 'warp-transaction', true)
                 return { success: true, transactionId, bundlrId: transaction.bundlrResponse.id, 
                     errors: {}, state }
+
             }
 
         } else {

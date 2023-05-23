@@ -1,13 +1,15 @@
 import Arweave from 'arweave';
 import queryDB from '../database/queryDB.js'
+import addEntry from '../patnerDashboard/addEntry.js';
 
 
-export default async function uploadFileToArweave(data, dataHashJWT, tags) {
+export default async function uploadFileToArweave(data, dataHashJWT, tags, clientID) {
 
   const checkDB = await queryDB(dataHashJWT)
   if (checkDB.response === 'user not found') {
     return {success: false, message: 'Please create a Othent account'}
   }
+  const decodedJWT = checkDB
 
 
   const arweave = Arweave.init({
@@ -39,7 +41,9 @@ export default async function uploadFileToArweave(data, dataHashJWT, tags) {
   await arweave.transactions.sign(transaction, wallet);
   await arweave.transactions.post(transaction);
 
-  const transaction_id = transaction.id;
+  const transactionId = transaction.id;
 
-  return {success: true, transactionId: transaction_id }
+  addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transactionId, 'sendTransactionArweave', 'arweave-upload', true)
+  return { success: true, transactionId }
+  
 }

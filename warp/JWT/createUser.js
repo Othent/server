@@ -4,11 +4,11 @@ import queryDB from '../../database/queryDB.js'
 import jwt from 'jsonwebtoken';
 import sendEmail from '../../new_user_email/email.js'
 import alert from '../../database/alert.js'
-// import { LoggerFactory } from 'warp-contracts';
-// LoggerFactory.INST.logLevel('none');
+import { LoggerFactory } from 'warp-contracts';
+LoggerFactory.INST.logLevel('none');
 
 
-export default async function createUser(JWT) { 
+export default async function createUser(JWT, clientID) { 
 
 
     // check DB
@@ -59,7 +59,7 @@ export default async function createUser(JWT) {
         {name: "Function", value: "initializeContract"}
     ]};
 
-    await contract.writeInteraction({
+    const transaction = await contract.writeInteraction({
             function: 'initializeContract',
             jwt: JWT,
             contract_address: contractTxId,
@@ -69,7 +69,7 @@ export default async function createUser(JWT) {
 
     const decoded_JWT = jwt.decode(JWT);
 
-    await newUserUpdateDB(contractTxId, JWT);
+    await newUserUpdateDB(contractTxId, JWT, clientID, transaction.originalTxId);
     
 
 

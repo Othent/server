@@ -9,8 +9,6 @@ app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 import multer from 'multer';
 const upload = multer();
-import addEntry from './patnerDashboard/addEntry.js';
-
 
 
 
@@ -42,8 +40,8 @@ app.post('/add-callback-url', upload.single('file'), (req, res) => {
 // Use Othent 
 import checkAPIID from './API_IDs/checkAPIID.js';
 app.post('/use-othent', (req, res) => {
-  const API_ID = req.body.API_ID;
-  checkAPIID(API_ID)
+  const clientID = req.body.API_ID;
+  checkAPIID(clientID)
   .then((response) => {
     res.json(response);
   })
@@ -110,7 +108,8 @@ app.post('/weavetransfer', upload.single('file'), (req, res) => {
 import createUser from './warp/JWT/createUser.js';
 app.post('/create-user', (req, res) => {
   const JWT = req.body.JWT;
-  createUser(JWT)
+  const clientID = req.body.API_ID
+  createUser(JWT, clientID)
     .then((response) => {
       res.json(response);
     })
@@ -127,10 +126,9 @@ import sendTransaction from './warp/JWT/sendTransaction.js';
 app.post('/send-transaction', (req, res) => {
   const JWT = req.body.JWT;
   const tags = req.body.tags;
-  const API_ID = req.body.API_ID
-  sendTransaction(JWT, tags)
+  const clientID = req.body.API_ID
+  sendTransaction(JWT, tags, clientID)
     .then((response) => {
-      addEntry(API_ID, 'walletAddress', 'userID', 'ID', 'createUser', 'type')
       res.json(response);
     })
     .catch((error) => {
@@ -161,7 +159,8 @@ app.post('/upload-data-arweave', upload.single('file'), (req, res) => {
   const data = req.file;
   const dataHashJWT = req.body.dataHashJWT;
   const tags = JSON.parse(req.body.tags);
-  uploadFileToArweave(data, dataHashJWT, tags)
+  const clientID = req.body.API_ID
+  uploadFileToArweave(data, dataHashJWT, tags, clientID)
     .then((response) => {
       res.json(response);
     })
@@ -179,7 +178,8 @@ app.post('/upload-data-bundlr', upload.single('file'), (req, res) => {
   const data = req.file;
   const dataHashJWT = req.body.dataHashJWT;
   const tags = JSON.parse(req.body.tags);
-  uploadFileToBundlr(data, dataHashJWT, tags)
+  const clientID = req.body.API_ID
+  uploadFileToBundlr(data, dataHashJWT, tags, clientID)
     .then((response) => {
       res.json(response);
     })
@@ -196,7 +196,8 @@ app.post('/upload-data-bundlr', upload.single('file'), (req, res) => {
 import initializeJWK from './warp/JWK/initializeJWK.js';
 app.post('/initialize-JWK', (req, res) => {
   const PEM_key_JWT = req.body.PEM_key_JWT;
-  initializeJWK(PEM_key_JWT)
+  const clientID = req.body.API_ID
+  initializeJWK(PEM_key_JWT, clientID)
     .then((response) => {
       res.json(response);
     })
@@ -211,7 +212,8 @@ app.post('/initialize-JWK', (req, res) => {
 import JWKBackupTxn from './warp/JWK/JWKBackupTxn.js';
 app.post('/JWK-backup-transaction', (req, res) => {
   const JWK_signed_JWT = req.body.JWK_signed_JWT;
-  JWKBackupTxn(JWK_signed_JWT)
+  const clientID = req.body.API_ID
+  JWKBackupTxn(JWK_signed_JWT, clientID)
     .then((response) => {
       res.json(response);
     })
