@@ -4,8 +4,8 @@ import queryDB from '../../database/queryDB.js'
 import jwt from 'jsonwebtoken';
 import sendEmail from '../../new_user_email/email.js'
 import alert from '../../database/alert.js'
-import { LoggerFactory } from 'warp-contracts';
-LoggerFactory.INST.logLevel('none');
+// import { LoggerFactory } from 'warp-contracts';
+// LoggerFactory.INST.logLevel('none');
 
 
 export default async function createUser(JWT, clientID) { 
