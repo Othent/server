@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/Othent/server#readme",
   "dependencies": {
-    "@bundlr-network/client": "^0.11.1",
+    "@bundlr-network/client": "^0.11.2",
     "@othent/warp-contracts-plugin-jwt-verify": "^1.0.401",
     "arweave": "^1.13.7",
     "axios": "^1.4.0",
@@ -36,9 +36,9 @@
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^5.5.0",
     "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.9.1",
+    "nodemailer": "^6.9.2",
     "path": "^0.12.7",
-    "warp-contracts": "^1.4.5",
+    "warp-contracts": "^1.4.8",
     "warp-contracts-plugin-deploy": "^1.0.8"
   }
 }
