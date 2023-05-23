@@ -127,7 +127,6 @@ app.post('/send-transaction', (req, res) => {
   const JWT = req.body.JWT;
   const tags = req.body.tags;
   const clientID = req.body.API_ID
-  console.log('clientID 34u93u4u4', clientID)
   sendTransaction(JWT, tags, clientID)
     .then((response) => {
       res.json(response);
