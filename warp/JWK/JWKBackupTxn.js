@@ -17,9 +17,6 @@ export default async function JWKBackupTxn(JWK_signed_JWT, clientID) {
     const current_state = (await readContract(JWK_signed_JWT)).state
 
     const decoded_JWT = jwt.decode(JWK_signed_JWT)
-
-    console.log(current_state)
-    console.log('current_state.JWK_public_key', current_state.JWK_public_key)
     
     if (current_state.JWK_public_key !== null) {
 
