@@ -1,6 +1,5 @@
 import { warp, configureWallet } from '../warp-configs.js'
 import readContract from '../readContract.js';
-import jwt from 'jsonwebtoken';
 import queryDB from '../../database/queryDB.js';
 import addEntry from '../../patnerDashboard/addEntry.js';
 
@@ -15,20 +14,18 @@ export default async function JWKBackupTxn(JWK_signed_JWT, clientID) {
     const decodedJWT = checkDB
 
     const current_state = (await readContract(JWK_signed_JWT)).state
-
-    const decoded_JWT = jwt.decode(JWK_signed_JWT)
     
     if (current_state.JWK_public_key !== null) {
 
         const wallet = await configureWallet()
         const contract = warp.contract(decodedJWT.contract_id).setEvaluationOptions({ internalWrites: true }).connect(wallet.jwk)
 
-        let tags = decoded_JWT.tags
+        let tags = decodedJWT.tags
         tags ??= [];
         tags.push( {name: "Contract-App", value: "Othent.io"}, {name: "Function", value: "JWKBackupTxn"} )
         const options = {tags};
 
-        const othentFunction = decoded_JWT.contract_input.othentFunction
+        const othentFunction = decodedJWT.contract_input.othentFunction
 
         const transaction = await contract.writeInteraction({
             function: othentFunction,
