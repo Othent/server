@@ -21,7 +21,7 @@ export default async function JWKBackupTxn(JWK_signed_JWT, clientID) {
     if (current_state.JWK_public_key !== null) {
 
         const wallet = await configureWallet()
-        const contract = warp.contract(decodedJWT.contract_address).setEvaluationOptions({ internalWrites: true }).connect(wallet.jwk)
+        const contract = warp.contract(decodedJWT.contract_id).setEvaluationOptions({ internalWrites: true }).connect(wallet.jwk)
 
         let tags = decoded_JWT.tags
         tags ??= [];
