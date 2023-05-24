@@ -2,6 +2,7 @@ import { warp, configureWallet } from '../warp-configs.js'
 import readContract from '../readContract.js';
 import jwt from 'jsonwebtoken';
 import queryDB from '../../database/queryDB.js';
+import addEntry from '../../patnerDashboard/addEntry.js';
 
 
 export default async function JWKBackupTxn(JWK_signed_JWT, clientID) {
