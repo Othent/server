@@ -17,12 +17,8 @@ export default async function JWKBackupTxn(JWK_signed_JWT, clientID) {
 
     const decoded_JWT = jwt.decode(JWK_signed_JWT)
 
-    const current_nonce = decoded_JWT.iat
-
     
     if (current_state.JWK_public_key === null) {
-
-        if (current_state.last_nonce < current_nonce) {
 
             const wallet = await configureWallet()
             const contract = warp.contract(current_state.contract_address).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
@@ -47,20 +43,17 @@ export default async function JWKBackupTxn(JWK_signed_JWT, clientID) {
             if (errorMessages[transactionId]) {
 
                 addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transactionId, 'JWKBackupTxn', 'warp-transaction', false)
-                return { success: false, transactionId, bundlrId: transaction.bundlrResponse.id, 
+                return { validity: false, transactionId, bundlrId: transaction.bundlrResponse.id, 
                     errors: errorMessages[transactionId], state }
 
             } else if (errorMessages[transactionId] === undefined) {
 
                 addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transactionId, 'JWKBackupTxn', 'warp-transaction', true)
-                return { success: true, transactionId, bundlrId: transaction.bundlrResponse.id, 
+                return { validity: true, transactionId, bundlrId: transaction.bundlrResponse.id, 
                     errors: {}, state }
 
             }
 
-        } else {
-            return { success: false, message: 'Invalid nonce' }
-        }
         
 
     } else {
