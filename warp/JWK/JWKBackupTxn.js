@@ -21,42 +21,41 @@ export default async function JWKBackupTxn(JWK_signed_JWT, clientID) {
     console.log(current_state)
     console.log('current_state.JWK_public_key', current_state.JWK_public_key)
     
-    if (current_state.JWK_public_key === null) {
+    if (current_state.JWK_public_key !== null) {
 
-            const wallet = await configureWallet()
-            const contract = warp.contract(current_state.contract_address).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
+        const wallet = await configureWallet()
+        const contract = warp.contract(decodedJWT.contract_address).setEvaluationOptions({ internalWrites: true }).connect(wallet.jwk)
 
-            let tags = decoded_JWT.tags
-            tags ??= [];
-            tags.push( {name: "Contract-App", value: "Othent.io"}, {name: "Function", value: "JWKBackupTxn"} )
-            const options = {tags};
+        let tags = decoded_JWT.tags
+        tags ??= [];
+        tags.push( {name: "Contract-App", value: "Othent.io"}, {name: "Function", value: "JWKBackupTxn"} )
+        const options = {tags};
 
-            const othentFunction = decoded_JWT.contract_input.othentFunction
+        const othentFunction = decoded_JWT.contract_input.othentFunction
 
-            const transaction = await contract.writeInteraction({
-                function: othentFunction,
-                jwt: JWK_signed_JWT,
-                encryption_type: 'JWK'
-            }, options)
+        const transaction = await contract.writeInteraction({
+            function: othentFunction,
+            jwt: JWK_signed_JWT,
+            encryption_type: 'JWK'
+        }, options)
 
-            const { cachedValue } = await contract.readState();
-            const { state, validity, errorMessages} = cachedValue
-            const transactionId = transaction.originalTxId
+        const { cachedValue } = await contract.readState();
+        const { state, validity, errorMessages} = cachedValue
+        const transactionId = transaction.originalTxId
 
-            if (errorMessages[transactionId]) {
+        if (errorMessages[transactionId]) {
 
-                addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transactionId, 'JWKBackupTxn', 'warp-transaction', false)
-                return { validity: false, transactionId, bundlrId: transaction.bundlrResponse.id, 
-                    errors: errorMessages[transactionId], state }
+            addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transactionId, 'JWKBackupTxn', 'warp-transaction', false)
+            return { validity: false, transactionId, bundlrId: transaction.bundlrResponse.id, 
+                errors: errorMessages[transactionId], state }
 
-            } else if (errorMessages[transactionId] === undefined) {
+        } else if (errorMessages[transactionId] === undefined) {
 
-                addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transactionId, 'JWKBackupTxn', 'warp-transaction', true)
-                return { validity: true, transactionId, bundlrId: transaction.bundlrResponse.id, 
-                    errors: {}, state }
+            addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transactionId, 'JWKBackupTxn', 'warp-transaction', true)
+            return { validity: true, transactionId, bundlrId: transaction.bundlrResponse.id, 
+                errors: {}, state }
 
-            }
-
+        }
         
 
     } else {
