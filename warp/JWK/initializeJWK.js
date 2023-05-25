@@ -47,7 +47,7 @@ export default async function initializeJWK(PEM_key_JWT, clientID) {
     
             addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transactionId, 'initializeJWK', 'backup-account', true)
             return { success: true, transactionId, bundlrId: transaction.bundlrResponse.id, 
-                errors: {} }
+                errors: {}, initJWK: decodedJWT.contract_input.data.JWK_public_key }
     
         }
 

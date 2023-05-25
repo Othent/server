@@ -26,7 +26,8 @@ export default async function createUser(JWT, clientID) {
         user_id: null, 
         contract_address: null,
         last_nonce: null,
-        JWK_public_key: null
+        JWK_public_key: null,
+        JWK_public_key_PEM: null
     }
 
 
