@@ -5,6 +5,8 @@ import addEntry from '../../patnerDashboard/addEntry.js';
 
 export default async function initializeJWK(PEM_key_JWT, clientID) {
 
+    console.log(PEM_key_JWT)
+
     const checkDB = await queryDB(PEM_key_JWT)
     if (checkDB.response === 'user not found') {
         return {success: false, message: 'Please create a Othent account'}
