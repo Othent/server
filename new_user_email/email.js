@@ -12,7 +12,7 @@ export default async function sendEmail(email, contract_id, given_name) {
   });
 
 
-  let template_to = await fetch('https://othent.io/othent-comfirmation.html');
+  let template_to = await fetch('https://othent.io/templates/othent-comfirmation.html');
   template_to = await template_to.text()
 
   const message_to = {

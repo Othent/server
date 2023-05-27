@@ -14,7 +14,7 @@ export default async function emailList (email) {
         },
       });
     
-      let template = await fetch('https://othent.io/email-list.html');
+      let template = await fetch('https://othent.io/templates/email-list.html');
       template = await template.text()
     
       const message_to = {
