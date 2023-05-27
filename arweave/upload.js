@@ -23,7 +23,7 @@ export default async function uploadFileToArweave(data, dataHashJWT, tags, clien
 
 
   const transaction = await arweave.createTransaction({
-    data: data
+    data: data.buffer
   }, wallet);
 
   transaction.addTag('App', 'Othent.io');

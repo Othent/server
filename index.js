@@ -158,12 +158,12 @@ import uploadFileToArweave from './arweave/upload.js';
 app.post('/upload-data-arweave', upload.single('file'), (req, res) => {
   console.log('body', req.body)
   const file = req.file;
-  console.log(file)
-  const data = req.body.data;
+  // console.log(file)
+  // const data = req.body.data;
   const dataHashJWT = req.body.dataHashJWT;
   const tags = JSON.parse(req.body.tags);
   const clientID = req.body.API_ID
-  uploadFileToArweave(data, dataHashJWT, tags, clientID)
+  uploadFileToArweave(file, dataHashJWT, tags, clientID)
     .then((response) => {
       res.json(response);
     })
