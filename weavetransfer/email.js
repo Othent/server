@@ -21,7 +21,7 @@ export default async function sendEmail(sendFromEmail, sendToEmail, fileDownload
     to: sendToEmail,
     subject: `${sendFromEmail} has sent you a file - via WeaveTransfer`,
     html: template_to
-      .replace('{{sendToEmail}}', sendToEmail)
+      .replace('{{sendFromEmail}}', sendToEmail)
       .replace('{{fileDownloadLink}}', fileDownloadLink)
   };
   transporter.sendMail(message_to, (error, info) => {
@@ -42,7 +42,7 @@ export default async function sendEmail(sendFromEmail, sendToEmail, fileDownload
     to: sendFromEmail,
     subject: `Your file to ${sendToEmail} has been sent - via WeaveTransfer`,
     html: template_from
-      .replace('{{sendFromEmail}}', sendFromEmail)
+      .replace('{{sendToEmail}}', sendFromEmail)
       .replace('{{fileDownloadLink}}', fileDownloadLink)
   };
   transporter.sendMail(message_from, (error, info) => {
