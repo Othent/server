@@ -5,16 +5,15 @@ import addEntry from '../../patnerDashboard/addEntry.js';
 
 export default async function initializeJWK(PEM_key_JWT, clientID) {
 
+    const checkDB = await queryDB(PEM_key_JWT)
+    if (checkDB.response === 'user not found') {
+        return {success: false, message: 'Please create a Othent account'}
+    }
+    const decodedJWT = checkDB
+    const contract_id = decodedJWT.contract_id
+
     const check_no_key = await readContract(PEM_key_JWT)
-
     if (check_no_key.state.JWK_public_key === null) {
-
-        const checkDB = await queryDB(PEM_key_JWT)
-        if (checkDB.response === 'user not found') {
-            return {success: false, message: 'Please create a Othent account'}
-        }
-        const decodedJWT = checkDB
-        const contract_id = decodedJWT.contract_id
 
         const wallet = await configureWallet()
         const contract = warp.contract(contract_id).setEvaluationOptions({ internalWrites: true }).connect(wallet.jwk)
