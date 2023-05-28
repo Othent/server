@@ -1,8 +1,12 @@
 import { MongoClient } from 'mongodb';
 
-async function queryClient(clientID) {
-  try {
+async function internalAnalytics(passwordEntry) {
 
+    if (passwordEntry === process.env.internalAnalyticsPassword) {
+        return { success: false, message: 'Incorrect password' }
+    }
+
+  try {
     const username = process.env.mongoDBUsername;
     const password = encodeURIComponent(process.env.mongoDBPassword);
     const hosts = process.env.mongoDBHost;
@@ -14,7 +18,7 @@ async function queryClient(clientID) {
     const db = client.db();
     const collection = db.collection('clients');
 
-    const document = await collection.findOne({ clientID: clientID });
+    const document = await collection.findOne({ clientID: 'd7a29242f7fdede654171a0d3fd25163' });
     delete document._id;
 
     await client.close();
@@ -25,4 +29,4 @@ async function queryClient(clientID) {
   }
 }
 
-export default queryClient;
+export default internalAnalytics;

@@ -243,6 +243,22 @@ app.post('/read-custom-contract', (req, res) => {
 
 
 
+// Partner dashboard, query client ID 
+import internalAnalytics from './internalAnalytics/internalAnalytics.js';
+app.post('/query-internal-analytics', (req, res) => {
+  const password = req.body.password;
+  internalAnalytics(password)
+  .then((response) => {
+    res.json(response);
+  })
+  .catch((error) => {
+    res.status(500).json({ success: false, error: error.message });
+  });
+});
+
+
+
+
 
 // Start up server
 const port = process.env.PORT || 3000;
