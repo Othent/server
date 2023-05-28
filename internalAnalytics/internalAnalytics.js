@@ -29,7 +29,7 @@ async function internalAnalytics(passwordEntry) {
         });
     });
 
-    combinedTransactions.sort((a, b) => b.date - a.date);
+    combinedTransactions.sort((a, b) => a.date - b.date);
 
     await client.close();
 
