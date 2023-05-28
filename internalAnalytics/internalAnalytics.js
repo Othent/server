@@ -18,12 +18,23 @@ async function internalAnalytics(passwordEntry) {
     const db = client.db();
     const collection = db.collection('clients');
 
-    const document = await collection.findOne({ clientID: 'd7a29242f7fdede654171a0d3fd25163' });
-    delete document._id;
+    const clients = await collection.find({}).toArray();
+
+    let combinedTransactions = [];
+    clients.forEach(client => {
+        const { clientID, transactions } = client;
+        transactions.forEach(transaction => {
+        const transactionWithClientID = { ...transaction, ClientID: clientID };
+        combinedTransactions.push(transactionWithClientID);
+        });
+    });
+
+    combinedTransactions.sort((a, b) => b.date - a.date);
 
     await client.close();
 
-    return { success: true, document: document };
+
+    return { success: true, transactions: combinedTransactions };
   } catch (error) {
     return { success: false, error: error.message };
   }
