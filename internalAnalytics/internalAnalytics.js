@@ -2,7 +2,7 @@ import { MongoClient } from 'mongodb';
 
 async function internalAnalytics(passwordEntry) {
 
-    if (passwordEntry === process.env.internalAnalyticsPassword) {
+    if (passwordEntry !== process.env.internalAnalyticsPassword) {
         return { success: false, message: 'Incorrect password' }
     }
 
