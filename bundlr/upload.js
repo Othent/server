@@ -3,7 +3,7 @@ import queryDB from '../database/queryDB.js'
 import addEntry from "../patnerDashboard/addEntry.js";
 
 
-export default async function uploadFileToBundlr(data, dataHashJWT, tags, clientID) {
+export default async function uploadFileToBundlr(file, dataHashJWT, tags, clientID) {
     
     const checkDB = await queryDB(dataHashJWT)
     if (checkDB.response === 'user not found') {
@@ -21,13 +21,13 @@ export default async function uploadFileToBundlr(data, dataHashJWT, tags, client
         wallet
     );
     
-    const size = data.buffer.byteLength;
+    const size = file.buffer.byteLength;
     const price = await bundlr.getPrice(size);
     await bundlr.fund(price)
 
     tags.push( {name: "Contract-App", value: "Othent.io"}, {name: 'File-Hash-JWT', value: dataHashJWT} )
 
-    const transaction = await bundlr.upload(data.buffer, {
+    const transaction = await bundlr.upload(file.buffer, {
         tags,
     });
 

@@ -3,7 +3,7 @@ import queryDB from '../database/queryDB.js'
 import addEntry from '../patnerDashboard/addEntry.js';
 
 
-export default async function uploadFileToArweave(data, dataHashJWT, tags, clientID) {
+export default async function uploadFileToArweave(file, dataHashJWT, tags, clientID) {
 
   const checkDB = await queryDB(dataHashJWT)
   if (checkDB.response === 'user not found') {
@@ -21,11 +21,9 @@ export default async function uploadFileToArweave(data, dataHashJWT, tags, clien
   const walletData = process.env.wallet;
   const wallet = JSON.parse(walletData);
 
-  console.log(data)
-
 
   const transaction = await arweave.createTransaction({
-    data: data.buffer
+    data: file.buffer
   }, wallet);
 
   transaction.addTag('App', 'Othent.io');

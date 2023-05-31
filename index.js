@@ -156,10 +156,7 @@ app.post('/read-contract', (req, res) => {
 // Upload data - arweave
 import uploadFileToArweave from './arweave/upload.js';
 app.post('/upload-data-arweave', upload.single('file'), (req, res) => {
-  console.log('body', req.body)
   const file = req.file;
-  // console.log(file)
-  // const data = req.body.data;
   const dataHashJWT = req.body.dataHashJWT;
   const tags = JSON.parse(req.body.tags);
   const clientID = req.body.API_ID
@@ -178,11 +175,11 @@ app.post('/upload-data-arweave', upload.single('file'), (req, res) => {
 // Upload data - bundlr
 import uploadFileToBundlr from './bundlr/upload.js';
 app.post('/upload-data-bundlr', upload.single('file'), (req, res) => {
-  const data = req.file;
+  const file = req.file;
   const dataHashJWT = req.body.dataHashJWT;
   const tags = JSON.parse(req.body.tags);
   const clientID = req.body.API_ID
-  uploadFileToBundlr(data, dataHashJWT, tags, clientID)
+  uploadFileToBundlr(file, dataHashJWT, tags, clientID)
     .then((response) => {
       res.json(response);
     })
