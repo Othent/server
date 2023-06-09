@@ -6,7 +6,7 @@ export default async function useOthent(clientID, callbackURLs) {
     return { response: 'Invalid API ID / not found - get API ID at Othent.io', success: false };
   }
 
-  const existingCallbackURLs = JSON.parse(process.env.CallbackURLs);
+  const existingCallbackURLs = JSON.parse(process.env.callbackURLs);
 
   const invalidCallbackURLs = callbackURLs.filter((url) => !existingCallbackURLs.includes(url));
 
