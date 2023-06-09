@@ -41,7 +41,7 @@ app.post('/add-callback-url', upload.single('file'), (req, res) => {
 import useOthent from './useOthent/useOthent.js';
 app.post('/use-othent', (req, res) => {
   const clientID = req.body.API_ID;
-  const callbackURLs = req.body.callbackURLs;
+  const callbackURLs = req.body.callbackURLs || [];
   useOthent(clientID, callbackURLs)
   .then((response) => {
     res.json(response);
