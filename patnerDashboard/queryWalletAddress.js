@@ -19,8 +19,9 @@ async function queryWalletAddress(walletAddress) {
     clients.forEach(client => {
         const { clientID, transactions } = client;
         transactions.forEach(transaction => {
-        const transactionWithClientID = { ...transaction, ClientID: clientID };
-        combinedTransactions.push(transactionWithClientID);
+            const transactionWithoutClientID = { ...transaction };
+            delete transactionWithoutClientID.ClientID;
+            combinedTransactions.push(transactionWithoutClientID);
         });
     });
 
@@ -39,6 +40,5 @@ async function queryWalletAddress(walletAddress) {
     return { success: false, error: error.message };
   }
 }
-
 
 export default queryWalletAddress;
