@@ -71,7 +71,7 @@ app.post('/query-client-id', (req, res) => {
 
 
 // Query a users wallet address for thier TXNs
-import queryClient from './patnerDashboard/queryWalletAddress.js';
+import queryWalletAddress from './patnerDashboard/queryWalletAddress.js';
 app.post('/query-wallet-address', (req, res) => {
   const walletAddress = req.body.walletAddress;
   queryWalletAddress(walletAddress)
