@@ -72,7 +72,7 @@ app.post('/query-client-id', (req, res) => {
 
 // Query a users wallet address for thier TXNs
 import queryWalletAddress from './patnerDashboard/queryWalletAddress.js';
-app.post('/query-wallet-address', (req, res) => {
+app.post('/query-wallet-address-txns', (req, res) => {
   const walletAddress = req.body.walletAddress;
   queryWalletAddress(walletAddress)
   .then((response) => {
