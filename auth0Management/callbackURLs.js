@@ -65,6 +65,7 @@ export default async function updateAuth0ApplicationUrls(URL) {
       message: `Successfully updated application URLs`,
     };
   } catch (error) {
+    console.log('error', error)
     throw new Error(`Failed to update application URLs: ${error.message}`);
   }
 }
