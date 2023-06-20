@@ -41,6 +41,7 @@ app.post('/add-callback-url', upload.single('file'), (req, res) => {
 import useOthent from './useOthent/useOthent.js';
 app.post('/use-othent', (req, res) => {
   const referringDomain = req.headers.referer || req.headers.referrer;
+  console.log('referringDomain referringDomain referringDomain referringDomain', referringDomain)
   const clientID = req.body.API_ID;
   useOthent(clientID, referringDomain)
   .then((response) => {
