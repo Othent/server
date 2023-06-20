@@ -59,6 +59,7 @@ export default async function updateAuth0ApplicationUrls(URL) {
     callbacks: newCallbacks,
     allowed_logout_urls: newLogoutUrls,
     web_origins: newAllowedOrigins,
+    allowed_origins: newAllowedOrigins
   };
   try {
     await axios.patch(apiUrl, body, { headers });
