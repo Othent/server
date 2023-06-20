@@ -60,6 +60,8 @@ export default async function updateAuth0ApplicationUrls(URL) {
   };
   try {
     await axios.patch(apiUrl, body, { headers });
+    const existingCallbackURLs = JSON.parse(process.env.existingCallbackURLs)
+    existingCallbackURLs.push(JSON.stringify(URL))
     return {
       success: true,
       message: `Successfully updated application URLs`,
