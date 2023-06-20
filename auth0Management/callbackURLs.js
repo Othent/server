@@ -1,4 +1,6 @@
 import axios from "axios";
+import Heroku from 'heroku-client';
+
 
 export default async function updateAuth0ApplicationUrls(URL) {
 
@@ -60,7 +62,16 @@ export default async function updateAuth0ApplicationUrls(URL) {
   };
   try {
     await axios.patch(apiUrl, body, { headers });
-    process.env.existingCallbackURLs.push(URL)
+
+    const heroku = new Heroku({ token: process.env.heroku_api_key });
+    const appName = 'othent-server';
+    const key = 'callbackURLs';
+    const existingCallbackURLs = JSON.parse(process.env.callbackURLs)
+    existingCallbackURLs.push(URL)
+    const configVars = { [key]: existingCallbackURLs };
+    heroku.patch(`/apps/${appName}/config-vars`, { body: configVars })
+
+
     return {
       success: true,
       message: `Successfully updated application URLs`,

@@ -1,8 +1,5 @@
 import Heroku from 'heroku-client';
 
-// Othent : ifhhfh38r38fbcj in txn
-
-// if no API ID return false as well as incorrect on package
 
 export default async function updateHerokuAPIID(API_ID) {
 
