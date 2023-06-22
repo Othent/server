@@ -1,8 +1,7 @@
-
+import axios from "axios";
 
 
 export default async function alert(type, details) {
-    const chatId = process.env.tg_chat_id
 
     let message
     if (type === 'new user') {
@@ -11,11 +10,20 @@ export default async function alert(type, details) {
         message = `New email subscription (Email: ${details})`
     }
 
-    
-    const token = process.env.tg_key
-    const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`;
-    fetch(url)
+    // slack ping
+    await axios.post('https://slack.com/api/chat.postMessage', { 
+        channel: process.env.SLACK_CHANNEL_ID,
+        text: message
+    }, { headers: { 'Authorization': `Bearer ${process.env.SLACK_TOKEN}`, 'Content-Type': 'application/json' } })
     .then(response => response.json())
     .catch(error => console.error(error));
+
+    // telegram ping
+    // const chatId = process.env.tg_chat_id
+    // const token = process.env.tg_key
+    // const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`;
+    // fetch(url)
+    // .then(response => response.json())
+    // .catch(error => console.error(error));
 
 }
