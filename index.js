@@ -30,11 +30,7 @@ app.post('/use-othent', (req, res) => {
     res.status(500).json({ success: false, error: 'Please update your code to a version of the Othent package that is higher than 1.0.634 and refer to Othent({}) at docs.othent.io' });
   }
 
-  console.log('Incoming URL', req.body.callbackURL);
-
   const callbackURL = new URL(req.body.callbackURL);
-  console.log('Incoming callbackURL', req.body.callbackURL);
-
   let wildcardDomain;
   if (callbackURL.hostname === 'localhost') {
     wildcardDomain = callbackURL.href;
@@ -44,9 +40,7 @@ app.post('/use-othent', (req, res) => {
     wildcardDomain = `https://*.${domain}`;
   }
 
-  console.log('wildcardDomain', wildcardDomain);
   const clientID = req.body.API_ID;
-
   useOthent(clientID, wildcardDomain)
   .then((response) => {
     res.json(response);
