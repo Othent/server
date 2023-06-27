@@ -29,7 +29,7 @@ app.post('/use-othent', (req, res) => {
   const callbackURL = new URL(req.body.callbackURL);
   const hostnameParts = callbackURL.hostname.split('.');
   const domain = `${hostnameParts[hostnameParts.length - 2]}.${hostnameParts[hostnameParts.length - 1]}`;
-  const wildcardDomain = `*.${domain}`;
+  const wildcardDomain = `https://*.${domain}`;
   console.log(wildcardDomain)
   const clientID = req.body.API_ID;
   useOthent(clientID, wildcardDomain)
