@@ -32,7 +32,12 @@ app.post('/use-othent', (req, res) => {
 
   const callbackURL = new URL(req.body.callbackURL);
   let wildcardDomain;
-  if (callbackURL.protocol === 'chrome-extension:' || callbackURL.protocol === 'safari-web-extension:') {
+  if (
+    callbackURL.protocol === 'chrome-extension:' ||
+    callbackURL.protocol === 'safari-web-extension:' ||
+    callbackURL.protocol === 'moz-extension:' ||
+    callbackURL.protocol === 'extension:'
+  ) {
     wildcardDomain = callbackURL.href;
   } else if (callbackURL.hostname === 'localhost') {
     wildcardDomain = callbackURL.href;
@@ -41,6 +46,7 @@ app.post('/use-othent', (req, res) => {
     const domain = `${hostnameParts[hostnameParts.length - 2]}.${hostnameParts[hostnameParts.length - 1]}`;
     wildcardDomain = `https://*.${domain}`;
   }
+
 
   const clientID = req.body.API_ID;
   useOthent(clientID, wildcardDomain)
