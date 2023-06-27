@@ -28,10 +28,10 @@ app.post('/use-othent', (req, res) => {
 
 
   if (req.body.callbackURL === undefined) {
-    res.status(500).json({ success: false, error: 'Please update your Othent package and refer to docs.othent.io' });
+    res.status(500).json({ success: false, error: 'Please update your code to a version of the Othent package that is higher than 1.0.634 and refer to docs.othent.io' });
   }
 
-  
+
   console.log('Incoming URL', req.body.callbackURL);
 
   const callbackURL = new URL(req.body.callbackURL);
