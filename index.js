@@ -20,22 +20,6 @@ app.get('/', (req, res) => {
 
 
 
-// Add callback URLs 
-import addCallbackURL from './auth0Management/callbackURLs.js';
-app.post('/add-callback-url', upload.single('file'), (req, res) => {
-  const callbackURL = req.body.callbackURL;
-  addCallbackURL(callbackURL)
-  .then((response) => {
-    res.json(response);
-  })
-  .catch((error) => {
-    res.status(500).json({ success: false, error: error.message });
-  });
-});
-
-
-
-
 
 // Use Othent 
 import useOthent from './useOthent/useOthent.js';
