@@ -26,30 +26,25 @@ app.get('/', (req, res) => {
 import useOthent from './useOthent/useOthent.js';
 app.post('/use-othent', (req, res) => {
 
-
   if (req.body.callbackURL === undefined) {
-    res.status(500).json({ success: false, error: 'Please update your code to a version of the Othent package that is higher than 1.0.634 and refer to docs.othent.io' });
+    res.status(500).json({ success: false, error: 'Please update your code to a version of the Othent package that is higher than 1.0.634 and refer to Othent({}) at docs.othent.io' });
   }
-
 
   console.log('Incoming URL', req.body.callbackURL);
 
   const callbackURL = new URL(req.body.callbackURL);
-
- 
-
-  const hostnameParts = callbackURL.hostname.split('.');
-  const domain = `${hostnameParts[hostnameParts.length - 2]}.${hostnameParts[hostnameParts.length - 1]}`;
-  const isLocalhost = callbackURL.hostname === 'localhost';
+  console.log('Incoming callbackURL', req.body.callbackURL);
 
   let wildcardDomain;
-  if (isLocalhost) {
+  if (callbackURL.hostname === 'localhost') {
     wildcardDomain = callbackURL.href;
   } else {
+    const hostnameParts = callbackURL.hostname.split('.');
+    const domain = `${hostnameParts[hostnameParts.length - 2]}.${hostnameParts[hostnameParts.length - 1]}`;
     wildcardDomain = `https://*.${domain}`;
   }
 
-  console.log(wildcardDomain);
+  console.log('wildcardDomain', wildcardDomain);
   const clientID = req.body.API_ID;
 
   useOthent(clientID, wildcardDomain)
