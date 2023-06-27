@@ -32,7 +32,7 @@ app.post('/use-othent', (req, res) => {
 
   const callbackURL = new URL(req.body.callbackURL);
   let wildcardDomain;
-  if (callbackURL.protocol === 'chrome-extension:') {
+  if (callbackURL.protocol === 'chrome-extension:' || callbackURL.protocol === 'safari-web-extension:') {
     wildcardDomain = callbackURL.href;
   } else if (callbackURL.hostname === 'localhost') {
     wildcardDomain = callbackURL.href;
