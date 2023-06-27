@@ -25,9 +25,18 @@ app.get('/', (req, res) => {
 // Use Othent 
 import useOthent from './useOthent/useOthent.js';
 app.post('/use-othent', (req, res) => {
-  
-  console.log(req.body.callbackURL);
+
+
+  if (callbackURL === req.body.callbackURL) {
+    res.status(500).json({ success: false, error: 'Please update your Othent package and refer to docs.othent.io' });
+  }
+
+  console.log('Incoming URL', req.body.callbackURL);
+
   const callbackURL = new URL(req.body.callbackURL);
+
+ 
+
   const hostnameParts = callbackURL.hostname.split('.');
   const domain = `${hostnameParts[hostnameParts.length - 2]}.${hostnameParts[hostnameParts.length - 1]}`;
   const isLocalhost = callbackURL.hostname === 'localhost';
