@@ -9,6 +9,7 @@ app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 import multer from 'multer';
 const upload = multer();
+import { URL } from 'url';
 
 
 
@@ -24,9 +25,13 @@ app.get('/', (req, res) => {
 // Use Othent 
 import useOthent from './useOthent/useOthent.js';
 app.post('/use-othent', (req, res) => {
-  const callbackURL = req.body.callbackURL;
+  const callbackURL = new URL(req.body.callbackURL);
+  const hostnameParts = callbackURL.hostname.split('.');
+  const domain = `${hostnameParts[hostnameParts.length - 2]}.${hostnameParts[hostnameParts.length - 1]}`;
+  const wildcardDomain = `*.${domain}`;
+  console.log(wildcardDomain)
   const clientID = req.body.API_ID;
-  useOthent(clientID, callbackURL)
+  useOthent(clientID, wildcardDomain)
   .then((response) => {
     res.json(response);
   })
