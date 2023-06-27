@@ -27,10 +27,11 @@ import useOthent from './useOthent/useOthent.js';
 app.post('/use-othent', (req, res) => {
 
 
-  if (callbackURL === req.body.callbackURL) {
+  if (req.body.callbackURL === undefined) {
     res.status(500).json({ success: false, error: 'Please update your Othent package and refer to docs.othent.io' });
   }
 
+  
   console.log('Incoming URL', req.body.callbackURL);
 
   const callbackURL = new URL(req.body.callbackURL);
