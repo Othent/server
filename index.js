@@ -25,13 +25,23 @@ app.get('/', (req, res) => {
 // Use Othent 
 import useOthent from './useOthent/useOthent.js';
 app.post('/use-othent', (req, res) => {
-  console.log(req.body.callbackURL)
+  
+  console.log(req.body.callbackURL);
   const callbackURL = new URL(req.body.callbackURL);
   const hostnameParts = callbackURL.hostname.split('.');
   const domain = `${hostnameParts[hostnameParts.length - 2]}.${hostnameParts[hostnameParts.length - 1]}`;
-  const wildcardDomain = `https://*.${domain}`;
-  console.log(wildcardDomain)
+  const isLocalhost = callbackURL.hostname === 'localhost';
+
+  let wildcardDomain;
+  if (isLocalhost) {
+    wildcardDomain = callbackURL.href;
+  } else {
+    wildcardDomain = `https://*.${domain}`;
+  }
+
+  console.log(wildcardDomain);
   const clientID = req.body.API_ID;
+
   useOthent(clientID, wildcardDomain)
   .then((response) => {
     res.json(response);
