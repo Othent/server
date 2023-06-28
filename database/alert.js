@@ -8,6 +8,8 @@ export default async function alert(type, details) {
         message = `New account generated ${details}`
     } else if (type === 'email subscription') {
         message = `New email subscription (Email: ${details})`
+    } else if (type === 'new callbackURL') {
+        message = `New callback URL: ${details.callbackURL}, adding ${details.wildcardDomain}`
     }
 
     // slack ping

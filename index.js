@@ -25,31 +25,12 @@ app.get('/', (req, res) => {
 // Use Othent 
 import useOthent from './useOthent/useOthent.js';
 app.post('/use-othent', (req, res) => {
-
   if (req.body.callbackURL === undefined) {
     res.status(500).json({ success: false, error: 'Please update your code to a version of the Othent package that is higher than 1.0.634 and refer to Othent({}) at docs.othent.io' });
   }
-
   const callbackURL = new URL(req.body.callbackURL);
-  let wildcardDomain;
-  if (
-    callbackURL.protocol === 'chrome-extension:' ||
-    callbackURL.protocol === 'safari-web-extension:' ||
-    callbackURL.protocol === 'moz-extension:' ||
-    callbackURL.protocol === 'extension:'
-  ) {
-    wildcardDomain = callbackURL.href;
-  } else if (callbackURL.hostname === 'localhost') {
-    wildcardDomain = callbackURL.href;
-  } else {
-    const hostnameParts = callbackURL.hostname.split('.');
-    const domain = `${hostnameParts[hostnameParts.length - 2]}.${hostnameParts[hostnameParts.length - 1]}`;
-    wildcardDomain = `https://*.${domain}`;
-  }
-
-
   const clientID = req.body.API_ID;
-  useOthent(clientID, wildcardDomain)
+  useOthent(clientID, callbackURL)
   .then((response) => {
     res.json(response);
   })
