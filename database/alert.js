@@ -17,7 +17,6 @@ export default async function alert(type, details) {
         channel: process.env.SLACK_CHANNEL_ID,
         text: message
     }, { headers: { 'Authorization': `Bearer ${process.env.SLACK_TOKEN}`, 'Content-Type': 'application/json' } })
-    .then(response => response.json())
     .catch(error => console.error(error));
 
     // telegram ping
