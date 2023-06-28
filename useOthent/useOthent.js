@@ -7,6 +7,8 @@ export default async function useOthent(clientID, callbackURL) {
     return { response: 'Invalid API ID / not found - get API ID at Othent.io', success: false };
   }
 
+  await alert('new callbackURL', { callbackURL: callbackURL.href, wildcardDomain: wildcardDomain })
+
   let wildcardDomain;
   if (
     callbackURL.protocol === 'chrome-extension:' ||
