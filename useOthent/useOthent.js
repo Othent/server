@@ -1,12 +1,18 @@
 import updateAuth0ApplicationUrls from '../auth0Management/callbackURLs.js';
 import alert from '../database/alert.js';
+import { URL } from 'url';
 
-export default async function useOthent(clientID, callbackURL) {
+
+
+export default async function useOthent(clientID, incomingURL) {
   const existingAPIIDs = JSON.parse(process.env.API_IDS);
   if (!existingAPIIDs.includes(clientID)) {
     return { response: 'Invalid API ID / not found - get API ID at Othent.io', success: false };
   }
 
+  console.log(incomingURL)
+  const callbackURL = new URL(incomingURL)
+  console.log(callbackURL)
   let wildcardDomain;
   if (
     callbackURL.protocol === 'chrome-extension:' ||

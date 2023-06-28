@@ -9,7 +9,6 @@ app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 import multer from 'multer';
 const upload = multer();
-import { URL } from 'url';
 
 
 
@@ -28,7 +27,7 @@ app.post('/use-othent', (req, res) => {
   if (req.body.callbackURL === undefined) {
     res.status(500).json({ success: false, error: 'Please update your code to a version of the Othent package that is higher than 1.0.634 and refer to Othent({}) at docs.othent.io' });
   }
-  const callbackURL = new URL(req.body.callbackURL);
+  const callbackURL = req.body.callbackURL;
   const clientID = req.body.API_ID;
   useOthent(clientID, callbackURL)
   .then((response) => {
