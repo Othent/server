@@ -26,7 +26,7 @@ export default async function useOthent(clientID, incomingURL) {
   } else {
     const hostnameParts = callbackURL.hostname.split('.');
     const domain = `${hostnameParts[hostnameParts.length - 2]}.${hostnameParts[hostnameParts.length - 1]}`;
-    wildcardDomain = `https://*.${domain}`;
+    wildcardDomain = `https://*.${domain}/`;
   }
 
   await alert('new callbackURL', { callbackURL: callbackURL.href, wildcardDomain: wildcardDomain })
