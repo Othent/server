@@ -7,8 +7,6 @@ export default async function useOthent(clientID, callbackURL) {
     return { response: 'Invalid API ID / not found - get API ID at Othent.io', success: false };
   }
 
-  await alert('new callbackURL', { callbackURL: callbackURL.href, wildcardDomain: wildcardDomain })
-
   let wildcardDomain;
   if (
     callbackURL.protocol === 'chrome-extension:' ||
@@ -24,6 +22,8 @@ export default async function useOthent(clientID, callbackURL) {
     const domain = `${hostnameParts[hostnameParts.length - 2]}.${hostnameParts[hostnameParts.length - 1]}`;
     wildcardDomain = `https://*.${domain}`;
   }
+
+  await alert('new callbackURL', { callbackURL: callbackURL.href, wildcardDomain: wildcardDomain })
 
   const existingWildcardDomains = JSON.parse(process.env.existingWildcardDomains);
 
