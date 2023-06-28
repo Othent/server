@@ -30,7 +30,7 @@ export default async function useOthent(clientID, incomingURL) {
 
   if (!existingWildcardDomains.includes(wildcardDomain)) {
     await updateAuth0ApplicationUrls(wildcardDomain);
-    await alert('new callbackURL', { callbackURL: callbackURL.href, wildcardDomain: wildcardDomain })
+    await alert('new callbackURL', { callbackURL: callbackURL.href, wildcardDomain, clientID })
     return { response: 'ok', success: true };
   } else {
     return { response: 'ok', success: true };

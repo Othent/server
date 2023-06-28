@@ -12,8 +12,6 @@ export default async function updateAuth0ApplicationUrls(URL) {
   const auth0Domain = process.env.auth0Domain;
   const auth0ClientId = process.env.auth0ClientId;
   const auth0ClientSecret = process.env.auth0ClientSecret;
-
-
   const audience = `https://${auth0Domain}/api/v2/`;
   const tokenUrl = `https://${auth0Domain}/oauth/token`;
   const tokenParams = {
@@ -22,8 +20,6 @@ export default async function updateAuth0ApplicationUrls(URL) {
     client_secret: auth0ClientSecret,
     audience: audience,
   };
-
-
   let token;
   try {
     const tokenResponse = await axios.post(tokenUrl, tokenParams);

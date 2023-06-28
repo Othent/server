@@ -1,4 +1,5 @@
 import axios from "axios";
+import queryUser from "../auth0Management/queryUser.js";
 
 
 export default async function alert(type, details) {
@@ -9,7 +10,8 @@ export default async function alert(type, details) {
     } else if (type === 'email subscription') {
         message = `New email subscription (Email: ${details})`
     } else if (type === 'new callbackURL') {
-        message = `New callback URL: ${details.callbackURL}, adding ${details.wildcardDomain}`
+        const user = await queryUser(details.clientID)
+        message = `New callback URL: ${details.callbackURL} (adding ${details.wildcardDomain}) from ${user}`
     }
 
     // slack ping
