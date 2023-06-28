@@ -5,6 +5,7 @@ import Heroku from 'heroku-client';
 export default async function updateAuth0ApplicationUrls(URL) {
 
   if (typeof URL !== "string" || !URL.trim()) {
+    console.log("Invalid URL")
     throw new Error("Invalid URL");
   }
 
