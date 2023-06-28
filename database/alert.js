@@ -11,7 +11,7 @@ export default async function alert(type, details) {
         message = `New email subscription (Email: ${details})`
     } else if (type === 'new callbackURL') {
         const user = await queryUser(details.clientID)
-        message = `New callback URL: ${details.callbackURL} (adding ${details.wildcardDomain}) from ${user}`
+        message = `New callback URL: ${details.callbackURL} (adding ${details.wildcardDomain}) by user ${user}`
     }
 
     // slack ping
