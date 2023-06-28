@@ -9,7 +9,6 @@ export default async function updateAuth0ApplicationUrls(URL) {
     throw new Error("Invalid URL");
   }
 
-
   const auth0Domain = process.env.auth0Domain;
   const auth0ClientId = process.env.auth0ClientId;
   const auth0ClientSecret = process.env.auth0ClientSecret;
@@ -67,10 +66,10 @@ export default async function updateAuth0ApplicationUrls(URL) {
 
     const heroku = new Heroku({ token: process.env.heroku_api_key });
     const appName = 'othent-server';
-    const key = 'callbackURLs';
-    const existingCallbackURLs = JSON.parse(process.env.callbackURLs)
-    existingCallbackURLs.push(URL)
-    const configVars = { [key]: existingCallbackURLs };
+    const key = 'existingWildcardDomains';
+    const existingWildcardDomains = JSON.parse(process.env.existingWildcardDomains)
+    existingWildcardDomains.push(URL)
+    const configVars = { [key]: existingWildcardDomains };
     heroku.patch(`/apps/${appName}/config-vars`, { body: configVars })
 
 

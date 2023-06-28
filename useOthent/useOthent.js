@@ -3,7 +3,6 @@ import alert from '../database/alert.js';
 import { URL } from 'url';
 
 
-
 export default async function useOthent(clientID, incomingURL) {
   const existingAPIIDs = JSON.parse(process.env.API_IDS);
   if (!existingAPIIDs.includes(clientID)) {
