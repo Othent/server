@@ -19,7 +19,7 @@ export default async function useOthent(clientID, incomingURL) {
     callbackURL.protocol === 'moz-extension:' ||
     callbackURL.protocol === 'extension:'
   ) {
-    wildcardDomain = callbackURL.href;
+    wildcardDomain = `${callbackURL.protocol}//*`;
   } else if (callbackURL.hostname === 'localhost') {
     wildcardDomain = callbackURL.origin;
   } else {
