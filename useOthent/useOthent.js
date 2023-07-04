@@ -27,8 +27,7 @@ export default async function useOthent(clientID, incomingURL) {
 
     if (hostnameParts.length > 2 && COUNTRY_TLDS.includes(hostnameParts[hostnameParts.length - 1]))
       domain = `${hostnameParts[hostnameParts.length - 3]}.${domain}`;
-
-    wildcardDomain = `${callbackURL.protocol}://*.${domain}/`;
+      wildcardDomain = `${callbackURL.protocol}//*.${domain}/`;
   }
 
   const existingWildcardDomains = JSON.parse(process.env.existingWildcardDomains);
