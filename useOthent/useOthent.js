@@ -3,6 +3,7 @@ import alert from '../database/alert.js';
 import { URL } from 'url';
 
 const COUNTRY_TLDS = JSON.parse(process.env.COUNTRY_TLDS)
+const GENERIC_TLDS = JSON.parse(process.env.GENERIC_TLDS)
 
 export default async function useOthent(clientID, incomingURL) {
   const existingAPIIDs = JSON.parse(process.env.API_IDS);
@@ -25,7 +26,11 @@ export default async function useOthent(clientID, incomingURL) {
     const hostnameParts = callbackURL.hostname.split('.');
     let domain = `${hostnameParts[hostnameParts.length - 2]}.${hostnameParts[hostnameParts.length - 1]}`;
 
-    if (hostnameParts.length > 2 && COUNTRY_TLDS.includes(hostnameParts[hostnameParts.length - 1]))
+    if (
+      hostnameParts.length > 2 &&
+      COUNTRY_TLDS.includes(hostnameParts[hostnameParts.length - 1]) &&
+      GENERIC_TLDS.includes(hostnameParts[hostnameParts.length - 2])
+    )
       domain = `${hostnameParts[hostnameParts.length - 3]}.${domain}`;
       wildcardDomain = `${callbackURL.protocol}//*.${domain}/`;
   }
