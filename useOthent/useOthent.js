@@ -13,14 +13,12 @@ export default async function useOthent(clientID, incomingURL) {
 
   const callbackURL = new URL(incomingURL)
   let wildcardDomain;
-  console.log(1, callbackURL)
   if (
     callbackURL.protocol === 'chrome-extension:' ||
     callbackURL.protocol === 'safari-web-extension:' ||
     callbackURL.protocol === 'moz-extension:' ||
     callbackURL.protocol === 'extension:'
   ) {
-    console.log(2, callbackURL)
     wildcardDomain = callbackURL.origin;
   } else if (callbackURL.hostname === 'localhost') {
     wildcardDomain = `${callbackURL.protocol}//${callbackURL.hostname}`;
