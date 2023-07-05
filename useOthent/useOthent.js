@@ -19,9 +19,9 @@ export default async function useOthent(clientID, incomingURL) {
     callbackURL.protocol === 'moz-extension:' ||
     callbackURL.protocol === 'extension:'
   ) {
-    wildcardDomain = callbackURL.origin;
-  } else if (callbackURL.hostname === 'localhost') {
     wildcardDomain = `${callbackURL.protocol}//${callbackURL.hostname}`;
+  } else if (callbackURL.hostname === 'localhost') {
+    wildcardDomain = callbackURL.origin
   } else {
     const hostnameParts = callbackURL.hostname.split('.');
     let domain = `${hostnameParts[hostnameParts.length - 2]}.${hostnameParts[hostnameParts.length - 1]}`;
