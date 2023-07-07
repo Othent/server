@@ -1,4 +1,4 @@
-import { warp, configureWallet } from "../warp/warp-configs";
+import { warp, configureWallet } from "../warp/warp-configs.js";
 
 
 export default async function transferU(contract_id) {
