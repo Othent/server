@@ -57,21 +57,6 @@ app.post('/query-client-id', (req, res) => {
 
 
 
-// Claim $U tokens
-import claimU from './claimU/claimU.js';
-app.post('/claim-u', (req, res) => {
-  const userDetails = req.body.userDetails;
-  claimU(userDetails)
-  .then((response) => {
-    res.json(response);
-  })
-  .catch((error) => {
-    res.status(500).json({ success: false, error: error.message });
-  });
-});
-
-
-
 // Query a users wallet address for thier TXNs
 import queryWalletAddress from './patnerDashboard/queryWalletAddress.js';
 app.post('/query-wallet-address-txns', (req, res) => {

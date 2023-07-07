@@ -105,5 +105,3 @@ dist
 todo.txt
 ignore.txt
 test-all-endpoints.js
-package-lock.json
-
