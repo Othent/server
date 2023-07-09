@@ -10,13 +10,13 @@ export default async function claimU(userDetails) {
 
     try {
         if (checkWalletStatus) {
-            const transferTokens = await transferU(contract_id)
-            if (transferTokens.success.true) {
-                console.log(transferTokens)
-                return { success: true, transferTokens }
+            const { transfer } = await transferU(contract_id)
+            if (transfer.originalTxId) {
+                console.log(transfer)
+                return { success: true, transfer }
             } else {
-                console.log(transferTokens)
-                return { success: false, transferTokens }
+                console.log(transfer)
+                return { success: false, transfer }
             }
         } else {
             return { success: 'alreadyClaimed' }

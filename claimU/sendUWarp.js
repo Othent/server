@@ -12,5 +12,5 @@ export default async function transferU(contract_id) {
         qty: 100000 
     });
 
-    return { success: true }
+    return { transfer }
 }
