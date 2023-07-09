@@ -1,12 +1,11 @@
 import transferU from "./sendUWarp.js"
-
+import checkIfClaimed from "./checkIfClaimed.js"
 
 export default async function claimU(userDetails) {
 
     const contract_id = userDetails.contract_id
-    // const userId = userDetails.sub, later add check
-
-    const checkWalletStatus = true
+    const userId = userDetails.sub
+    const checkWalletStatus = await checkIfClaimed(userId)
 
     try {
         if (checkWalletStatus) {
