@@ -12,10 +12,8 @@ export default async function claimU(userDetails) {
         if (checkWalletStatus) {
             const { transfer } = await transferU(contract_id)
             if (transfer.originalTxId) {
-                console.log(transfer.originalTxId)
                 return { success: true, transfer, claimedU: 100000 }
             } else {
-                console.log(transfer.originalTxId)
                 return { success: false, transfer }
             }
         } else {
