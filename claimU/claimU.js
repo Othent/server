@@ -13,7 +13,7 @@ export default async function claimU(userDetails) {
             const { transfer } = await transferU(contract_id)
             if (transfer.originalTxId) {
                 console.log(transfer.originalTxId)
-                return { success: true, transfer }
+                return { success: true, transfer, claimedU: 100000 }
             } else {
                 console.log(transfer.originalTxId)
                 return { success: false, transfer }
