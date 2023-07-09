@@ -32,13 +32,14 @@ export default async function checkIfClaimed(userId) {
         const appMetadata = userResponse.data.app_metadata;
         const isClaimed = appMetadata && appMetadata.claimed;
 
-        if (isClaimed === false) {
+        console.log(isClaimed)
+        if (isClaimed) {
+            return true
+        } else {
             const updateMetadataUrl = `https://${auth0Domain}/api/v2/users/${userId}`;
             const updatedAppMetadata = { claimed: true };
-            await axios.patch(updateMetadataUrl, { app_metadata: updatedAppMetadata }, { headers });
-            return false
-        } else {
-            return true;
+            await axios.patch(updateMetadataUrl, { user_metadata: updatedAppMetadata }, { headers });
+            return false;
         }
 
     } catch (error) {
