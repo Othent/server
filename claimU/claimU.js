@@ -8,7 +8,7 @@ export default async function claimU(userDetails) {
     const checkWalletStatus = await checkIfClaimed(userId)
 
     try {
-        if (checkWalletStatus) {
+        if (checkWalletStatus === false) {
             const { transfer } = await transferU(contract_id)
             if (transfer.originalTxId) {
                 return { success: true, transfer, claimedU: 100000 }
