@@ -42,6 +42,24 @@ app.post('/use-othent', (req, res) => {
 
 
 
+// Claim $U tokens
+import claimU from './claimU/claimU.js';
+app.post('/claim-u', (req, res) => {
+  const userDetails = req.body.userDetails;
+  claimU(userDetails)
+  .then((response) => {
+    res.json(response);
+  })
+  .catch((error) => {
+    res.status(500).json({ success: false, error: error.message });
+  });
+});
+
+
+
+
+
+
 // Partner dashboard, query client ID 
 import queryClient from './patnerDashboard/queryClient.js';
 app.post('/query-client-id', (req, res) => {
