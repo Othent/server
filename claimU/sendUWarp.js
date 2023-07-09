@@ -9,10 +9,8 @@ export default async function transferU(contract_id) {
     const transfer = await connectedWallet.writeInteraction({
         function: 'transfer',
         target: contract_id,
-        qty: 100000 // transfer 0.1 
+        qty: 100000 
     });
 
-    console.log(transfer)
-
-    return { success: true }
+    return { success: true, transfer }
 }

@@ -11,10 +11,11 @@ export default async function claimU(userDetails) {
     try {
         if (checkWalletStatus) {
             const transferTokens = await transferU(contract_id)
-            if (transferTokens.success.true) {
-                return { success: true }
+            if (transferTokens.success) {
+                console.log(transferTokens)
+                return { success: true, transferTokens }
             } else {
-                return { success: false }
+                return { success: false, transferTokens }
             }
         } else {
             return { success: 'alreadyClaimed' }
