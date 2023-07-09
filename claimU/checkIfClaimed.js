@@ -31,8 +31,6 @@ export default async function checkIfClaimed(userId) {
         const userResponse = await axios.get(getUserUrl, { headers });
         const user_metadata = userResponse.data.user_metadata;
 
-        console.log(user_metadata)
-
         if (user_metadata.claimed) {
             return true
         } else {
