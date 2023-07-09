@@ -29,11 +29,11 @@ export default async function checkIfClaimed(userId) {
 
     try {
         const userResponse = await axios.get(getUserUrl, { headers });
-        const appMetadata = userResponse.data.app_metadata;
-        const isClaimed = appMetadata && appMetadata.claimed;
+        const user_metadata = userResponse.data.user_metadata;
 
-        console.log(isClaimed)
-        if (isClaimed) {
+        console.log(user_metadata)
+
+        if (user_metadata.claimed) {
             return true
         } else {
             const updateMetadataUrl = `https://${auth0Domain}/api/v2/users/${userId}`;
@@ -43,6 +43,6 @@ export default async function checkIfClaimed(userId) {
         }
 
     } catch (error) {
-        throw new Error(`Failed to retrieve user's app metadata: ${error.message}`);
+        throw new Error(`Failed to retrieve user's metadata: ${error.message}`);
     }
 }
