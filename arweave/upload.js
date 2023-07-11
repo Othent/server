@@ -28,6 +28,11 @@ export default async function uploadFileToArweave(file, dataHashJWT, tags, clien
 
   transaction.addTag('App', 'Othent.io');
   transaction.addTag('File-Hash-JWT', dataHashJWT);
+  transaction.addTag('App-Name', 'SmartWeaveAction');
+  transaction.addTag('App-Version', '0.3.0');
+  transaction.addTag('Input', '{\"function\":\"mint\"}');
+  transaction.addTag('Contract', 'KTzTXT_ANmF84fWEKHzWURD1LWd9QaFR9yfYUwH2Lxw');
+
 
   function addTagsToTransaction(transaction, tags) {
     for (let i = 0; i < tags.length; i++) {
