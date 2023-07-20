@@ -17,7 +17,7 @@ export default async function sendTransaction(JWT, tags, clientID) {
     const contract = warp.contract(decodedJWT.contract_id).setEvaluationOptions({ internalWrites: true }).connect(wallet.jwk)
     
     tags.push( {name: "Contract-App", value: "Othent.io"}, {name: "Function", value: "sendTransaction"} )
-    const options = {tags};
+    const options = { tags };
 
     const transaction = await contract.writeInteraction({
         function: 'sendTransaction',

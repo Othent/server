@@ -278,6 +278,25 @@ app.post('/query-internal-analytics', (req, res) => {
 
 
 
+// Deploy warp contract
+import deployWarpContract from './warp/deployWarpContract.js';
+app.post('/deploy-warp-contract', (req, res) => {
+  const contractSrc = req.body.contractSrc;
+  const contractState = req.body.contractState;
+  const JWT = req.body.JWT;
+  const tags = req.body.tags
+  deployWarpContract(contractSrc, contractState, JWT, tags)
+  .then((response) => {
+    res.json(response);
+  })
+  .catch((error) => {
+    res.status(500).json({ success: false, error: error.message });
+  });
+});
+
+
+
+
 
 // Start up server
 const port = process.env.PORT || 3000;
