@@ -1,4 +1,6 @@
 import { MongoClient } from 'mongodb';
+import googleWebsiteAnalytics from './googleAnalytics.js'
+
 
 async function internalAnalytics(passwordEntry) {
 
@@ -34,7 +36,10 @@ async function internalAnalytics(passwordEntry) {
     await client.close();
 
 
-    return { success: true, transactions: combinedTransactions };
+    const websiteAnalytics = await googleWebsiteAnalytics()
+
+
+    return { success: true, transactions: combinedTransactions, websiteAnalytics: websiteAnalytics };
   } catch (error) {
     return { success: false, error: error.message };
   }
