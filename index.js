@@ -15,7 +15,7 @@ const upload = multer();
 
 // Home (ping)
 app.get('/', (req, res) => {
-  res.json({ "response": true });
+  res.json({ response: true });
 });
 
 
@@ -34,7 +34,7 @@ app.post('/use-othent', (req, res) => {
     res.json(response);
   })
   .catch((error) => {
-    res.status(500).json({ success: false, error: error.message });
+    res.json({ success: false, error: error });
   });
 });
 
@@ -51,7 +51,7 @@ app.post('/claim-u', (req, res) => {
     res.json(response);
   })
   .catch((error) => {
-    res.status(500).json({ success: false, error: error.message });
+    res.json({ success: false, error: error });
   });
 });
 
@@ -69,7 +69,7 @@ app.post('/query-client-id', (req, res) => {
     res.json(response);
   })
   .catch((error) => {
-    res.status(500).json({ success: false, error: error.message });
+    res.json({ success: false, error: error });
   });
 });
 
@@ -84,7 +84,7 @@ app.post('/query-wallet-address-txns', (req, res) => {
     res.json(response);
   })
   .catch((error) => {
-    res.status(500).json({ success: false, error: error.message });
+    res.json({ success: false, error: error });
   });
 });
 
@@ -102,7 +102,7 @@ app.post('/email-list', (req, res) => {
     res.json(response);
   })
   .catch((error) => {
-    res.status(500).json({ success: false, error: error.message });
+    res.json({ success: false, error: error });
   });
 });
 
@@ -120,7 +120,7 @@ app.post('/weavetransfer', upload.single('file'), (req, res) => {
       res.json({ success: true, transactionId: transaction_id });
     })
     .catch((error) => {
-      res.status(500).json({ success: false, error: error.message });
+      res.json({ success: false, error: error });
     });
 });
 
@@ -136,8 +136,7 @@ app.post('/create-user', (req, res) => {
       res.json(response);
     })
     .catch((error) => {
-      res.status(500).json({ response: 'error creating new user', 
-      success: false, error: error.message });
+      res.json({ response: 'error creating new user', success: false, error: error });
     });
 });
 
@@ -154,7 +153,7 @@ app.post('/send-transaction', (req, res) => {
       res.json(response);
     })
     .catch((error) => {
-      res.status(500).json({ success: false, error: error.message });
+      res.json({ success: false, error: error });
     });
 });
 
@@ -169,7 +168,7 @@ app.post('/read-contract', (req, res) => {
       res.json(response);
     })
     .catch((error) => {
-      res.status(500).json({ success: false, error: error.message });
+      res.json({ success: false, error: error });
     });
 });
 
@@ -187,7 +186,7 @@ app.post('/upload-data-arweave', upload.single('file'), (req, res) => {
       res.json(response);
     })
     .catch((error) => {
-      res.status(500).json({ success: false, error: error.message });
+      res.json({ success: false, error: error });
     });
 });
 
@@ -206,7 +205,7 @@ app.post('/upload-data-bundlr', upload.single('file'), (req, res) => {
       res.json(response);
     })
     .catch((error) => {
-      res.status(500).json({ success: false, error: error.message });
+      res.json({ success: false, error: error });
     });
 });
 
@@ -224,7 +223,7 @@ app.post('/initialize-JWK', (req, res) => {
       res.json(response);
     })
     .catch((error) => {
-      res.status(500).json({ success: false, error: error.message });
+      res.json({ success: false, error: error });
     });
 });
 
@@ -240,7 +239,7 @@ app.post('/JWK-backup-transaction', (req, res) => {
       res.json(response);
     })
     .catch((error) => {
-      res.status(500).json({ success: false, error: error.message });
+      res.json({ success: false, error: error });
     });
 });
 
@@ -255,7 +254,7 @@ app.post('/read-custom-contract', (req, res) => {
       res.json(response);
     })
     .catch((error) => {
-      res.status(500).json({ success: false, error: error.message });
+      res.json({ success: false, error: error });
     });
 });
 
@@ -271,7 +270,7 @@ app.post('/query-internal-analytics', (req, res) => {
     res.json(response);
   })
   .catch((error) => {
-    res.status(500).json({ success: false, error: error.message });
+    res.json({ success: false, error: error });
   });
 });
 
@@ -290,7 +289,7 @@ app.post('/deploy-warp-contract', (req, res) => {
     res.json(response);
   })
   .catch((error) => {
-    res.status(500).json({ success: false, error: error.message });
+    res.json({ success: false, error: error });
   });
 });
 
