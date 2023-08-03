@@ -1,9 +1,9 @@
-import { warp, configureWallet } from '../warp-configs.js'
+import { warp as warpFunction, configureWallet } from '../warp-configs.js'
 import readContract from '../readContract.js';
 import queryDB from '../../database/queryDB.js';
 import addEntry from '../../patnerDashboard/addEntry.js';
 
-export default async function initializeJWK(PEM_key_JWT, clientID) {
+export default async function initializeJWK(network, PEM_key_JWT, clientID) {
 
     const checkDB = await queryDB(PEM_key_JWT)
     if (checkDB.response === 'user not found') {
@@ -16,6 +16,7 @@ export default async function initializeJWK(PEM_key_JWT, clientID) {
 
         const contract_id = decodedJWT.contract_id
         const wallet = await configureWallet()
+        const warp = await warpFunction(network)
         const contract = warp.contract(contract_id).setEvaluationOptions({ internalWrites: true }).connect(wallet.jwk)
         const options = {tags: [
             {name: "Contract-App", value: "Othent.io"}, 

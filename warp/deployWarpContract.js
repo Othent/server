@@ -1,9 +1,9 @@
-import { warp, configureWallet } from './warp-configs.js'
+import { warp as warpFunction, configureWallet } from './warp-configs.js'
 import { sha256 } from 'crypto-hash';
 import jwt from 'jsonwebtoken';
 
 
-export default async function deployWarpContract(contractSrc, contractState, JWT, tags) {
+export default async function deployWarpContract(network, contractSrc, contractState, JWT, tags) {
 
     const hashOfContractSrc = await sha256(contractSrc)
     const decodedJWT = jwt.decode(JWT)
@@ -16,6 +16,7 @@ export default async function deployWarpContract(contractSrc, contractState, JWT
     tags.push( { name: "File-Hash-JWT", value: JWT } )
 
 
+    const warp = await warpFunction(network)
     const contractResponse = await warp.deploy({
         wallet: wallet, 
         initState: JSON.stringify(contractState), 

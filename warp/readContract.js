@@ -1,8 +1,8 @@
-import { warp, configureWallet } from './warp-configs.js'
+import { warp as warpFunction, configureWallet } from './warp-configs.js'
 import queryDB from '../database/queryDB.js'
 
 
-export default async function readContract(JWT) {
+export default async function readContract(network, JWT) {
 
     const checkDB = await queryDB(JWT)
     if (checkDB.response === 'user not found') {
@@ -10,6 +10,7 @@ export default async function readContract(JWT) {
     }
 
     const wallet = await configureWallet()
+    const warp = await warpFunction(network)
     const contract = warp.contract(checkDB.contract_id)
     .setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
 

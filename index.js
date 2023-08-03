@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 import useOthent from './useOthent/useOthent.js';
 app.post('/use-othent', (req, res) => {
   if (req.body.callbackURL === undefined) {
-    res.status(500).json({ success: false, error: 'Please update your code to a version of the Othent package that is higher than 1.0.634 and refer to Othent({}) at docs.othent.io' });
+    res.json({ success: false, error: 'Please update your code to a version of the Othent package that is higher than 1.0.634 and refer to Othent({}) at docs.othent.io' });
   }
   const callbackURL = req.body.callbackURL;
   const clientID = req.body.API_ID;
@@ -126,30 +126,23 @@ app.post('/weavetransfer', upload.single('file'), (req, res) => {
 
 
 
+
+
+
+
 // Create user - warp
-import { createUser as createUserMainnet } from './warp/JWT/createUser.js';
-import { createUser as createUserTestnet } from './warp-testnet/JWT/createUser.js';
+import createUser from './warp/JWT/createUser.js';
 app.post('/create-user', (req, res) => {
   const JWT = req.body.JWT;
   const clientID = req.body.API_ID
   const network = req.body.network
-  if (network === 'mainNet') {
-    createUserMainnet(JWT, clientID)
+  createUser(network, JWT, clientID)
     .then((response) => {
       res.json(response);
     })
     .catch((error) => {
       res.json({ response: 'error creating new user', success: false, error: error });
     });
-  } else if (network === 'testNet') {
-    createUserTestnet(JWT, clientID)
-    .then((response) => {
-      res.json(response);
-    })
-    .catch((error) => {
-      res.json({ response: 'error creating new user', success: false, error: error });
-    });
-  }
 });
 
 
@@ -160,7 +153,8 @@ app.post('/send-transaction', (req, res) => {
   const JWT = req.body.JWT;
   const tags = req.body.tags;
   const clientID = req.body.API_ID
-  sendTransaction(JWT, tags, clientID)
+  const network = req.body.network
+  sendTransaction(network, JWT, tags, clientID)
     .then((response) => {
       res.json(response);
     })
@@ -175,7 +169,8 @@ app.post('/send-transaction', (req, res) => {
 import readContract from './warp/readContract.js';
 app.post('/read-contract', (req, res) => {
   const JWT = req.body.JWT
-  readContract(JWT)
+  const network = req.body.network
+  readContract(network, JWT)
     .then((response) => {
       res.json(response);
     })
@@ -183,6 +178,83 @@ app.post('/read-contract', (req, res) => {
       res.json({ success: false, error: error });
     });
 });
+
+
+
+// Init backup keyfile - warp
+import initializeJWK from './warp/JWK/initializeJWK.js';
+app.post('/initialize-JWK', (req, res) => {
+  const PEM_key_JWT = req.body.PEM_key_JWT;
+  const clientID = req.body.API_ID
+  const network = req.body.network
+  initializeJWK(network, PEM_key_JWT, clientID)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((error) => {
+      res.json({ success: false, error: error });
+    });
+});
+
+
+
+// JWK backup transaction - warp
+import JWKBackupTxn from './warp/JWK/JWKBackupTxn.js';
+app.post('/JWK-backup-transaction', (req, res) => {
+  const JWK_signed_JWT = req.body.JWK_signed_JWT;
+  const clientID = req.body.API_ID
+  const network = req.body.network
+  JWKBackupTxn(network, JWK_signed_JWT, clientID)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((error) => {
+      res.json({ success: false, error: error });
+    });
+});
+
+
+
+// Read custom contract - warp
+import readCustomContract from './warp/readCustomContract.js';
+app.post('/read-custom-contract', (req, res) => {
+  const contract_id = req.body.contract_id;
+  const network = req.body.network
+  readCustomContract(network, contract_id)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((error) => {
+      res.json({ success: false, error: error });
+    });
+});
+
+
+
+// Deploy warp contract
+import deployWarpContract from './warp/deployWarpContract.js';
+app.post('/deploy-warp-contract', (req, res) => {
+  const contractSrc = req.body.contractSrc;
+  const contractState = req.body.contractState;
+  const JWT = req.body.JWT;
+  const tags = req.body.tags
+  const network = req.body.network
+  deployWarpContract(network, contractSrc, contractState, JWT, tags)
+  .then((response) => {
+    res.json(response);
+  })
+  .catch((error) => {
+    res.json({ success: false, error: error });
+  });
+});
+
+
+
+
+
+
+
+
 
 
 
@@ -225,54 +297,6 @@ app.post('/upload-data-bundlr', upload.single('file'), (req, res) => {
 
 
 
-// Init backup keyfile - warp
-import initializeJWK from './warp/JWK/initializeJWK.js';
-app.post('/initialize-JWK', (req, res) => {
-  const PEM_key_JWT = req.body.PEM_key_JWT;
-  const clientID = req.body.API_ID
-  initializeJWK(PEM_key_JWT, clientID)
-    .then((response) => {
-      res.json(response);
-    })
-    .catch((error) => {
-      res.json({ success: false, error: error });
-    });
-});
-
-
-
-// JWK backup transaction - warp
-import JWKBackupTxn from './warp/JWK/JWKBackupTxn.js';
-app.post('/JWK-backup-transaction', (req, res) => {
-  const JWK_signed_JWT = req.body.JWK_signed_JWT;
-  const clientID = req.body.API_ID
-  JWKBackupTxn(JWK_signed_JWT, clientID)
-    .then((response) => {
-      res.json(response);
-    })
-    .catch((error) => {
-      res.json({ success: false, error: error });
-    });
-});
-
-
-
-// Read custom contract - warp
-import readCustomContract from './warp/readCustomContract.js';
-app.post('/read-custom-contract', (req, res) => {
-  const contract_id = req.body.contract_id;
-  readCustomContract(contract_id)
-    .then((response) => {
-      res.json(response);
-    })
-    .catch((error) => {
-      res.json({ success: false, error: error });
-    });
-});
-
-
-
-
 // Partner dashboard, query client ID 
 import internalAnalytics from './internalAnalytics/internalAnalytics.js';
 app.post('/query-internal-analytics', (req, res) => {
@@ -288,22 +312,6 @@ app.post('/query-internal-analytics', (req, res) => {
 
 
 
-
-// Deploy warp contract
-import deployWarpContract from './warp/deployWarpContract.js';
-app.post('/deploy-warp-contract', (req, res) => {
-  const contractSrc = req.body.contractSrc;
-  const contractState = req.body.contractState;
-  const JWT = req.body.JWT;
-  const tags = req.body.tags
-  deployWarpContract(contractSrc, contractState, JWT, tags)
-  .then((response) => {
-    res.json(response);
-  })
-  .catch((error) => {
-    res.json({ success: false, error: error });
-  });
-});
 
 
 

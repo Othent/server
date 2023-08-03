@@ -1,10 +1,10 @@
-import { warp, configureWallet } from '../warp-configs.js'
+import { warp as warpFunction, configureWallet } from '../warp-configs.js'
 import readContract from '../readContract.js';
 import queryDB from '../../database/queryDB.js';
 import addEntry from '../../patnerDashboard/addEntry.js';
 
 
-export default async function JWKBackupTxn(JWK_signed_JWT, clientID) {
+export default async function JWKBackupTxn(network, JWK_signed_JWT, clientID) {
 
 
     const checkDB = await queryDB(JWK_signed_JWT)
@@ -18,6 +18,7 @@ export default async function JWKBackupTxn(JWK_signed_JWT, clientID) {
     if (current_state.JWK_public_key !== null) {
 
         const wallet = await configureWallet()
+        const warp = await warpFunction(network)
         const contract = warp.contract(decodedJWT.contract_id).setEvaluationOptions({ internalWrites: true }).connect(wallet.jwk)
 
         let tags = decodedJWT.tags
