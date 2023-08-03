@@ -127,17 +127,29 @@ app.post('/weavetransfer', upload.single('file'), (req, res) => {
 
 
 // Create user - warp
-import createUser from './warp/JWT/createUser.js';
+import { createUser as createUserMainnet } from './warp/JWT/createUser.js';
+import { createUser as createUserTestnet } from './warp-testnet/JWT/createUser.js';
 app.post('/create-user', (req, res) => {
   const JWT = req.body.JWT;
   const clientID = req.body.API_ID
-  createUser(JWT, clientID)
+  const network = req.body.network
+  if (network === 'mainNet') {
+    createUserMainnet(JWT, clientID)
     .then((response) => {
       res.json(response);
     })
     .catch((error) => {
       res.json({ response: 'error creating new user', success: false, error: error });
     });
+  } else if (network === 'testNet') {
+    createUserTestnet(JWT, clientID)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((error) => {
+      res.json({ response: 'error creating new user', success: false, error: error });
+    });
+  }
 });
 
 
