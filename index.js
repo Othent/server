@@ -135,7 +135,10 @@ import createUser from './warp/JWT/createUser.js';
 app.post('/create-user', (req, res) => {
   const JWT = req.body.JWT;
   const clientID = req.body.API_ID
-  const network = req.body.network
+  let network = req.body.network
+  if (!network) {
+    network = 'mainNet'
+  }
   createUser(network, JWT, clientID)
     .then((response) => {
       res.json(response);
@@ -153,7 +156,10 @@ app.post('/send-transaction', (req, res) => {
   const JWT = req.body.JWT;
   const tags = req.body.tags;
   const clientID = req.body.API_ID
-  const network = req.body.network
+  let network = req.body.network
+  if (!network) {
+    network = 'mainNet'
+  }
   sendTransaction(network, JWT, tags, clientID)
     .then((response) => {
       res.json(response);
@@ -169,7 +175,10 @@ app.post('/send-transaction', (req, res) => {
 import readContract from './warp/readContract.js';
 app.post('/read-contract', (req, res) => {
   const JWT = req.body.JWT
-  const network = req.body.network
+  let network = req.body.network
+  if (!network) {
+    network = 'mainNet'
+  }
   readContract(network, JWT)
     .then((response) => {
       res.json(response);
@@ -186,7 +195,10 @@ import initializeJWK from './warp/JWK/initializeJWK.js';
 app.post('/initialize-JWK', (req, res) => {
   const PEM_key_JWT = req.body.PEM_key_JWT;
   const clientID = req.body.API_ID
-  const network = req.body.network
+  let network = req.body.network
+  if (!network) {
+    network = 'mainNet'
+  }
   initializeJWK(network, PEM_key_JWT, clientID)
     .then((response) => {
       res.json(response);
@@ -203,7 +215,10 @@ import JWKBackupTxn from './warp/JWK/JWKBackupTxn.js';
 app.post('/JWK-backup-transaction', (req, res) => {
   const JWK_signed_JWT = req.body.JWK_signed_JWT;
   const clientID = req.body.API_ID
-  const network = req.body.network
+  let network = req.body.network
+  if (!network) {
+    network = 'mainNet'
+  }
   JWKBackupTxn(network, JWK_signed_JWT, clientID)
     .then((response) => {
       res.json(response);
@@ -219,7 +234,10 @@ app.post('/JWK-backup-transaction', (req, res) => {
 import readCustomContract from './warp/readCustomContract.js';
 app.post('/read-custom-contract', (req, res) => {
   const contract_id = req.body.contract_id;
-  const network = req.body.network
+  let network = req.body.network
+  if (!network) {
+    network = 'mainNet'
+  }
   readCustomContract(network, contract_id)
     .then((response) => {
       res.json(response);
@@ -238,7 +256,10 @@ app.post('/deploy-warp-contract', (req, res) => {
   const contractState = req.body.contractState;
   const JWT = req.body.JWT;
   const tags = req.body.tags
-  const network = req.body.network
+  let network = req.body.network
+  if (!network) {
+    network = 'mainNet'
+  }
   deployWarpContract(network, contractSrc, contractState, JWT, tags)
   .then((response) => {
     res.json(response);
