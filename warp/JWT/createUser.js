@@ -1,4 +1,4 @@
-import { warp, configureWallet } from '../warp-configs.js'
+import { warp as warpFunction, configureWallet } from '../warp-configs.js'
 import newUserUpdateDB from '../../database/updateDB.js'
 import queryDB from '../../database/queryDB.js'
 import jwt from 'jsonwebtoken';
@@ -8,7 +8,7 @@ import alert from '../../database/alert.js'
 // LoggerFactory.INST.logLevel('none');
 
 
-export default async function createUser(JWT, clientID) { 
+export default async function createUser(network, JWT, clientID) { 
 
 
     // check DB
@@ -43,6 +43,7 @@ export default async function createUser(JWT, clientID) {
     ]};
     let tags = createOptions.tags
 
+    const warp = await warpFunction(network)
 
     const { contractTxId } = await warp.deploy({
         wallet: wallet, 
@@ -50,7 +51,6 @@ export default async function createUser(JWT, clientID) {
         src: contract_code,
         tags
     });
-
 
 
     const contract = warp.contract(contractTxId).connect(wallet.jwk).setEvaluationOptions({internalWrites: true});

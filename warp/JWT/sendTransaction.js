@@ -1,11 +1,11 @@
-import { warp, configureWallet } from '../warp-configs.js'
+import { warp as warpFunction, configureWallet } from '../warp-configs.js'
 import queryDB from '../../database/queryDB.js'
 import addEntry from '../../patnerDashboard/addEntry.js'
 import { LoggerFactory } from 'warp-contracts';
 LoggerFactory.INST.logLevel('none');
 
 
-export default async function sendTransaction(JWT, tags, clientID) {
+export default async function sendTransaction(network, JWT, tags, clientID) {
 
     const checkDB = await queryDB(JWT)
     if (checkDB.response === 'user not found') {
@@ -14,6 +14,7 @@ export default async function sendTransaction(JWT, tags, clientID) {
     const decodedJWT = checkDB
 
     const wallet = await configureWallet()
+    const warp = await warpFunction(network)
     const contract = warp.contract(decodedJWT.contract_id).setEvaluationOptions({ internalWrites: true }).connect(wallet.jwk)
     
     tags.push( {name: "Contract-App", value: "Othent.io"}, {name: "Function", value: "sendTransaction"} )
