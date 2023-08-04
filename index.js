@@ -335,6 +335,36 @@ app.post('/query-internal-analytics', (req, res) => {
 
 
 
+// Signature - Othent mobile
+import signature from './othentMobile/signature.js'
+app.post('/signature-othent-mobile', (req, res) => {
+  const data = req.body.data;
+  signature(data)
+  .then((response) => {
+    res.json(response);
+  })
+  .catch((error) => {
+    res.json({ success: false, error: error });
+  });
+});
+
+
+// Sign - Othent mobile
+import sign from './othentMobile/sign.js'
+app.post('/sign-othent-mobile', (req, res) => {
+  const data = req.body.data;
+  sign(data)
+  .then((response) => {
+    res.json(response);
+  })
+  .catch((error) => {
+    res.json({ success: false, error: error });
+  });
+});
+
+
+
+
 
 
 
