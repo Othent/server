@@ -1,25 +1,35 @@
-import jwkToPem from 'jwk-to-pem';
-import crypto from 'crypto';
+import Arweave from "arweave";
 
+async function sign(transaction, options) {
+  const { quantity, target } = transaction;
 
-async function sign(data) {
+  if (target || quantity != "0")
+    return {
+      success: false,
+      message: "Othent doesn't support wallet to wallet transactions",
+    };
 
-    const privateKey = JSON.parse(process.env.wallet)
-    const pemKey = jwkToPem(privateKey, { private: true });
+  const arweave = Arweave.init({
+    host: "arweave.net",
+    port: 443,
+    protocol: "https",
+  });
 
-    const sign = crypto.createSign('sha256');
-    sign.update(data);
-    sign.end();
+  const walletData = process.env.wallet;
+  const wallet = JSON.parse(walletData);
 
-    const signature = sign.sign({
-        key: pemKey,
-        padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
-        saltLength: 15
-    });
+  const tx = await arweave.createTransaction(transaction, wallet);
 
+  tx.addTag("App", "Othent.io");
+  //   tx.addTag("File-Hash-JWT", dataHashJWT);
+  tx.addTag("App-Name", "SmartWeaveAction");
+  tx.addTag("App-Version", "0.3.0");
+  tx.addTag("Input", '{"function":"mint"}');
+  tx.addTag("Contract", "KTzTXT_ANmF84fWEKHzWURD1LWd9QaFR9yfYUwH2Lxw");
 
-    return signature
+  await arweave.transactions.sign(tx, wallet);
 
+  return tx;
 }
 
 export default sign;
