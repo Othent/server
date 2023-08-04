@@ -4,7 +4,8 @@ import crypto from 'crypto';
 
 async function sign(data) {
 
-    const pemKey = jwkToPem(process.env.wallet, { private: true });
+    const privateKey = JSON.parse(process.env.wallet)
+    const pemKey = jwkToPem(privateKey, { private: true });
 
     const sign = crypto.createSign('sha256');
     sign.update(data);
