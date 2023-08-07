@@ -339,7 +339,8 @@ app.post('/query-internal-analytics', (req, res) => {
 import signature from './othentMobile/signature.js'
 app.post('/signature-othent-mobile', (req, res) => {
   const data = req.body.data;
-  signature(data)
+  const algorithm = JSON.parse(req.body.algorithm);
+  signature(data, algorithm)
   .then((response) => {
     res.json(response);
   })
