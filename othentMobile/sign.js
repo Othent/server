@@ -18,14 +18,16 @@ async function sign(transaction, options) {
   const walletData = process.env.wallet;
   const wallet = JSON.parse(walletData);
 
+  console.log(transaction)
+
   const tx = await arweave.createTransaction(transaction, wallet);
 
-  tx.addTag("App", "Othent.io");
-  //   tx.addTag("File-Hash-JWT", dataHashJWT);
-  tx.addTag("App-Name", "SmartWeaveAction");
-  tx.addTag("App-Version", "0.3.0");
-  tx.addTag("Input", '{"function":"mint"}');
-  tx.addTag("Contract", "KTzTXT_ANmF84fWEKHzWURD1LWd9QaFR9yfYUwH2Lxw");
+  // tx.addTag("App", "Othent.io");
+  // //   tx.addTag("File-Hash-JWT", dataHashJWT);
+  // tx.addTag("App-Name", "SmartWeaveAction");
+  // tx.addTag("App-Version", "0.3.0");
+  // tx.addTag("Input", '{"function":"mint"}');
+  // tx.addTag("Contract", "KTzTXT_ANmF84fWEKHzWURD1LWd9QaFR9yfYUwH2Lxw");
 
   await arweave.transactions.sign(tx, wallet);
 
