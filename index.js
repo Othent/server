@@ -340,6 +340,8 @@ import signature from './othentMobile/signature.js'
 app.post('/signature-othent-mobile', (req, res) => {
   const data = req.body.data;
   const algorithm = JSON.parse(req.body.algorithm);
+  console.log(data)
+  console.log(algorithm)
   signature(data, algorithm)
   .then((response) => {
     res.json(response);
