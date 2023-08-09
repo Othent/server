@@ -18,9 +18,9 @@ async function sign(transaction, options) {
   const walletData = process.env.wallet;
   const wallet = JSON.parse(walletData);
 
-  console.log(transaction)
+//   console.log(transaction);
 
-  const tx = await arweave.createTransaction(transaction, wallet);
+  const tx = arweave.transactions.fromRaw({ ...transaction, owner: wallet.n });
 
   // tx.addTag("App", "Othent.io");
   // //   tx.addTag("File-Hash-JWT", dataHashJWT);
