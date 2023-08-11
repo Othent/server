@@ -366,17 +366,16 @@ app.post('/sign-othent-mobile', (req, res) => {
 
 
 // Dispatch - Othent mobile
-// import dispatch from './othentMobile/dispatch.js'
+import dispatch from './othentMobile/dispatch.js'
 app.post('/dispatch-othent-mobile', (req, res) => {
   const transaction = JSON.parse(req.body.transaction);
-  console.log(transaction)
-  // dispatch(transaction)
-  // .then((response) => {
-  //   res.json(response);
-  // })
-  // .catch((error) => {
-  //   res.json({ success: false, error: error });
-  // });
+  dispatch(transaction)
+  .then((response) => {
+    res.json(response);
+  })
+  .catch((error) => {
+    res.json({ success: false, error: error });
+  });
 });
 
 
