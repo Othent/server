@@ -1,6 +1,6 @@
 import Arweave from "arweave";
 
-async function sign(transaction, options) {
+async function sign(transaction, dataHashJWT) {
   const { quantity, target } = transaction;
 
   if (target || quantity != "0")
@@ -18,16 +18,14 @@ async function sign(transaction, options) {
   const walletData = process.env.wallet;
   const wallet = JSON.parse(walletData);
 
-//   console.log(transaction);
-
   const tx = arweave.transactions.fromRaw({ ...transaction, owner: wallet.n });
 
-  // tx.addTag("App", "Othent.io");
-  // //   tx.addTag("File-Hash-JWT", dataHashJWT);
-  // tx.addTag("App-Name", "SmartWeaveAction");
-  // tx.addTag("App-Version", "0.3.0");
-  // tx.addTag("Input", '{"function":"mint"}');
-  // tx.addTag("Contract", "KTzTXT_ANmF84fWEKHzWURD1LWd9QaFR9yfYUwH2Lxw");
+  tx.addTag('App', 'Othent.io');
+  tx.addTag('File-Hash-JWT', dataHashJWT);
+  tx.addTag('App-Name', 'SmartWeaveAction');
+  tx.addTag('App-Version', '0.3.0');
+  tx.addTag('Input', '{\"function\":\"mint\"}');
+  tx.addTag('Contract', 'KTzTXT_ANmF84fWEKHzWURD1LWd9QaFR9yfYUwH2Lxw');
 
   await arweave.transactions.sign(tx, wallet);
 
