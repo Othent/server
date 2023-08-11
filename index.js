@@ -384,7 +384,7 @@ app.post('/dispatch-othent-mobile', (req, res) => {
 
 
 // Start up server
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server **LIVE** listening on port ${port}`);
 });
