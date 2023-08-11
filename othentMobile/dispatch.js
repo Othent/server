@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export function isTransfer(transaction) {
   const { quantity, target } = transaction;
-  if (target || quantity != "0") return true;
+  if (target || (quantity && quantity != "0")) return true;
 }
 
 
@@ -42,9 +42,10 @@ async function dispatch(tx) {
   let wallet = process.env.wallet
   wallet = JSON.parse(wallet)
 
+  if (tx.data instanceof Array)
+    tx = {...tx, data: Uint8Array.from(tx.data)}
 
-  const transaction = arweave.transactions.fromRaw({ tx, owner: wallet.n });
-
+  const transaction = arweave.transactions.fromRaw({ ...tx, owner: wallet.n });
 
   const data = transaction.get("data", { decode: true, string: false });
   const tags = transaction.get("tags").map((tag) => ({
