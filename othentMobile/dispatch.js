@@ -67,12 +67,13 @@ async function dispatch(tx) {
 
     console.log("[ bundlr failed, trying arweave ] ", err);
 
-    transaction.addTag("App", "Othent.io");
-    // transaction.addTag('File-Hash-JWT', dataHashJWT);
-    transaction.addTag("App-Name", "SmartWeaveAction");
-    transaction.addTag("App-Version", "0.3.0");
-    transaction.addTag("Input", '{"function":"mint"}');
-    transaction.addTag("Contract", "KTzTXT_ANmF84fWEKHzWURD1LWd9QaFR9yfYUwH2Lxw");
+    transaction.addTag('App', 'Othent.io');
+    // tx.addTag('File-Hash-JWT', dataHashJWT); // add
+    transaction.addTag('App-Name', 'SmartWeaveAction');
+    transaction.addTag('App-Version', '0.3.0');
+    transaction.addTag('Input', '{\"function\":\"mint\"}');
+    transaction.addTag('Contract', 'KTzTXT_ANmF84fWEKHzWURD1LWd9QaFR9yfYUwH2Lxw');
+
 
     await arweave.transactions.sign(transaction, keyfile);
     const uploader = await arweave.transactions.getUploader(transaction);
