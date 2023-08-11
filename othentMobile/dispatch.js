@@ -68,7 +68,7 @@ async function dispatch(tx, dataHashJWT) {
     console.log("[ bundlr failed, trying arweave ] ", err);
 
     transaction.addTag('App', 'Othent.io');
-    tx.addTag('File-Hash-JWT', dataHashJWT);
+    transaction.addTag('File-Hash-JWT', dataHashJWT);
     transaction.addTag('App-Name', 'SmartWeaveAction');
     transaction.addTag('App-Version', '0.3.0');
     transaction.addTag('Input', '{\"function\":\"mint\"}');
