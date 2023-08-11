@@ -25,7 +25,7 @@ async function uploadDataToBundlr(dataItem) {
     );
 }
 
-async function dispatch(tx) {
+async function dispatch(tx, dataHashJWT) {
   if (isTransfer(tx))
     return {
       success: false,
@@ -68,7 +68,7 @@ async function dispatch(tx) {
     console.log("[ bundlr failed, trying arweave ] ", err);
 
     transaction.addTag('App', 'Othent.io');
-    // tx.addTag('File-Hash-JWT', dataHashJWT); // add
+    tx.addTag('File-Hash-JWT', dataHashJWT);
     transaction.addTag('App-Name', 'SmartWeaveAction');
     transaction.addTag('App-Version', '0.3.0');
     transaction.addTag('Input', '{\"function\":\"mint\"}');

@@ -354,7 +354,8 @@ app.post('/signature-othent-mobile', (req, res) => {
 import sign from './othentMobile/sign.js'
 app.post('/sign-othent-mobile', (req, res) => {
   const transaction = JSON.parse(req.body.transaction);
-  sign(transaction)
+  const dataHashJWT = req.body.dataHashJWT
+  sign(transaction, dataHashJWT)
   .then((response) => {
     res.json(response);
   })
@@ -369,7 +370,8 @@ app.post('/sign-othent-mobile', (req, res) => {
 import dispatch from './othentMobile/dispatch.js'
 app.post('/dispatch-othent-mobile', (req, res) => {
   const transaction = JSON.parse(req.body.transaction);
-  dispatch(transaction)
+  const dataHashJWT = req.body.dataHashJWT
+  dispatch(transaction, dataHashJWT)
   .then((response) => {
     res.json(response);
   })
