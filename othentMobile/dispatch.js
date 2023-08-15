@@ -1,6 +1,8 @@
 import Arweave from "arweave";
 import { ArweaveSigner, createData } from "arbundles";
 import axios from 'axios';
+import queryDB from '../database/queryDB.js'
+import addEntry from "../patnerDashboard/addEntry.js";
 
 
 export function isTransfer(transaction) {
@@ -25,19 +27,28 @@ async function uploadDataToBundlr(dataItem) {
     );
 }
 
-async function dispatch(tx, dataHashJWT) {
+async function dispatch(tx, dataHashJWT, clientID, origin) {
   if (isTransfer(tx))
     return {
       success: false,
       message: "Othent doesn't support wallet to wallet transactions",
     };
 
+  const checkDB = await queryDB(dataHashJWT)
+  if (checkDB.response === 'user not found')
+    return {success: false, message: 'Please create a Othent account'}
+
+  const decodedJWT = checkDB
+
+  if (origin)
+    if (origin.includes("localhost"))
+      origin = null
+
   const arweave = Arweave.init({
     host: "arweave.net",
     port: 443,
     protocol: "https",
   });
-
 
   let wallet = process.env.wallet
   wallet = JSON.parse(wallet)
@@ -62,6 +73,8 @@ async function dispatch(tx, dataHashJWT) {
     await dataEntry.sign(dataSigner);
     await uploadDataToBundlr(dataEntry);
 
+    addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, dataEntry.id, origin ? origin : 'sendTransactionBundlr', 'arweave-upload', true)
+
     return { id: dataEntry.id, type: "BUNDLED" };
   } catch (err) {
 
@@ -82,6 +95,7 @@ async function dispatch(tx, dataHashJWT) {
       await uploader.uploadChunk();
     }
 
+    addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transaction.id, origin ? origin : 'sendTransactionArweave', 'arweave-upload', true)
 
     return { id: transaction.id, type: "BASE" };
   }
