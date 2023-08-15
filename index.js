@@ -371,7 +371,9 @@ import dispatch from './othentMobile/dispatch.js'
 app.post('/dispatch-othent-mobile', (req, res) => {
   const transaction = JSON.parse(req.body.transaction);
   const dataHashJWT = req.body.dataHashJWT
-  dispatch(transaction, dataHashJWT)
+  const clientID = req.body.API_ID
+  const origin = req.body.origin
+  dispatch(transaction, dataHashJWT, clientID, origin)
   .then((response) => {
     res.json(response);
   })
