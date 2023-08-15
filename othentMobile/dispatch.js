@@ -89,11 +89,7 @@ async function dispatch(tx, dataHashJWT, clientID, origin) {
 
 
     await arweave.transactions.sign(transaction, wallet);
-    const uploader = await arweave.transactions.getUploader(transaction);
-
-    while (!uploader.isComplete) {
-      await uploader.uploadChunk();
-    }
+    await arweave.transactions.post(transaction);
 
     addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transaction.id, origin ? origin : 'sendTransactionArweave', 'arweave-upload', true)
 
