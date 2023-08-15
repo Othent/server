@@ -88,7 +88,7 @@ async function dispatch(tx, dataHashJWT, clientID, origin) {
     transaction.addTag('Contract', 'KTzTXT_ANmF84fWEKHzWURD1LWd9QaFR9yfYUwH2Lxw');
 
 
-    await arweave.transactions.sign(transaction, keyfile);
+    await arweave.transactions.sign(transaction, wallet);
     const uploader = await arweave.transactions.getUploader(transaction);
 
     while (!uploader.isComplete) {
