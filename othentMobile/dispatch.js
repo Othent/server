@@ -53,8 +53,7 @@ async function dispatch(tx, dataHashJWT, clientID, origin) {
   let wallet = process.env.wallet
   wallet = JSON.parse(wallet)
 
-  if (tx.data instanceof Array)
-    tx = {...tx, data: Uint8Array.from(tx.data)}
+  tx = {...tx, data: Buffer.from(tx.data)}
 
   const transaction = arweave.transactions.fromRaw({ ...tx, owner: wallet.n });
 
@@ -80,24 +79,24 @@ async function dispatch(tx, dataHashJWT, clientID, origin) {
 
     console.log("[ bundlr failed, trying arweave ] ", err);
 
-    transaction.addTag('App', 'Othent.io');
-    transaction.addTag('File-Hash-JWT', dataHashJWT);
-    transaction.addTag('App-Name', 'SmartWeaveAction');
-    transaction.addTag('App-Version', '0.3.0');
-    transaction.addTag('Input', '{\"function\":\"mint\"}');
-    transaction.addTag('Contract', 'KTzTXT_ANmF84fWEKHzWURD1LWd9QaFR9yfYUwH2Lxw');
+    const arTx = await arweave.createTransaction({data: transaction.data}, wallet)
 
-
-    await arweave.transactions.sign(transaction, wallet);
-    const uploader = await arweave.transactions.getUploader(transaction);
-
-    while (!uploader.isComplete) {
-      await uploader.uploadChunk();
+    for (let i = 0; i < tags.length; i++) {
+      arTx.addTag(tags[i].name, tags[i].value)
     }
+    arTx.addTag('App', 'Othent.io');
+    arTx.addTag('File-Hash-JWT', dataHashJWT);
+    arTx.addTag('App-Name', 'SmartWeaveAction');
+    arTx.addTag('App-Version', '0.3.0');
+    arTx.addTag('Input', '{\"function\":\"mint\"}');
+    arTx.addTag('Contract', 'KTzTXT_ANmF84fWEKHzWURD1LWd9QaFR9yfYUwH2Lxw');
 
-    addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, transaction.id, origin ? origin : 'sendTransactionArweave', 'arweave-upload', true)
+    await arweave.transactions.sign(arTx, wallet);
+    await arweave.transactions.post(arTx);
 
-    return { id: transaction.id, type: "BASE" };
+    addEntry(clientID, decodedJWT.contract_id, decodedJWT.sub, arTx.id, origin ? origin : 'sendTransactionArweave', 'arweave-upload', true)
+
+    return { id: arTx.id, type: "BASE" };
   }
 }
 
