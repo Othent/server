@@ -1,8 +1,8 @@
 import { warp as warpFunction, configureWallet } from '../warp-configs.js'
 import queryDB from '../../database/queryDB.js'
 import addEntry from '../../patnerDashboard/addEntry.js'
-import { LoggerFactory } from 'warp-contracts';
-LoggerFactory.INST.logLevel('none');
+// import { LoggerFactory } from 'warp-contracts';
+// LoggerFactory.INST.logLevel('none');
 
 
 export default async function sendTransaction(network, JWT, tags, clientID) {
