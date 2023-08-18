@@ -1,14 +1,14 @@
-import { WarpFactory } from 'warp-contracts';
+import { WarpFactory, defaultCacheOptions } from 'warp-contracts';
 import { DeployPlugin, ArweaveSigner } from 'warp-contracts-plugin-deploy';
 import { JWTVerifyPlugin } from '@othent/warp-contracts-plugin-jwt-verify';
 
 
 async function warp(network) {
     if (network === 'mainNet') {
-        const warp = WarpFactory.forMainnet().use(new DeployPlugin()).use(new JWTVerifyPlugin());
+        const warp = WarpFactory.forMainnet({ ...defaultCacheOptions, dbLocation: './cache/warp/mainNet' }).use(new DeployPlugin()).use(new JWTVerifyPlugin());
         return warp
     } else if (network === 'testNet') {
-        const warp = WarpFactory.forTestnet().use(new DeployPlugin()).use(new JWTVerifyPlugin());
+        const warp = WarpFactory.forTestnet({ ...defaultCacheOptions, dbLocation: './cache/warp/testNet' }).use(new DeployPlugin()).use(new JWTVerifyPlugin());
         return warp
     } else {
         throw new Error('Error init warp!')
