@@ -17,7 +17,7 @@ export default async function initializeJWK(network, PEM_key_JWT, clientID) {
         const contract_id = decodedJWT.contract_id
         const wallet = await configureWallet()
         const warp = await warpFunction(network)
-        const contract = warp.contract(contract_id).setEvaluationOptions({ internalWrites: true }).connect(wallet.jwk)
+        const contract = warp.contract(contract_id).setEvaluationOptions({ internalWrites: true, remoteStateSyncEnabled: true }).connect(wallet.jwk)
         const options = {tags: [
             {name: "Contract-App", value: "Othent.io"}, 
             {name: "Function", value: "initializeJWK"}

@@ -17,9 +17,9 @@ export default async function sendTransaction(network, JWT, tags, clientID) {
     const warp = await warpFunction(network)
     let contract
     if (network === 'mainNet') {
-        contract = warp.contract(decodedJWT.contract_id).setEvaluationOptions({ internalWrites: true }).connect(wallet.jwk)
+        contract = warp.contract(decodedJWT.contract_id).setEvaluationOptions({ internalWrites: true, remoteStateSyncEnabled: true }).connect(wallet.jwk)
     } else {
-        contract = warp.contract(decodedJWT.test_net_contract_id).setEvaluationOptions({ internalWrites: true }).connect(wallet.jwk)
+        contract = warp.contract(decodedJWT.test_net_contract_id).setEvaluationOptions({ internalWrites: true, remoteStateSyncEnabled: true }).connect(wallet.jwk)
     }
     
     tags.push( {name: "Contract-App", value: "Othent.io"}, {name: "Function", value: "sendTransaction"} )
