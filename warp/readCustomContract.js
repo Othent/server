@@ -5,7 +5,7 @@ export default async function readCustomContract(network, contract_id) {
 
     const wallet = await configureWallet()
     const warp = await warpFunction(network)
-    const contract = warp.contract(contract_id).setEvaluationOptions({internalWrites: true}).connect(wallet.jwk)
+    const contract = warp.contract(contract_id).setEvaluationOptions({ internalWrites: true, remoteStateSyncEnabled: true }).connect(wallet.jwk)
 
     const { cachedValue } = await contract.readState();
 
