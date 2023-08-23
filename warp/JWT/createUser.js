@@ -177,7 +177,7 @@ export default async function createUser(network, JWT, clientID) {
         });
 
 
-        const contract = warp.contract(contractTxId).connect(wallet.jwk).setEvaluationOptions({internalWrites: true});
+        const contract = warp.contract(contractTxId).connect(wallet.jwk).setEvaluationOptions({ internalWrites: true, remoteStateSyncEnabled: true });
 
         const writeOptions = {tags: [
             {name: "Contract-App", value: "Othent.io"}, 
