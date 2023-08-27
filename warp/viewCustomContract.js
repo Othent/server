@@ -1,7 +1,7 @@
 import { warp as warpFunction, configureWallet } from './warp-configs.js'
 
 
-export default async function viewCustomContract(func, data, contract_id, network) {
+export default async function viewCustomContract(func, tags, contract_id, network) {
 
     const wallet = await configureWallet()
     const warp = await warpFunction(network)
@@ -9,7 +9,7 @@ export default async function viewCustomContract(func, data, contract_id, networ
 
     const { result } = await contract.viewState({
         function: func,
-        data: data
+        tags: tags
     });
 
     return { success: true, result }
