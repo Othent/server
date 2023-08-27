@@ -294,6 +294,26 @@ app.post('/deploy-warp-contract-from-tx', (req, res) => {
 
 
 
+// View custom contract
+import viewCustomContract from './warp/viewCustomContract.js';
+app.post('/view-custom-contract-state', (req, res) => {
+  const func = req.body.func;
+  const data = req.body.data;
+  const contract_id = req.body.contract_id;
+  let network = req.body.network
+  if (!network) {
+    network = 'mainNet'
+  }
+  viewCustomContract(func, data, contract_id, network)
+  .then((response) => {
+    res.json(response);
+  })
+  .catch((error) => {
+    res.json({ success: false, error: error });
+  });
+});
+
+
 
 
 

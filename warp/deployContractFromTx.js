@@ -16,7 +16,7 @@ export default async function deployContractFromTx(network, srcTxId, contractSta
 
 
     const warp = await warpFunction(network)
-    const contractResponse = await warp.deployFromSourceTx({
+    const { contractTxId, srcTxId: srcTransactionID } = await warp.deployFromSourceTx({
         wallet: wallet, 
         initState: JSON.stringify(contractState), 
         srcTxId: srcTxId,
@@ -24,5 +24,5 @@ export default async function deployContractFromTx(network, srcTxId, contractSta
     });
 
 
-    return contractResponse
+    return { success: true, contractTxId, srcTxId: srcTransactionID }
 }
