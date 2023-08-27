@@ -8,7 +8,7 @@ export default async function deployContractFromTx(network, srcTxId, contractSta
     const decodedJWT = jwt.decode(JWT)
 
     if (srcTxId !== decodedJWT.srcTxId) {
-        return { success: false, error: 'Invalid JWT/ContractTx' }
+        return { success: false, error: 'Invalid JWT/srcTxId' }
     }
 
     const wallet = await configureWallet();
