@@ -273,7 +273,7 @@ app.post('/deploy-warp-contract', (req, res) => {
 
 // Deploy warp contract from Tx
 import deployContractFromTx from './warp/deployContractFromTx.js';
-app.post('/deploy-warp-contract', (req, res) => {
+app.post('/deploy-warp-contract-from-tx', (req, res) => {
   const srcTxId = req.body.srcTxId;
   const contractState = req.body.contractState;
   const JWT = req.body.JWT;
