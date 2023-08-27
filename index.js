@@ -271,6 +271,29 @@ app.post('/deploy-warp-contract', (req, res) => {
 
 
 
+// Deploy warp contract from Tx
+import deployContractFromTx from './warp/deployContractFromTx.js';
+app.post('/deploy-warp-contract-from-tx', (req, res) => {
+  const srcTxId = req.body.srcTxId;
+  const contractState = req.body.contractState;
+  const JWT = req.body.JWT;
+  const tags = req.body.tags
+  let network = req.body.network
+  if (!network) {
+    network = 'mainNet'
+  }
+  deployContractFromTx(network, srcTxId, contractState, JWT, tags)
+  .then((response) => {
+    res.json(response);
+  })
+  .catch((error) => {
+    res.json({ success: false, error: error });
+  });
+});
+
+
+
+
 
 
 
