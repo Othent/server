@@ -42,10 +42,10 @@ export default async function sendTransaction(network, JWT, tags, clientID) {
 
     } catch(e) {
 
-        console.log('LORIMER JOE 3: ', e)
+        console.log('LORIMER JOE 4: ', e)
 
 
-        return {success: false, error: e}
+        return {success: false, errors: e}
 
 
     }
