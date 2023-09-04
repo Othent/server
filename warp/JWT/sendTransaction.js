@@ -7,6 +7,8 @@ import addEntry from '../../patnerDashboard/addEntry.js'
 
 export default async function sendTransaction(network, JWT, tags, clientID) {
 
+    console.log('LORIMER JOE 1')
+
     const checkDB = await queryDB(JWT)
     if (checkDB.response === 'user not found') {
         return {success: false, message: 'Please create a Othent account'}
@@ -25,13 +27,15 @@ export default async function sendTransaction(network, JWT, tags, clientID) {
     tags.push( {name: "Contract-App", value: "Othent.io"}, {name: "Function", value: "sendTransaction"} )
     const options = { tags };
 
+    console.log('LORIMER JOE 2')
+
     const transaction = await contract.writeInteraction({
         function: 'sendTransaction',
         jwt: JWT,
         encryption_type: 'JWT'
     }, options)
 
-    console.log('LORIMER JENKINS: ', transaction)
+    console.log('LORIMER JOE 3: ', transaction)
 
 
     const { cachedValue } = await contract.readState();
