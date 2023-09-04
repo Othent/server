@@ -29,13 +29,28 @@ export default async function sendTransaction(network, JWT, tags, clientID) {
 
     console.log('LORIMER JOE 2')
 
-    const transaction = await contract.writeInteraction({
-        function: 'sendTransaction',
-        jwt: JWT,
-        encryption_type: 'JWT'
-    }, options)
+    let transaction
+    try {
 
-    console.log('LORIMER JOE 3: ', transaction)
+        transaction = await contract.writeInteraction({
+            function: 'sendTransaction',
+            jwt: JWT,
+            encryption_type: 'JWT'
+        }, options)
+    
+        console.log('LORIMER JOE 3: ', transaction)
+
+    } catch(e) {
+
+        console.log('LORIMER JOE 3: ', e)
+
+
+        return {success: false, error: e}
+
+
+    }
+
+    
 
 
     const { cachedValue } = await contract.readState();
