@@ -31,6 +31,8 @@ export default async function sendTransaction(network, JWT, tags, clientID) {
         encryption_type: 'JWT'
     }, options)
 
+    console.log('LORIMER JENKINS: ', transaction)
+
 
     const { cachedValue } = await contract.readState();
     const { state, validity, errorMessages} = cachedValue
