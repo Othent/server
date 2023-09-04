@@ -38,14 +38,14 @@ export default async function sendTransaction(network, JWT, tags, clientID) {
             encryption_type: 'JWT'
         }, options)
     
-        console.log('LORIMER JOE 3: ', transaction)
+        console.log('LORIMER JOE 3: ', transaction.type, transaction)
 
     } catch(e) {
 
         console.log('LORIMER JOE 4: ', e)
 
 
-        return {success: false, errors: e}
+        return {success: false, errors: JSON.stringify(e)}
 
 
     }
