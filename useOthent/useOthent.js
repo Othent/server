@@ -6,10 +6,6 @@ const COUNTRY_TLDS = JSON.parse(process.env.COUNTRY_TLDS)
 const GENERIC_TLDS = JSON.parse(process.env.GENERIC_TLDS)
 
 export default async function useOthent(clientID, incomingURL) {
-  const existingAPIIDs = JSON.parse(process.env.API_IDS);
-  if (!existingAPIIDs.includes(clientID)) {
-    return { response: 'Invalid API ID / not found - get API ID at Othent.io', success: false };
-  }
 
   const callbackURL = new URL(incomingURL)
   let wildcardDomain;
@@ -39,7 +35,7 @@ export default async function useOthent(clientID, incomingURL) {
 
   if (!existingWildcardDomains.includes(wildcardDomain)) {
     await updateAuth0ApplicationUrls(wildcardDomain);
-    await alert('new callbackURL', { callbackURL: callbackURL.href, wildcardDomain, clientID })
+    await alert('new callbackURL', { callbackURL: callbackURL.href, wildcardDomain, clientID})
     return { response: 'ok', success: true };
   } else {
     return { response: 'ok', success: true };
