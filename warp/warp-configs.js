@@ -3,7 +3,7 @@ import { DeployPlugin, ArweaveSigner } from 'warp-contracts-plugin-deploy';
 import { LmdbCache } from 'warp-contracts-lmdb'
 
 
-async function warp(network) {
+async function warp(network, customDREURL) {
   
   if (network === 'mainNet') {
     
@@ -31,6 +31,20 @@ async function warp(network) {
     ));
     return warp
 
+  } else if (network === 'mainNet' && customDREURL) {
+
+    const warp = WarpFactory.forMainnet().use(new DeployPlugin())
+    .useGwUrl(customDREURL)
+    // .useStateCache(new LmdbCache(
+    //   { ...defaultCacheOptions, dbLocation: `./cache/warp/mainNet/state` }, 
+    //   { maxEntriesPerContract: 100, minEntriesPerContract: 10 }
+    // ))
+    // .useContractCache(
+    //   new LmdbCache({ ...defaultCacheOptions, dbLocation: `./cache/warp/mainNet/contracts` }), 
+    //   new LmdbCache({ ...defaultCacheOptions, dbLocation: `./cache/warp/mainNet/src` }
+    // ));
+    return warp
+  
   } else {
       throw new Error('Error init warp!')
   }

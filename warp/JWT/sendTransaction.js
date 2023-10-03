@@ -2,7 +2,7 @@ import { warp as warpFunction, configureWallet } from '../warp-configs.js'
 import queryDB from '../../database/queryDB.js'
 import addEntry from '../../patnerDashboard/addEntry.js'
 
-export default async function sendTransaction(network, JWT, tags, clientID) {
+export default async function sendTransaction(network, JWT, tags, clientID, customDREURL) {
     let logs = [];
     
     const originalLog = console.log;
@@ -19,7 +19,7 @@ export default async function sendTransaction(network, JWT, tags, clientID) {
         const decodedJWT = checkDB;
     
         const wallet = await configureWallet()
-        const warp = await warpFunction(network)
+        const warp = await warpFunction(network, customDREURL)
         let contract;
         if (network === 'mainNet') {
             contract = warp.contract(decodedJWT.contract_id).setEvaluationOptions({ internalWrites: true, remoteStateSyncEnabled: true }).connect(wallet.jwk)
