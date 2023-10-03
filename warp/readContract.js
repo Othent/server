@@ -10,9 +10,17 @@ export default async function readContract(network, JWT, customDREURL) {
     }
 
     const wallet = await configureWallet()
-    const warp = await warpFunction(network, customDREURL)
-    const contract = warp.contract(checkDB.contract_id)
-    .setEvaluationOptions({ internalWrites: true, remoteStateSyncEnabled: true }).connect(wallet.jwk)
+    const warp = await warpFunction(network)
+
+    let contract
+    if (customDREURL) {
+        contract = warp.contract(checkDB.contract_id)
+        .setEvaluationOptions({ internalWrites: true, remoteStateSyncEnabled: true, remoteStateSyncSource: customDREURL }).connect(wallet.jwk)
+    } else {
+        contract = warp.contract(checkDB.contract_id)
+        .setEvaluationOptions({ internalWrites: true, remoteStateSyncEnabled: true }).connect(wallet.jwk)
+    }
+    
 
     const { cachedValue } = await contract.readState();
     const { state, validity, errorMessages} = cachedValue

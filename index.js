@@ -160,8 +160,7 @@ app.post('/send-transaction', (req, res) => {
   if (!network) {
     network = 'mainNet'
   }
-  const customDREURL = req.body.customDREURL
-  sendTransaction(network, JWT, tags, clientID, customDREURL)
+  sendTransaction(network, JWT, tags, clientID)
     .then((response) => {
       res.json(response);
     })
