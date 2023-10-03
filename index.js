@@ -179,7 +179,8 @@ app.post('/read-contract', (req, res) => {
   if (!network) {
     network = 'mainNet'
   }
-  readContract(network, JWT)
+  const customDREURL = req.body.customDREURL
+  readContract(network, JWT, customDREURL)
     .then((response) => {
       res.json(response);
     })
@@ -238,7 +239,8 @@ app.post('/read-custom-contract', (req, res) => {
   if (!network) {
     network = 'mainNet'
   }
-  readCustomContract(network, contract_id)
+  const customDREURL = req.body.customDREURL
+  readCustomContract(network, contract_id, customDREURL)
     .then((response) => {
       res.json(response);
     })
@@ -304,7 +306,8 @@ app.post('/view-custom-contract-state', (req, res) => {
   if (!network) {
     network = 'mainNet'
   }
-  viewCustomContract(func, tags, contract_id, network)
+  const customDREURL = req.body.customDREURL
+  viewCustomContract(func, tags, contract_id, network, customDREURL)
   .then((response) => {
     res.json(response);
   })
