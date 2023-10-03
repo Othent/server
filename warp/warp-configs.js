@@ -35,14 +35,14 @@ async function warp(network, customDREURL) {
 
     const warp = WarpFactory.forMainnet().use(new DeployPlugin())
     .useGwUrl(customDREURL)
-    // .useStateCache(new LmdbCache(
-    //   { ...defaultCacheOptions, dbLocation: `./cache/warp/mainNet/state` }, 
-    //   { maxEntriesPerContract: 100, minEntriesPerContract: 10 }
-    // ))
-    // .useContractCache(
-    //   new LmdbCache({ ...defaultCacheOptions, dbLocation: `./cache/warp/mainNet/contracts` }), 
-    //   new LmdbCache({ ...defaultCacheOptions, dbLocation: `./cache/warp/mainNet/src` }
-    // ));
+    .useStateCache(new LmdbCache(
+      { ...defaultCacheOptions, dbLocation: `./cache/warp/mainNet/state` }, 
+      { maxEntriesPerContract: 100, minEntriesPerContract: 10 }
+    ))
+    .useContractCache(
+      new LmdbCache({ ...defaultCacheOptions, dbLocation: `./cache/warp/mainNet/contracts` }), 
+      new LmdbCache({ ...defaultCacheOptions, dbLocation: `./cache/warp/mainNet/src` }
+    ));
     return warp
   
   } else {
